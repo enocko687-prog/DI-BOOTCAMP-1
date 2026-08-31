@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mariposa Foundation</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap');
+
+    :root {
+      --navy: #061a2f;
+      --navy-light: #0c2945;
+      --gold: #d9a72e;
+      --gold-light: #f2cf69;
+      --cream: #f8f5ed;
+      --white: #ffffff;
+      --text: #172238;
+      --gray: #657080;
+      --shadow: 0 15px 40px rgba(6, 26, 47, 0.15);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      min-height: 100%;
+      background: 50% 50% no-repeat url("data:image/svg+xml,%3Csvg viewBox='-20 -5 60 40' width='140' xmlns='http://www.w3.org/2000/svg' opacity='0.06'%3E%3Cpath d='M1 8l11-7 11 7v8l-11 7-11-7zm0 0l11 8 11-8m0 8L12 8 1 16M12 1v7m0 8v7' fill='none' stroke='%23d9a72e' stroke-linejoin='round' stroke-width='2'/%3E%3C/svg%3E"), #f8f5ed;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      color: var(--navy);
+      background: #f8f5ed;
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      min-height: 100px;
+      padding: 15px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      background: rgba(6, 26, 47, 0.97);
+      border-bottom: 1px solid rgba(217, 167, 46, 0.35);
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.18);
+    }
+
+    .logo {
+      color: var(--gold-light);
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      white-space: nowrap;
+    }
+
+    .logo::first-letter {
+      font-size: 50px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    nav a {
+      position: relative;
+      color: var(--gold-light);
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      transition: 0.3s ease;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -7px;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--white);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .donate-button {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: var(--navy);
+      padding: 12px 22px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      box-shadow: 0 6px 20px rgba(217, 167, 46, 0.3);
+      transition: 0.3s ease;
+    }
+
+    .donate-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(217, 167, 46, 0.45);
+    }
+
+    .hero {
+      min-height: 720px;
+      display: flex;
+      align-items: center;
+      padding: 100px 8%;
+      position: relative;
+      background: linear-gradient(90deg, rgba(6, 26, 47, 0.98) 0%, rgba(6, 26, 47, 0.90) 40%, rgba(6, 26, 47, 0.45) 75%, rgba(6, 26, 47, 0.75) 100%), url("https://images.unsplash.com/photo-1504159506876-f8338247a14a?auto=format&fit=crop&w=1800&q=85");
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 7px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+    }
+
+    .hero-content {
+      max-width: 720px;
+      position: relative;
+      z-index: 2;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .welcome {
+      color: var(--gold-light);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      color: white;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: 1.08;
+      margin-bottom: 25px;
+    }
+
+    .hero-text {
+      max-width: 580px;
+      color: #f0f3f7;
+      font-size: 19px;
+      line-height: 1.8;
+      margin-bottom: 35px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .hero-buttons a {
+      display: inline-block;
+      padding: 20px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-transform: lowercase;
+      letter-spacing: 1.5px;
+      transition: 0.3s ease;
+    }
+
+    .hero-buttons a:first-child {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .hero-buttons a:last-child {
+      border: 2px solid var(--gold);
+      color: var(--gold-light);
+    }
+
+    .hero-buttons a:hover {
+      transform: translateY(-4px);
+    }
+
+    section {
+      padding: 90px 7%;
+    }
+
+    section h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(32px, 4vw, 48px);
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      color: #b38618;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-introduction {
+      max-width: 700px;
+      margin: 0 auto 50px;
+      color: var(--gray);
+      font-size: 17px;
+    }
+
+    .about {
+      text-align: center;
+      background: var(--cream);
+    }
+
+    .about-container {
+      max-width: 1200px;
+      margin: 50px auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .about-box {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 14px;
+      border-top: 4px solid var(--gold);
+      box-shadow: var(--shadow);
+      transition: 0.3s ease;
+    }
+
+    .about-box:hover {
+      transform: translateY(-10px);
+    }
+
+    .icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      font-size: 30px;
+    }
+
+    .about-box h3 {
+      color: var(--navy);
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .about-box p,
+    .about-box li {
+      color: var(--gray);
+      font-size: 15px;
+    }
+
+    .about-box ul {
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    .programs {
+      background: var(--navy);
+      text-align: center;
+    }
+
+    .programs h2 {
+      color: white;
+    }
+
+    .program-container {
+      max-width: 1250px;
+      margin: 50px auto 0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+
+    .program-card {
+      padding: 30px 20px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+      border: 1px solid rgba(217, 167, 46, 0.5);
+      border-radius: 12px;
+      transition: 0.3s ease;
+    }
+
+    .program-card:hover {
+      transform: translateY(-8px);
+      background: rgba(217, 167, 46, 0.12);
+      border-color: var(--gold-light);
+    }
+
+    .program-icon {
+      font-size: 38px;
+      margin-bottom: 15px;
+    }
+
+    .program-card h3 {
+      color: var(--gold-light);
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .program-card p {
+      color: #dbe2e9;
+      font-size: 14px;
+    }
+
+    .impact {
+      padding: 55px 7%;
+      text-align: center;
+      background: linear-gradient(135deg, #c8941e, #f0c958, #c8941e);
+    }
+
+    .impact h2 {
+      color: var(--navy);
+      font-size: 25px;
+    }
+
+    .impact-container {
+      max-width: 1100px;
+      margin: 25px auto 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .impact-box {
+      padding: 10px 20px;
+      border-right: 1px solid rgba(6, 26, 47, 0.35);
+    }
+
+    .impact-box:last-child {
+      border-right: none;
+    }
+
+    .impact-box h3 {
+      color: var(--navy);
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+    }
+
+    .impact-box p {
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .founder {
+      background: white;
+      display: flex;
+      justify-content: center;
+    }
+
+    .founder-content {
+      width: 100%;
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 55px 50px;
+      text-align: center;
+      background: linear-gradient(135deg, #fffdf7, #f2cf69 85%, #f5e4a7);
+      border: 1px solid rgba(217, 167, 46, 0.35);
+      border-radius: 25px;
+      box-shadow: 0 20px 50px rgba(6, 26, 47, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .founder-content::before {
+      content: "";
+      position: absolute;
+      inset: -30% auto auto -10%;
+      width: 260px;
+      height: 260px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .founder-content > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .founder h2 {
+      color: var(--navy);
+    }
+
+    .founder-content > p:not(.section-title) {
+      color: var(--gray);
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    blockquote {
+      margin-top: 30px;
+      color: #bd8c18;
+      font-family: "Playfair Display", serif;
+      font-size: 27px;
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .gallery {
+      text-align: center;
+      background: var(--cream);
+    }
+
+    .gallery > p:not(.section-title) {
+      color: var(--gray);
+      margin-bottom: 35px;
+    }
+
+    .gallery-container {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .gallery-item {
+      height: 280px;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      border: 3px solid white;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .involved {
+      text-align: center;
+      background: linear-gradient(135deg, #081d34, #0d3150);
+      color: white;
+    }
+
+    .involved h2 {
+      color: white;
+    }
+
+    .involved > p:not(.section-title) {
+      max-width: 650px;
+      margin: 0 auto 35px;
+      color: #dce5ec;
+      font-size: 17px;
+    }
+
+    .involved-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .involved-buttons a {
+      padding: 14px 25px;
+      border: 1px solid var(--gold);
+      border-radius: 7px;
+      color: white;
+      font-weight: 700;
+      transition: 0.3s ease;
+    }
+
+    .involved-buttons a:hover {
+      background: var(--gold);
+      color: var(--navy);
+      transform: translateY(-4px);
+    }
+
+    .donate {
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(217, 167, 46, 0.15), transparent 60%), var(--cream);
+    }
+
+    .donate h2 {
+      color: var(--navy);
+    }
+
+    .donate p {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      color: var(--gray);
+      font-size: 17px;
+    }
+
+    .donate button {
+      border: none;
+      padding: 16px 35px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: var(--navy);
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(217, 167, 46, 0.3);
+      transition: 0.3s ease;
+    }
+
+    .donate button:hover {
+      transform: translateY(-4px) scale(1.03);
+    }
+
+    .contact {
+      text-align: center;
+      background: white;
+    }
+
+    .contact > p:not(.section-title) {
+      max-width: 700px;
+      margin: 0 auto 35px;
+      color: var(--gray);
+    }
+
+    .contact-details {
+      max-width: 650px;
+      margin: auto;
+      padding: 30px;
+      background: var(--cream);
+      border-left: 4px solid var(--gold);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-details p {
+      margin: 10px 0;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 55px 7% 25px;
+      background: var(--navy);
+      color: white;
+      text-align: center;
+    }
+
+    footer h2 {
+      color: var(--gold-light);
+      font-family: "Playfair Display", serif;
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    footer > p {
+      color: #b9c5d0;
+    }
+
+    .footer-links {
+      margin: 30px 0;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #dce4ea;
+      font-size: 14px;
+      transition: 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold-light);
+    }
+
+    .copyright {
+      padding-top: 25px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      font-size: 13px;
+    }
+
+    section:nth-child(even)::before {
+      content: "✦";
+      display: block;
+      color: var(--gold);
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1000px) {
+      header {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .program-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-container {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      header {
+        padding: 15px 4%;
+      }
+
+      .logo {
+        font-size: 17px;
+      }
+
+      nav {
+        gap: 13px;
+      }
+
+      nav a {
+        font-size: 10px;
+      }
+
+      .donate-button {
+        padding: 9px 14px;
+        font-size: 11px;
+      }
+
+      .hero {
+        min-height: 650px;
+        padding: 80px 7%;
+        background-position: 60% center;
+      }
+
+      .hero h1 {
+        font-size: 43px;
+      }
+
+      .hero-text {
+        font-size: 16px;
+      }
+
+      section {
+        padding: 65px 6%;
+      }
+
+      .program-container {
+        grid-template-columns: 1fr;
+      }
+
+      .impact-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+      }
+
+      .impact-box {
+        border-right: none;
+      }
+
+      .impact-box h3 {
+        font-size: 34px;
+      }
+
+      .gallery-container {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-item {
+        height: 250px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-buttons a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">MARIPOSA FOUNDATION</div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#programs">Programs</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#involved">Get Involved</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+
+    <a href="#donate" class="donate-button">Donate Now</a>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <p class="welcome">WELCOME TO MARIPOSA FOUNDATION</p>
+
+      <h1>
+        Restoring Hope.<br />
+        Transforming Lives.<br />
+        Building Futures.
+      </h1>
+
+      <p class="hero-text">
+        Mariposa Foundation is an NGO dedicated to helping street children and orphans find hope, purpose, and stable livelihoods. We believe every child deserves a safe home, a chance to learn, and the opportunity to become a valuable and independent person in society.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#involved">Get Involved</a>
+        <a href="#donate">Donate Now</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <p class="section-title">ABOUT MARIPOSA FOUNDATION</p>
+    <h2>Our Mission, Vision &amp; Values</h2>
+    <p class="section-introduction">
+      We are committed to restoring hope and creating opportunities for street-connected children, orphans, and vulnerable young people to build stable and meaningful lives.
+    </p>
+
+    <div class="about-container">
+      <div class="about-box">
+        <div class="icon">🎯</div>
+        <h3>Our Mission</h3>
+        <p>
+          To restore hope and create pathways for street-connected children and orphans through education, mentorship, spiritual guidance, livelihood support, and practical care that helps them live with dignity.
+        </p>
+      </div>
+
+      <div class="about-box">
+        <div class="icon">👁️</div>
+        <h3>Our Vision</h3>
+        <p>
+          A society where every child, regardless of background, has the opportunity to grow into a confident, productive, and fulfilled adult who can contribute meaningfully to their community.
+        </p>
+      </div>
+
+      <div class="about-box">
+        <div class="icon">❤️</div>
+        <h3>Our Core Values</h3>
+        <ul>
+          <li>Love &amp; Compassion</li>
+          <li>Integrity &amp; Transparency</li>
+          <li>Empowerment</li>
+          <li>Faith, Hope and Spiritual Discipline</li>
+          <li>Community &amp; Unity</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="programs" class="programs">
+    <p class="section-title">WHAT WE DO</p>
+    <h2>Our Programs</h2>
+
+    <div class="program-container">
+      <div class="program-card">
+        <div class="program-icon">📚</div>
+        <h3>Education Support</h3>
+        <p>
+          Providing school supplies, uniforms, books, and learning materials so vulnerable children can stay in school and build a better future.
+        </p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">🍲</div>
+        <h3>Food &amp; Basic Needs</h3>
+        <p>
+          Providing nutritious meals, basic shelter, clothing, and essential care to children living in hardship and uncertainty.
+        </p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">🤝</div>
+        <h3>Mentorship &amp; Counseling</h3>
+        <p>
+          Offering mentorship, emotional support, life-skills training, and guidance that helps young people grow into responsible and resilient adults.
+        </p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">✝️</div>
+        <h3>Spiritual Guidance</h3>
+        <p>
+          Sharing hope and faith while helping young people grow spiritually and discover their purpose.
+        </p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">⚽</div>
+        <h3>Talents &amp; Recreation</h3>
+        <p>
+          Nurturing talents through sports, creativity, skills development, and livelihood-focused activities that help children thrive.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="impact">
+    <h2>Our Impact</h2>
+
+    <div class="impact-container">
+      <div class="impact-box">
+        <h3>350+</h3>
+        <p>Children Supported</p>
+      </div>
+
+      <div class="impact-box">
+        <h3>25+</h3>
+        <p>Schools Reached</p>
+      </div>
+
+      <div class="impact-box">
+        <h3>50+</h3>
+        <p>Volunteers</p>
+      </div>
+
+      <div class="impact-box">
+        <h3>10+</h3>
+        <p>Community &amp; International Partners</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="founder">
+    <div class="founder-content">
+      <p class="section-title">FOUNDER &amp; CEO</p>
+      <h2>June Mariposa</h2>
+
+      <p>
+        A passionate servant of God, visionary leader, with a heart for the broken. Apostle June Mariposa founded Mariposa Foundation to be a light of hope to the forgotten and a voice for the voiceless.
+      </p>
+
+      <blockquote>"We rise by lifting others."</blockquote>
+    </div>
+  </section>
+
+  <section id="gallery" class="gallery">
+    <p class="section-title">OUR WORK</p>
+    <h2>Gallery</h2>
+    <p>
+      See the children, volunteers, programs, and community activities that make Mariposa Foundation possible.
+    </p>
+
+    <div class="gallery-container">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1504159506876-f8338247a14a?auto=format&fit=crop&w=900&q=80" alt="Children learning" />
+      </div>
+
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=900&q=80" alt="Children together" />
+      </div>
+
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?auto=format&fit=crop&w=900&q=80" alt="Children smiling" />
+      </div>
+    </div>
+  </section>
+
+  <section id="involved" class="involved">
+    <p class="section-title">MAKE A DIFFERENCE</p>
+    <h2>Get Involved</h2>
+    <p>
+      You can help us restore hope and create a better future for vulnerable children and young people by becoming a partner, volunteer, or donor.
+    </p>
+
+    <div class="involved-buttons">
+      <a href="#donate">Donate</a>
+      <a href="#contact">Volunteer</a>
+      <a href="#contact">Partner With Us</a>
+    </div>
+  </section>
+
+  <section id="donate" class="donate">
+    <h2>Support Mariposa Foundation</h2>
+    <p>
+      Your support can help provide education, food, shelter, mentorship, and livelihood opportunities for children and young people who need a fresh start and a brighter future.
+    </p>
+
+    <button type="button">Donate Now</button>
+  </section>
+
+  <section id="contact" class="contact">
+    <p class="section-title">CONTACT US</p>
+    <h2>Let's Make A Difference Together</h2>
+    <p>
+      We would love to hear from you and explore how we can work together to restore hope and transform lives.
+    </p>
+
+    <div class="contact-details">
+      <p>📞 Phone: +254 748006073</p>
+      <p>📧 Email: info@mariposafoundation.org</p>
+      <p>📍 Marurui, Nairobi County, Kenya</p>
+    </div>
+  </section>
+
+  <footer>
+    <h2>🦋 MARIPOSA FOUNDATION</h2>
+    <p>Restoring Hope. Transforming Lives. Building Futures.</p>
+
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#programs">Programs</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <p class="copyright">© 2026 Mariposa Foundation. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>

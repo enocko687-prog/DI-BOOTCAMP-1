@@ -33,12 +33,8 @@ def display_weather(city_id):
 
 
 def find_city_id(city_name):
-    locations = weather_manager.locations_for(city_name)
-
-    if not locations:
-        raise ValueError("City not found.")
-
-    location = locations[0]
+    observation = weather_manager.weather_at_place(city_name)
+    location = observation.location
     return location.id, location.name, location.country
 
 
