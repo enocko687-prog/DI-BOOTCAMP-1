@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+:root { --ink: #202b3a; --muted: #697685; --red: #ef5949; --yellow: #f7c84b; --blue: #7bc8d7; --paper: #f5f3ed; --line: #d8d9d3; }
+* { box-sizing: border-box; }
+body { min-height: 100vh; margin: 0; color: var(--ink); background: #ebe9e1; font-family: "Barlow Condensed", sans-serif; }
+body::before { position: fixed; inset: 0; z-index: -1; background-image: linear-gradient(rgba(32,43,58,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(32,43,58,.035) 1px, transparent 1px); background-size: 28px 28px; content: ""; }
+.pokedex-shell { width: min(100% - 40px, 980px); margin: auto; padding: 32px 0 24px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
+.brand-mark { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 800; text-transform: uppercase; }
+.brand-light { width: 17px; height: 17px; border: 4px solid var(--ink); border-radius: 50%; background: var(--red); }
+.topbar p, footer, .eyebrow, .panel-topline, .status, dt { font-family: "Space Mono", monospace; text-transform: uppercase; letter-spacing: .07em; }
+.topbar p { margin: 0; color: var(--muted); font-size: .62rem; }
+.hero { display: flex; align-items: center; justify-content: space-between; padding: 62px 0 44px; }
+.eyebrow { margin: 0 0 18px; color: var(--red); font-size: .7rem; font-weight: 700; }
+h1 { margin: 0; font-size: clamp(4.7rem, 12vw, 9rem); font-weight: 800; line-height: .77; letter-spacing: -.02em; text-transform: uppercase; }
+h1 em { color: var(--red); font-style: normal; }
+.intro { max-width: 390px; margin: 26px 0 0; color: var(--muted); font-size: 1.15rem; line-height: 1.1; }
+.pokeball { position: relative; width: 170px; height: 170px; border: 15px solid var(--ink); border-radius: 50%; background: linear-gradient(var(--red) 0 44%, var(--ink) 44% 56%, var(--paper) 56%); transform: rotate(-14deg); }
+.pokeball::after { position: absolute; top: 50%; left: 50%; width: 43px; height: 43px; border: 10px solid var(--ink); border-radius: 50%; background: var(--paper); content: ""; transform: translate(-50%, -50%); }
+.pokeball span { position: absolute; top: 50%; left: 50%; z-index: 1; width: 17px; height: 17px; border-radius: 50%; background: var(--blue); transform: translate(-50%, -50%); }
+.pokedex-panel { padding: 17px; background: var(--paper); border: 1px solid var(--line); box-shadow: 12px 12px 0 var(--blue); }
+.panel-topline { display: flex; justify-content: space-between; padding: 0 2px 14px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .62rem; }
+.status { min-height: 46px; display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--muted); font-size: .68rem; }
+.status.loading { color: var(--red); }.status.error { color: #b33831; }
+.pokemon-card { display: grid; grid-template-columns: 43% 57%; min-height: 300px; background: var(--ink); color: var(--paper); animation: reveal .4s ease both; }
+.portrait-wrap { position: relative; display: grid; min-height: 300px; place-items: center; overflow: hidden; background: var(--yellow); }
+.portrait-grid { position: absolute; inset: 0; opacity: .4; background-image: linear-gradient(rgba(32,43,58,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(32,43,58,.16) 1px, transparent 1px); background-size: 22px 22px; }
+.portrait-wrap img { position: relative; z-index: 1; width: 75%; height: 75%; object-fit: contain; filter: drop-shadow(8px 12px 0 rgba(32,43,58,.2)); }
+.pokemon-info { padding: 36px 30px; }.identity { display: flex; flex-direction: column-reverse; align-items: flex-start; }.identity span { color: var(--yellow); font-family: "Space Mono", monospace; font-size: .85rem; }
+h2 { max-width: 100%; margin: 16px 0 0; overflow-wrap: anywhere; font-size: clamp(3rem, 8vw, 6rem); line-height: .76; text-transform: uppercase; }
+.types { display: flex; gap: 8px; margin: 29px 0 30px; }.type { padding: 6px 10px; color: var(--ink); background: var(--blue); font-family: "Space Mono", monospace; font-size: .6rem; font-weight: 700; text-transform: uppercase; }.type.fire { background: var(--red); color: white; }.type.water { background: #78aeea; }.type.grass { background: #8dc878; }.type.electric { background: var(--yellow); }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 0; }.stats div { border-top: 1px solid rgba(245,243,237,.3); padding-top: 12px; }.stats dt { margin-bottom: 7px; color: #a6b5bb; font-size: .58rem; }.stats dd { margin: 0; font-size: 1.3rem; }
+.controls { display: grid; grid-template-columns: 54px 1fr 54px; gap: 12px; margin-top: 16px; }.controls button { min-height: 56px; border: 0; cursor: pointer; transition: transform .15s ease, opacity .15s ease; }.icon-button { color: var(--ink); background: var(--blue); font-size: 1.1rem; }.random-button { display: flex; align-items: center; justify-content: center; gap: 10px; color: white; background: var(--red); font: 700 1.1rem "Barlow Condensed", sans-serif; text-transform: uppercase; }.controls button:hover:not(:disabled) { transform: translateY(-2px); }.controls button:disabled { cursor: not-allowed; opacity: .35; }
+footer { display: flex; justify-content: space-between; padding-top: 42px; color: var(--muted); font-size: .6rem; }
+@keyframes reveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 620px) { .pokedex-shell { width: min(100% - 28px, 980px); padding-top: 22px; }.topbar p { display: none; }.hero { padding: 48px 0 35px; }.pokeball { width: 95px; height: 95px; border-width: 9px; }.pokeball::after { width: 25px; height: 25px; border-width: 6px; }.pokeball span { width: 10px; height: 10px; }.pokemon-card { grid-template-columns: 1fr; }.portrait-wrap { min-height: 230px; }.pokemon-info { padding: 27px 22px; }.controls { grid-template-columns: 45px 1fr 45px; }.random-button span { font-size: .95rem; } footer { flex-direction: column; gap: 16px; } }
