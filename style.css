@@ -54,6 +54,11 @@ h1 { color: var(--gold); font-size: clamp(3rem, 7vw, 6.2rem); letter-spacing: -.
 .work-card h3 { font-size: 1.45rem; margin: 3.5rem 0 .8rem; }
 .work-card p, .project-card p:last-child { color: var(--muted); font-size: .95rem; }
 .featured p { color: #c9d8d3; }
+.projects-inline { background: var(--ink); margin-top: 5rem; padding: 4rem; }
+.projects-inline .section-heading { margin-bottom: 2rem; }
+.projects-inline .section-heading > p { color: #c9d8d3; }
+.projects-inline h2, .projects-inline .project-card h3 { color: var(--paper); }
+.projects-inline .project-card { background: transparent; border-color: #426166; }
 .skills-section { border-top: 1px solid var(--line); }
 .skill-list { display: flex; flex-wrap: wrap; gap: .7rem; }
 .skill-list span { border: 1px solid var(--ink); padding: .6rem 1rem; }
