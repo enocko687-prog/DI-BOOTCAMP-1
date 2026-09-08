@@ -66,6 +66,9 @@ h1 { color: var(--gold); font-size: clamp(3rem, 7vw, 6.2rem); letter-spacing: -.
 .media-card figcaption { align-items: center; display: flex; gap: .8rem; padding: 1rem; }
 .media-card figcaption span { color: var(--gold); font-size: .75rem; font-weight: 700; }
 .media-card figcaption strong { font-family: 'Space Grotesk', sans-serif; }
+.project-link { color: var(--gold); display: inline-block; font-size: .88rem; font-weight: 700; margin-top: 1.4rem; text-decoration: none; }
+.project-link span { margin-left: .3rem; }
+.project-link:hover { color: var(--paper); }
 .projects-section { background: var(--ink); background-image: repeating-linear-gradient(45deg, transparent, transparent 22px, rgba(216, 167, 62, .06) 23px, transparent 24px); max-width: none; }
 .projects-section h2, .projects-section .project-card h3 { color: var(--paper); }
 .project-grid { grid-template-columns: repeat(2, 1fr); }
