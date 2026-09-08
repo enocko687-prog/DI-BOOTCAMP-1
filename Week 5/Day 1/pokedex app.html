@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokédex</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <link rel="stylesheet" href="pokedex app.css">
+</head>
+<body>
+  <main class="pokedex-shell">
+    <header class="topbar">
+      <div class="brand-mark"><span class="brand-light"></span><span>Pokédex</span></div>
+      <p>Field guide / Kanto to Paldea</p>
+    </header>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Pokémon database</p>
+        <h1>Know your<br><em>Pokémon.</em></h1>
+        <p class="intro">Browse the living index. Pull a random entry, then move through the archive one discovery at a time.</p>
+      </div>
+      <div class="pokeball" aria-hidden="true"><span></span></div>
+    </section>
+
+    <section class="pokedex-panel" aria-label="Pokemon lookup">
+      <div class="panel-topline"><span>Live archive</span><span>PokéAPI / online</span></div>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+      <article id="pokemon-card" class="pokemon-card" hidden>
+        <div class="portrait-wrap">
+          <div class="portrait-grid"></div>
+          <img id="pokemon-image" src="" alt="">
+        </div>
+        <div class="pokemon-info">
+          <div class="identity"><span id="pokemon-id"></span><h2 id="pokemon-name"></h2></div>
+          <div id="pokemon-types" class="types"></div>
+          <dl class="stats">
+            <div><dt>Height</dt><dd id="pokemon-height"></dd></div>
+            <div><dt>Weight</dt><dd id="pokemon-weight"></dd></div>
+          </dl>
+        </div>
+      </article>
+      <div class="controls">
+        <button id="previous-pokemon" class="icon-button" type="button" aria-label="Previous Pokemon" title="Previous Pokemon"><i class="fa-solid fa-arrow-left"></i></button>
+        <button id="random-pokemon" class="random-button" type="button"><i class="fa-solid fa-shuffle"></i><span>Random Pokémon</span></button>
+        <button id="next-pokemon" class="icon-button" type="button" aria-label="Next Pokemon" title="Next Pokemon"><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </section>
+
+    <footer><span>TRAINER ACCESS // 001</span><span>Powered by PokéAPI</span></footer>
+  </main>
+  <script src="pokedex app.js"></script>
+</body>
+</html>

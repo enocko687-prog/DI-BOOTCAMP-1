@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Star Wars Character Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <link rel="stylesheet" href="stars war web app using API.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="masthead">
+      <p class="kicker">Galactic personnel archive <span>///</span> SWAPI.tech</p>
+      <h1>Star Wars<br><em>Character Index</em></h1>
+      <p class="intro">Access one of 83 classified profiles from a galaxy far, far away.</p>
+    </header>
+
+    <section class="console" aria-label="Character lookup">
+      <div class="console-line">
+        <span class="dot"></span>
+        <span>RANDOMIZED QUERY</span>
+        <span class="console-id">ARCHIVE / 083</span>
+      </div>
+      <div id="status" class="status" role="status" aria-live="polite">Ready for your query</div>
+      <article id="character-card" class="character-card" hidden>
+        <div class="card-heading">
+          <span class="profile-label">Profile recovered</span>
+          <span class="signal">● Live data</span>
+        </div>
+        <h2 id="character-name"></h2>
+        <div class="details-grid">
+          <div class="detail"><span>Height</span><strong id="character-height"></strong></div>
+          <div class="detail"><span>Gender</span><strong id="character-gender"></strong></div>
+          <div class="detail"><span>Birth year</span><strong id="character-birth-year"></strong></div>
+          <div class="detail"><span>Home world</span><strong id="character-home-world"></strong></div>
+        </div>
+      </article>
+      <button id="random-character" class="query-button" type="button">
+        <span>Find random character</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </section>
+
+    <footer>
+      <span>TRANSMISSION SECURE</span>
+      <span>Data supplied by SWAPI</span>
+    </footer>
+  </main>
+  <script src="stars war web app using API.js"></script>
+</body>
+</html>

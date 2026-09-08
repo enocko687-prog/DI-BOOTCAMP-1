@@ -1,0 +1,93 @@
+// Exercise 1 : Select a kind of Music
+const select = document.getElementById('genres');
+
+if (select) {
+  console.log(select.value);
+
+  const classicOption = document.createElement('option');
+  classicOption.value = 'classic';
+  classicOption.textContent = 'Classic';
+  select.appendChild(classicOption);
+  select.value = 'classic';
+  console.log(select.value);
+}
+
+// Exercise 2: Delete colors
+function removecolor() {
+  const colorSelect = document.getElementById('colorSelect');
+  if (!colorSelect) return;
+
+  const selectedIndex = colorSelect.selectedIndex;
+  if (selectedIndex >= 0) {
+    colorSelect.remove(selectedIndex);
+  }
+}
+
+const removeButton = document.querySelector('input[type="button"][value="Select and Remove"]');
+if (removeButton) {
+  removeButton.addEventListener('click', removecolor);
+}
+
+// Exercise 3 : Create a shopping list
+let shoppingList = [];
+
+const root = document.getElementById('root');
+
+if (root) {
+  const form = document.createElement('form');
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.id = 'itemInput';
+  input.name = 'item';
+
+  const addButton = document.createElement('button');
+  addButton.type = 'submit';
+  addButton.textContent = 'AddItem';
+
+  const clearButton = document.createElement('button');
+  clearButton.type = 'button';
+  clearButton.textContent = 'ClearAll';
+
+  function addItem(event) {
+    event.preventDefault();
+
+    const item = input.value.trim();
+    if (item !== '') {
+      shoppingList.push(item);
+      input.value = '';
+      renderList();
+    }
+  }
+
+  function clearAll() {
+    shoppingList = [];
+    renderList();
+  }
+
+  function renderList() {
+    const list = document.getElementById('shoppingList');
+    if (list) {
+      list.remove();
+    }
+
+    const ul = document.createElement('ul');
+    ul.id = 'shoppingList';
+
+    shoppingList.forEach((item) => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      ul.appendChild(li);
+    });
+
+    root.appendChild(ul);
+  }
+
+  form.appendChild(input);
+  form.appendChild(addButton);
+  form.appendChild(clearButton);
+  root.appendChild(form);
+
+  form.addEventListener('submit', addItem);
+  clearButton.addEventListener('click', clearAll);
+}
