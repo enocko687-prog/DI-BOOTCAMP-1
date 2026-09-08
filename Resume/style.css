@@ -1,0 +1,784 @@
+/* =====================================================
+   ENOCK BRIGHTON OCHIENG - PROFESSIONAL RESUME
+   STYLE.CSS
+===================================================== */
+
+/* =========================
+   GLOBAL RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Inter", Arial, sans-serif;
+    background: #e9edf2;
+    color: #172231;
+    line-height: 1.6;
+}
+
+
+/* =========================
+   COLOR VARIABLES
+========================= */
+
+:root {
+    --navy: #071525;
+    --navy-light: #102842;
+    --gold: #c9a34e;
+    --gold-light: #ead58f;
+
+    --white: #ffffff;
+    --cream: #f8f5ed;
+
+    --text-dark: #172231;
+    --text: #526071;
+    --muted: #718096;
+
+    --border: #dfe4ea;
+}
+
+
+/* =========================
+   MAIN RESUME
+========================= */
+
+.resume {
+    width: 210mm;
+    min-height: 297mm;
+
+    margin: 30px auto;
+
+    background: var(--white);
+
+    display: grid;
+
+    grid-template-columns: 72mm 1fr;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.15);
+
+    overflow: hidden;
+}
+
+
+/* =========================
+   LEFT SIDEBAR
+========================= */
+
+.sidebar {
+    background:
+        linear-gradient(
+            180deg,
+            #071525 0%,
+            #0b1c30 50%,
+            #071525 100%
+        );
+
+    color: var(--white);
+
+    padding: 35px 25px;
+}
+
+
+/* =========================
+   PROFILE PHOTO
+========================= */
+
+.profile-photo {
+    width: 160px;
+    height: 160px;
+
+    margin: 0 auto 30px;
+
+    padding: 5px;
+
+    border: 2px solid var(--gold);
+
+    border-radius: 50%;
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    display: block;
+}
+
+
+/* =========================
+   SIDEBAR SECTIONS
+========================= */
+
+.sidebar-section {
+    margin-bottom: 30px;
+}
+
+.sidebar-section h2 {
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    color: var(--gold-light);
+
+    padding-bottom: 9px;
+
+    margin-bottom: 14px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.18);
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.sidebar-section p {
+    font-size: 11px;
+
+    color: #d9e1eb;
+
+    margin-bottom: 9px;
+
+    word-break: break-word;
+}
+
+.sidebar-section a {
+    color: #d9e1eb;
+}
+
+.sidebar-section a:hover {
+    color: var(--gold-light);
+}
+
+
+/* =========================
+   SKILLS LIST
+========================= */
+
+.sidebar-section ul {
+    list-style: none;
+}
+
+.sidebar-section li {
+    font-size: 11px;
+
+    color: #d7e0ea;
+
+    margin-bottom: 8px;
+
+    padding-left: 15px;
+
+    position: relative;
+}
+
+.sidebar-section li::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    top: 9px;
+
+    width: 5px;
+    height: 5px;
+
+    background: var(--gold);
+
+    border-radius: 50%;
+}
+
+
+/* =========================
+   VALUES
+========================= */
+
+.values {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+}
+
+.values span {
+    font-size: 9px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    border: 1px solid rgba(234, 213, 143, 0.45);
+
+    color: var(--gold-light);
+
+    background:
+        rgba(255, 255, 255, 0.03);
+}
+
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.main-content {
+    padding: 40px 43px;
+
+    background: var(--white);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.resume-header {
+    padding-bottom: 27px;
+
+    border-bottom:
+        2px solid var(--gold);
+}
+
+.resume-label {
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    font-weight: 800;
+
+    color: var(--gold);
+
+    margin-bottom: 9px;
+}
+
+
+/* =========================
+   NAME
+========================= */
+
+.resume-header h1 {
+    font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    font-size: 42px;
+
+    line-height: 1.05;
+
+    letter-spacing: 0.5px;
+
+    color: var(--navy);
+}
+
+.resume-header h1 span {
+    color: #a77c22;
+}
+
+
+/* =========================
+   PROFESSIONAL TITLE
+========================= */
+
+.professional-title {
+    font-size: 11px;
+
+    font-weight: 700;
+
+    color: #3e4d60;
+
+    margin-top: 15px;
+
+    margin-bottom: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================
+   SUMMARY
+========================= */
+
+.professional-summary {
+    font-size: 11px;
+
+    line-height: 1.75;
+
+    color: var(--text);
+}
+
+
+/* =========================
+   RESUME SECTIONS
+========================= */
+
+.resume-section {
+    padding-top: 27px;
+}
+
+
+/* =========================
+   SECTION HEADING
+========================= */
+
+.section-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    margin-bottom: 15px;
+}
+
+.section-heading span {
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    color: var(--gold);
+}
+
+.section-heading h2 {
+    font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    font-size: 22px;
+
+    color: var(--navy);
+
+    line-height: 1.2;
+}
+
+
+/* =========================
+   NORMAL TEXT
+========================= */
+
+.main-content section > p {
+    font-size: 11px;
+
+    color: var(--text);
+
+    line-height: 1.8;
+}
+
+
+/* =========================
+   EXPERIENCE
+========================= */
+
+.experience {
+    margin-bottom: 21px;
+}
+
+
+/* =========================
+   EXPERIENCE HEADER
+========================= */
+
+.experience-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: baseline;
+
+    gap: 15px;
+
+    padding-left: 11px;
+
+    border-left: 3px solid var(--gold);
+
+    margin-bottom: 8px;
+}
+
+.experience-header h3 {
+    font-size: 12px;
+
+    font-weight: 800;
+
+    color: var(--navy);
+}
+
+.experience-header span {
+    font-size: 9px;
+
+    color: var(--muted);
+
+    white-space: nowrap;
+}
+
+
+/* =========================
+   EXPERIENCE LIST
+========================= */
+
+.experience ul {
+    padding-left: 27px;
+}
+
+.experience li {
+    font-size: 10.5px;
+
+    color: #5a6878;
+
+    margin-bottom: 5px;
+
+    line-height: 1.65;
+}
+
+
+/* =========================
+   EDUCATION
+========================= */
+
+.education {
+    padding: 12px 0;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+.education h3 {
+    font-size: 12px;
+
+    font-weight: 800;
+
+    color: var(--navy);
+
+    margin-bottom: 4px;
+}
+
+.education p {
+    font-size: 10.5px;
+
+    color: #687586;
+
+    line-height: 1.7;
+}
+
+
+/* =========================
+   EDITING NOTE
+========================= */
+
+.note {
+    font-size: 9px !important;
+
+    color: #9a792c !important;
+
+    margin-top: 9px;
+}
+
+
+/* =========================
+   PROJECTS
+========================= */
+
+.projects {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+.project {
+    background: #f7f8fa;
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    padding: 15px;
+
+    transition: 0.25s ease;
+}
+
+.project:hover {
+    transform: translateY(-3px);
+
+    border-color: var(--gold);
+}
+
+.project h3 {
+    font-size: 12px;
+
+    color: var(--navy);
+
+    font-weight: 800;
+
+    margin-bottom: 5px;
+}
+
+.project p {
+    font-size: 10px;
+
+    color: #687586;
+
+    line-height: 1.65;
+}
+
+
+/* =========================
+   VISION SECTION
+========================= */
+
+.vision-section {
+    background:
+        linear-gradient(
+            135deg,
+            #f8f5ed,
+            #f2ecdc
+        );
+
+    padding: 20px;
+
+    border-left:
+        4px solid var(--gold);
+
+    margin-top: 27px;
+}
+
+.vision-section blockquote {
+    font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    font-size: 15px;
+
+    line-height: 1.55;
+
+    color: #26364a;
+}
+
+
+/* =========================
+   SCRIPTURE
+========================= */
+
+.scripture {
+    margin-top: 11px !important;
+
+    color: #8a6928 !important;
+
+    font-size: 10px !important;
+}
+
+.scripture strong {
+    color: var(--gold);
+}
+
+
+/* =========================
+   REFERENCES
+========================= */
+
+.references {
+    padding-bottom: 35px;
+}
+
+
+/* =========================
+   HOVER EFFECTS
+========================= */
+
+.sidebar-section li {
+    transition: 0.2s ease;
+}
+
+.sidebar-section li:hover {
+    color: var(--gold-light);
+
+    transform: translateX(3px);
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media screen and (max-width: 900px) {
+
+    .resume {
+        width: 95%;
+
+        grid-template-columns: 210px 1fr;
+
+        margin: 20px auto;
+    }
+
+    .main-content {
+        padding: 30px;
+    }
+
+    .sidebar {
+        padding: 30px 20px;
+    }
+
+    .profile-photo {
+        width: 135px;
+        height: 135px;
+    }
+
+    .resume-header h1 {
+        font-size: 34px;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media screen and (max-width: 650px) {
+
+    body {
+        background: var(--white);
+    }
+
+    .resume {
+        width: 100%;
+
+        margin: 0;
+
+        display: block;
+
+        box-shadow: none;
+    }
+
+    .sidebar {
+        padding: 35px 25px;
+    }
+
+    .profile-photo {
+        width: 145px;
+        height: 145px;
+    }
+
+    .main-content {
+        padding: 30px 25px;
+    }
+
+    .resume-header h1 {
+        font-size: 35px;
+    }
+
+    .professional-title {
+        font-size: 10px;
+    }
+
+    .projects {
+        grid-template-columns: 1fr;
+    }
+
+    .experience-header {
+        flex-direction: column;
+
+        gap: 3px;
+    }
+
+    .experience-header span {
+        white-space: normal;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL PHONES
+===================================================== */
+
+@media screen and (max-width: 400px) {
+
+    .main-content {
+        padding: 25px 18px;
+    }
+
+    .sidebar {
+        padding: 30px 18px;
+    }
+
+    .resume-header h1 {
+        font-size: 30px;
+    }
+
+    .section-heading h2 {
+        font-size: 20px;
+    }
+
+}
+
+
+/* =====================================================
+   PRINT / A4 PDF
+===================================================== */
+
+@media print {
+
+    body {
+        background: #ffffff;
+    }
+
+    .resume {
+        width: 210mm;
+
+        min-height: 297mm;
+
+        margin: 0;
+
+        box-shadow: none;
+
+        page-break-after: always;
+    }
+
+    .actions {
+        display: none !important;
+    }
+
+    .project:hover {
+        transform: none;
+    }
+
+    @page {
+        size: A4;
+
+        margin: 0;
+    }
+
+}
+
+
+/* =====================================================
+   ACCESSIBILITY
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    * {
+        scroll-behavior: auto !important;
+
+        transition: none !important;
+    }
+
+}
