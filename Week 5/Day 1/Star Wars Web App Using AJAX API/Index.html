@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Star Wars Character Finder</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<main class="app-shell">
+		<header class="hero">
+			<p class="eyebrow">A long time ago in a galaxy far, far away</p>
+			<h1>Star Wars <span>Character Finder</span></h1>
+			<p class="intro">Discover a random character from the Star Wars universe.</p>
+		</header>
+
+		<section class="character-panel" aria-live="polite">
+			<div id="status" class="status" role="status">
+				<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+				<span>Loading character...</span>
+			</div>
+
+			<article id="character-card" class="character-card is-hidden">
+				<div class="portrait" aria-hidden="true"><i class="fa-solid fa-user-astronaut"></i></div>
+				<div class="character-copy">
+					<p class="character-label">Profile detected</p>
+					<h2 id="name">-</h2>
+					<dl class="details">
+						<div><dt>Height</dt><dd id="height">-</dd></div>
+						<div><dt>Gender</dt><dd id="gender">-</dd></div>
+						<div><dt>Birth year</dt><dd id="birth-year">-</dd></div>
+						<div><dt>Home world</dt><dd id="homeworld">-</dd></div>
+					</dl>
+				</div>
+			</article>
+
+			<div id="error" class="error is-hidden" role="alert">
+				<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+				<span>Oh no! That person isn't available right now.</span>
+			</div>
+
+			<button id="find-character" class="find-button" type="button">
+				<i class="fa-solid fa-shuffle" aria-hidden="true"></i>
+				Find someone
+			</button>
+		</section>
+
+		<footer>Powered by <a href="https://www.swapi.tech/" target="_blank" rel="noreferrer">SWAPI</a></footer>
+	</main>
+	<script src="script.js"></script>
+</body>
+</html>

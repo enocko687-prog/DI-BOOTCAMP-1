@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pokedex</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<main class="pokedex-app">
+		<header class="topbar">
+			<div class="brand-mark" aria-hidden="true">P</div>
+			<div>
+				<p class="kicker">Field guide / 001</p>
+				<h1>Pokedex</h1>
+			</div>
+		</header>
+
+		<section class="pokedex" aria-label="Pokemon information">
+			<div class="screen-shell">
+				<div id="status" class="status" role="status">
+					<span class="loader" aria-hidden="true"></span>
+					<span>Scanning the PokeDex...</span>
+				</div>
+				<div id="error" class="error is-hidden" role="alert">Oh no! That Pokemon isn't available right now.</div>
+				<div id="pokemon-display" class="pokemon-display is-hidden">
+					<div class="pokemon-image-wrap">
+						<img id="pokemon-image" src="" alt="">
+					</div>
+					<div class="pokemon-heading">
+						<span id="pokemon-id" class="pokemon-id">#000</span>
+						<h2 id="pokemon-name">Pokemon</h2>
+					</div>
+					<div class="stats" aria-label="Pokemon details">
+						<div><span>Height</span><strong id="pokemon-height">-</strong></div>
+						<div><span>Weight</span><strong id="pokemon-weight">-</strong></div>
+						<div><span>Type</span><strong id="pokemon-type">-</strong></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="controls">
+				<button id="previous-button" class="nav-button" type="button" aria-label="Previous Pokemon">&#8592;</button>
+				<button id="random-button" class="random-button" type="button">Random Pokemon</button>
+				<button id="next-button" class="nav-button" type="button" aria-label="Next Pokemon">&#8594;</button>
+			</div>
+		</section>
+
+		<p class="api-note">Powered by <a href="https://pokeapi.co/" target="_blank" rel="noreferrer">PokeAPI</a></p>
+	</main>
+	<script src="script.js"></script>
+</body>
+</html>
