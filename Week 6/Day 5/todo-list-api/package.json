@@ -1,0 +1,16 @@
+{
+  "name": "todo-list-api",
+  "version": "1.0.0",
+  "description": "Todo list API with Express",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
