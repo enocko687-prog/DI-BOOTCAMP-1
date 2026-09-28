@@ -1,0 +1,2 @@
+This is the content from the file-data.txt file.
+It was created for the daily challenge.

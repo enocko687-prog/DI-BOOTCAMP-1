@@ -1,0 +1,2 @@
+This is a sample file for the ninja utility.
+You can read this text using the read command.

@@ -1,0 +1,16 @@
+{
+  "name": "book-api",
+  "version": "1.0.0",
+  "description": "Week 6 Day 5 Book API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
