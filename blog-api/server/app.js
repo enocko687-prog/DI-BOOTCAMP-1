@@ -1,11 +1,10 @@
 const express = require("express");
-const bookRoutes = require("./server/routes/books");
+const postRoutes = require("./routes/posts");
 
 const app = express();
-const port = Number(process.env.PORT) || 5000;
 
 app.use(express.json());
-app.use("/api/books", bookRoutes);
+app.use("/posts", postRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
@@ -17,11 +16,5 @@ app.use((err, req, res, next) => {
     error: err.status ? err.message : "Internal server error",
   });
 });
-
-if (require.main === module) {
-  app.listen(port, () => {
-    console.log(`Book API listening on port ${port}`);
-  });
-}
 
 module.exports = app;
