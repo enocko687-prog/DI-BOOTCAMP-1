@@ -1,0 +1,17 @@
+{
+  "name": "todo-api",
+  "version": "1.0.0",
+  "private": true,
+  "main": "exersice xp gold.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node \"exersice xp gold.js\"",
+    "start:quiz": "node \"exersice xp ninja.js\"",
+    "start:users": "node \"Daily challange restration login.js\""
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1",
+    "pg": "^8.23.0"
+  }
+}
