@@ -1,0 +1,15 @@
+{
+  "name": "gridbound-strategy-game",
+  "version": "1.0.0",
+  "description": "Turn-based multiplayer base capture game using Express and REST APIs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
