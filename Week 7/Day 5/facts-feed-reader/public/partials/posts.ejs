@@ -1,0 +1,44 @@
+<% if (error) { %>
+  <div class="alert alert-warning" role="alert"><%= error %></div>
+<% } %>
+
+<% if (message) { %>
+  <p class="text-secondary mb-3" role="status"><%= message %></p>
+<% } %>
+
+<% if (posts.length) { %>
+  <div class="d-grid gap-3">
+    <% posts.forEach((post) => { %>
+      <article class="fact-post p-3 p-md-4">
+        <h2 class="h5 mb-2">
+          <a href="<%= post.link %>" target="_blank" rel="noopener noreferrer">
+            <%= post.title %>
+          </a>
+        </h2>
+        <div class="fact-meta d-flex flex-wrap gap-2 mb-3">
+          <span>
+            Published:
+            <time datetime="<%= post.pubDate %>">
+              <%= post.pubDate && !Number.isNaN(new Date(post.pubDate).getTime())
+                ? new Date(post.pubDate).toLocaleDateString()
+                : 'Date unavailable' %>
+            </time>
+          </span>
+          <span aria-hidden="true">·</span>
+          <span>By <%= post.creator %></span>
+          <% if (post.categories.length) { %>
+            <span aria-hidden="true">·</span>
+            <span><%= post.categories.join(', ') %></span>
+          <% } %>
+        </div>
+        <p class="mb-0"><%= post.content %></p>
+      </article>
+    <% }) %>
+  </div>
+<% } else if (!error && !message) { %>
+  <p class="text-secondary">No posts to display yet.</p>
+<% } else if (!error && message && !message.includes('0 result')) { %>
+  <p class="text-secondary">No posts to display yet.</p>
+<% } else if (!error && message && message.includes('0 result')) { %>
+  <p class="text-secondary">No matching posts found.</p>
+<% } %>
