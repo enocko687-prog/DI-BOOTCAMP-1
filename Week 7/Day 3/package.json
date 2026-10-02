@@ -1,0 +1,19 @@
+{
+  "name": "di-bootcamp-week-7-day-3-chat",
+  "version": "1.0.0",
+  "description": "Real-time room chat built with Express and Socket.io",
+  "main": "Mini project real time chat app.js",
+  "scripts": {
+    "start": "node \"Mini project real time chat app.js\"",
+    "test": "node --test"
+  },
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "socket.io-client": "^4.8.1"
+  }
+}

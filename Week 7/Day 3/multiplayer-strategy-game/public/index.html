@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142a28">
+  <title>Gridbound | Base capture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/client.js" defer></script>
+</head>
+<body>
+  <div class="site-frame">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Gridbound home"><span class="brand-icon" aria-hidden="true">G</span><span>GRIDBOUND</span></a>
+      <div class="topbar-meta"><span class="live-dot"></span><span>TURN-BASED FIELD GAME</span></div>
+      <span id="account-label" class="account-label" hidden></span>
+    </header>
+
+    <main>
+      <section id="auth-view" class="auth-view" aria-labelledby="welcome-title">
+        <div class="intro-panel">
+          <p class="kicker"><span>FIELD NOTES 01</span><span class="kicker-line"></span>10 × 10 GRID</p>
+          <h1 id="welcome-title">Outthink.<br><span>Outmaneuver.</span><br>Take the base.</h1>
+          <p class="intro-copy">Two commanders. One open field. Move with intent, work around the barriers, and strike when the other base is in reach.</p>
+          <div class="mini-board" aria-hidden="true">
+            <span class="mini-base mini-base-coral">B</span><span class="mini-path"></span><span class="mini-obstacle"></span><span class="mini-path mini-path-short"></span><span class="mini-base mini-base-teal">B</span>
+          </div>
+        </div>
+        <form id="auth-form" class="auth-panel">
+          <div class="auth-tabs" role="tablist" aria-label="Account action">
+            <button id="login-tab" class="auth-tab is-active" type="button" role="tab" aria-selected="true">Sign in</button>
+            <button id="register-tab" class="auth-tab" type="button" role="tab" aria-selected="false">Create account</button>
+          </div>
+          <p id="auth-eyebrow" class="panel-eyebrow">COMMANDER ACCESS</p>
+          <h2 id="auth-title">Welcome back</h2>
+          <p id="auth-copy" class="panel-copy">Sign in to return to the field.</p>
+          <label for="username-input">Username</label>
+          <input id="username-input" name="username" autocomplete="username" minlength="3" maxlength="20" placeholder="e.g. fieldcaptain" required>
+          <label for="password-input">Password</label>
+          <input id="password-input" name="password" type="password" autocomplete="current-password" minlength="8" maxlength="128" placeholder="At least 8 characters" required>
+          <p id="auth-error" class="form-error" role="alert" aria-live="polite"></p>
+          <button id="auth-submit" class="button button-primary" type="submit">Sign in <span aria-hidden="true">↗</span></button>
+          <p class="security-note">Exercise account only. Accounts last while this server is running.</p>
+        </form>
+      </section>
+
+      <section id="lobby-view" class="lobby-view" hidden aria-labelledby="lobby-title">
+        <div class="lobby-heading">
+          <div><p class="panel-eyebrow">THE BRIEFING ROOM</p><h1 id="lobby-title">Choose your field.</h1><p class="panel-copy">Start a new match or join a waiting commander.</p></div>
+          <button id="create-game" class="button button-primary" type="button">New match <span aria-hidden="true">＋</span></button>
+        </div>
+        <div class="lobby-content">
+          <section class="match-section" aria-labelledby="available-title">
+            <div class="section-heading"><h2 id="available-title">Open matches</h2><button id="refresh-games" class="text-button" type="button" title="Refresh match list">Refresh ↻</button></div>
+            <div id="game-list" class="game-list"></div>
+            <p id="lobby-empty" class="empty-copy">No open matches. Start one and invite another player to join.</p>
+          </section>
+          <aside class="rules-panel"><p class="panel-eyebrow">FIELD MANUAL</p><h2>Four rules.</h2><ol><li>Move one square, orthogonally.</li><li>Take turns. Coral moves first.</li><li>Barriers cannot be crossed.</li><li>Reach or attack the enemy base to win.</li></ol><p class="rules-foot">A waiting match begins when a second player joins.</p></aside>
+        </div>
+        <p id="lobby-error" class="form-error" role="alert" aria-live="polite"></p>
+      </section>
+
+      <section id="game-view" class="game-view" hidden aria-label="Strategy game">
+        <div class="game-toolbar"><button id="back-to-lobby" class="text-button" type="button">← All matches</button><span id="game-id-label" class="game-id-label"></span><span id="game-status" class="game-status">Waiting for player</span></div>
+        <div class="game-layout">
+          <section class="board-section" aria-label="10 by 10 game board">
+            <div class="board-heading"><div><p class="panel-eyebrow">THE FIELD</p><h1>Hold your ground.</h1></div><span id="move-count" class="move-count">00 MOVES</span></div>
+            <div class="board-wrap"><div id="game-board" class="game-board" role="grid" aria-label="Game grid"></div></div>
+            <div class="board-legend"><span><i class="legend-base coral"></i>Your base</span><span><i class="legend-base teal"></i>Rival base</span><span><i class="legend-obstacle"></i>Barrier</span></div>
+          </section>
+          <aside class="command-panel">
+            <div class="player-card player-coral"><span class="player-symbol">C</span><div><span class="player-role">CORAL COMMAND</span><strong id="coral-player">Waiting...</strong></div><span id="coral-turn" class="turn-indicator"></span></div>
+            <div class="player-card player-teal"><span class="player-symbol">T</span><div><span class="player-role">TURQUOISE COMMAND</span><strong id="teal-player">Waiting...</strong></div><span id="teal-turn" class="turn-indicator"></span></div>
+            <div class="turn-panel"><p class="panel-eyebrow">YOUR ORDERS</p><h2 id="turn-title">Waiting for a rival</h2><p id="turn-copy" class="panel-copy">Share the match ID with another player to begin.</p>
+              <div class="direction-pad" aria-label="Move controls"><span></span><button class="direction-button" data-direction="up" type="button" aria-label="Move up">↑</button><span></span><button class="direction-button" data-direction="left" type="button" aria-label="Move left">←</button><button class="direction-button" data-direction="down" type="button" aria-label="Move down">↓</button><button class="direction-button" data-direction="right" type="button" aria-label="Move right">→</button></div>
+              <button id="attack-button" class="button attack-button" type="button" disabled>Attack the base <span aria-hidden="true">↗</span></button>
+              <p id="game-error" class="form-error" role="alert" aria-live="polite"></p>
+            </div>
+            <div id="winner-banner" class="winner-banner" hidden></div>
+            <p class="keyboard-note">Move with arrow keys or WASD.</p>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><span>GRIDBOUND / STRATEGY EXERCISE</span><span>THINK TWO MOVES AHEAD</span></footer>
+  </div>
+</body>
+</html>

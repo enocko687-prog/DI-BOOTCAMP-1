@@ -1,0 +1,16 @@
+{
+  "name": "user-management-api",
+  "version": "1.0.0",
+  "description": "Express user registration and login API with bcrypt and JSON storage",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1"
+  }
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <%- include('../partials/head', { title: 'Facts Feed Reader | Search' }) %>
+  <body>
+    <%- include('../partials/header', { activePath: '/search' }) %>
+    <main class="container py-5">
+      <div class="mb-4">
+        <p class="text-uppercase fw-semibold text-success small mb-2">Find a fact</p>
+        <h1 class="page-heading display-5">Search the feed</h1>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-12 col-lg-6">
+          <form class="p-3 p-md-4 bg-white border rounded-1" action="/search/title" method="post">
+            <label class="form-label fw-semibold" for="search-title">Search by title</label>
+            <div class="input-group">
+              <input
+                class="form-control"
+                id="search-title"
+                name="title"
+                type="search"
+                value="<%= filters.title %>"
+                placeholder="Try “moon”"
+              >
+              <button class="btn btn-success" type="submit">Search</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-12 col-lg-6">
+          <form class="p-3 p-md-4 bg-white border rounded-1" action="/search/category" method="post">
+            <label class="form-label fw-semibold" for="search-category">Search by category</label>
+            <div class="input-group">
+              <select class="form-select" id="search-category" name="category">
+                <option value="">Choose a category</option>
+                <% categories.forEach((category) => { %>
+                  <option value="<%= category %>" <%= filters.category === category ? 'selected' : '' %>>
+                    <%= category %>
+                  </option>
+                <% }) %>
+              </select>
+              <button class="btn btn-success" type="submit">Search</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <%- include('../partials/posts', { posts, message, error }) %>
+    </main>
+    <%- include('../partials/footer') %>
+  </body>
+</html>

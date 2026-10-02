@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f1f6f1">
+    <title>Quiz Ninja | Quick Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/quiz.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Quiz Ninja home">
+          <span class="brand-mark" aria-hidden="true">Q</span>
+          <span>QUIZ <b>NINJA</b></span>
+        </a>
+        <span class="topbar-note"><span class="live-dot" aria-hidden="true"></span> QUICK QUIZ / 01</span>
+      </header>
+
+      <main class="quiz-layout">
+        <section class="quiz-main" aria-labelledby="question-text">
+          <div class="quiz-heading">
+            <div>
+              <p class="eyebrow">THE DAILY CHALLENGE</p>
+              <p class="question-count" id="progress-label">Loading questions</p>
+            </div>
+            <span class="spark-mark" aria-hidden="true">01</span>
+          </div>
+
+          <div class="progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <span class="progress-fill" id="progress-fill"></span>
+          </div>
+
+          <div id="quiz-content" class="quiz-content" aria-live="polite">
+            <p class="loading-message">Getting your questions ready...</p>
+          </div>
+
+          <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+        </section>
+
+        <aside class="score-rail" aria-label="Quiz score">
+          <div class="score-topline">
+            <span class="score-icon" aria-hidden="true">+</span>
+            <span>YOUR SCORE</span>
+          </div>
+          <p class="score-value" id="score-value">0<span> / 0</span></p>
+          <p class="score-caption" id="score-caption">Every question is a fresh start.</p>
+          <div class="score-rule"></div>
+          <p class="score-footnote">Take a breath.<br>Trust what you know.</p>
+          <span class="rail-stamp" aria-hidden="true">QN</span>
+        </aside>
+      </main>
+
+      <footer class="footer-line">
+        <span>THINK CLEARLY. ANSWER BOLDLY.</span>
+        <span>BUILT FOR CURIOUS MINDS</span>
+      </footer>
+    </div>
+  </body>
+</html>

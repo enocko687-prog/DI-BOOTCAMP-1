@@ -1,87 +1,44 @@
 const express = require('express');
+const pool = require('./server/config/db');
+const { initializePostsTable } = require('./server/models/postModel');
+const postRoutes = require('./server/routes/postRoutes');
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT || 3000);
 
 app.use(express.json());
-
-let posts = [
-  { id: 1, title: 'First Post', content: 'Welcome to the blog!' },
-  { id: 2, title: 'Learning Express', content: 'Express makes building APIs easy.' },
-  { id: 3, title: 'CRUD Basics', content: 'Create, Read, Update, and Delete actions are essential.' }
-];
-
-app.get('/posts', (req, res) => {
-  res.status(200).json(posts);
-});
-
-app.get('/posts/:id', (req, res) => {
-  const postId = Number(req.params.id);
-  const post = posts.find((item) => item.id === postId);
-
-  if (!post) {
-    return res.status(404).json({ message: 'Post not found' });
-  }
-
-  return res.status(200).json(post);
-});
-
-app.post('/posts', (req, res) => {
-  const { title, content } = req.body;
-
-  if (!title || !content) {
-    return res.status(400).json({ message: 'Title and content are required' });
-  }
-
-  const newPost = {
-    id: posts.length ? posts[posts.length - 1].id + 1 : 1,
-    title,
-    content
-  };
-
-  posts.push(newPost);
-  return res.status(201).json(newPost);
-});
-
-app.put('/posts/:id', (req, res) => {
-  const postId = Number(req.params.id);
-  const postIndex = posts.findIndex((item) => item.id === postId);
-
-  if (postIndex === -1) {
-    return res.status(404).json({ message: 'Post not found' });
-  }
-
-  const updatedPost = {
-    ...posts[postIndex],
-    ...req.body,
-    id: postId
-  };
-
-  posts[postIndex] = updatedPost;
-  return res.status(200).json(updatedPost);
-});
-
-app.delete('/posts/:id', (req, res) => {
-  const postId = Number(req.params.id);
-  const postIndex = posts.findIndex((item) => item.id === postId);
-
-  if (postIndex === -1) {
-    return res.status(404).json({ message: 'Post not found' });
-  }
-
-  const deletedPost = posts.splice(postIndex, 1)[0];
-  return res.status(200).json({ message: 'Post deleted successfully', post: deletedPost });
-});
+app.use('/posts', postRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Invalid route' });
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: 'Server error' });
+  console.error(err);
+  if (res.headersSent) {
+    return next(err);
+  }
+
+  const status = err.status || 500;
+  const message = status < 500 ? err.message : 'Server error';
+  return res.status(status).json({ message });
 });
 
-app.listen(PORT, () => {
-  console.log(`Blog API server running on http://localhost:${PORT}`);
-});
+async function startServer() {
+  try {
+    await initializePostsTable();
+    app.listen(PORT, () => {
+      console.log(`Blog API server running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Unable to connect to PostgreSQL or initialize posts table:', error);
+    await pool.end();
+    process.exitCode = 1;
+  }
+}
+
+if (require.main === module) {
+  startServer();
+}
+
+module.exports = app;
