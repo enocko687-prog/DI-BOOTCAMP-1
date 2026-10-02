@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <%- include('../partials/head', { title: 'Facts Feed Reader | Home' }) %>
+  <body>
+    <%- include('../partials/header', { activePath: '/' }) %>
+    <main class="container py-5">
+      <div class="mb-4">
+        <p class="text-uppercase fw-semibold text-success small mb-2">The Fact File</p>
+        <h1 class="page-heading display-5">Facts worth knowing</h1>
+        <p class="text-secondary mb-0">The latest posts from the Fact File RSS feed.</p>
+      </div>
+      <%- include('../partials/posts', { posts, message: '', error }) %>
+    </main>
+    <%- include('../partials/footer') %>
+  </body>
+</html>

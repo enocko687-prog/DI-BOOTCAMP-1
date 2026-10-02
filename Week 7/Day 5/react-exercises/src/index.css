@@ -1,0 +1,32 @@
+:root {
+  font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+  color: #282d29;
+  background: #f7f5ed;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --ink: #282d29;
+  --muted: #68716a;
+  --line: #d9ddd5;
+  --line-strong: #aeb7aa;
+  --accent-dark: #176b54;
+  --accent-soft: #deeee4;
+  --focus: #d17b22;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
