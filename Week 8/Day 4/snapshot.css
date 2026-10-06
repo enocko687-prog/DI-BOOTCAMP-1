@@ -1,0 +1,437 @@
+#root {
+  min-height: 100vh;
+}
+
+.snapshot-page {
+  --snapshot-ink: #1d2831;
+  --snapshot-muted: #77818a;
+  --snapshot-green: #416c61;
+  min-height: 100vh;
+  padding: 0 clamp(1.1rem, 6vw, 6.5rem);
+  color: var(--snapshot-ink);
+  background: #f7f8f6;
+}
+
+.snapshot-header {
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 430px) 1fr;
+  align-items: center;
+  gap: 2rem;
+  min-height: 88px;
+  border-bottom: 1px solid #e6e9e6;
+}
+
+.snapshot-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: fit-content;
+  color: var(--snapshot-ink);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  text-decoration: none;
+}
+
+.snapshot-brand > span:last-child > span {
+  color: var(--snapshot-green);
+}
+
+.snapshot-brand-mark {
+  display: grid;
+  width: 2.1rem;
+  height: 2.1rem;
+  place-items: center;
+  border-radius: 0.7rem;
+  color: white;
+  background: var(--snapshot-green);
+  font-size: 1rem;
+  letter-spacing: 0;
+}
+
+.snapshot-search {
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  min-height: 44px;
+  padding-left: 0.9rem;
+  border: 1px solid #e1e6e2;
+  border-radius: 0.7rem;
+  background: white;
+}
+
+.snapshot-search:focus-within {
+  border-color: #72988e;
+  box-shadow: 0 0 0 3px rgb(65 108 97 / 11%);
+}
+
+.snapshot-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  color: var(--snapshot-ink);
+  background: transparent;
+  font: inherit;
+  font-size: 0.88rem;
+}
+
+.snapshot-search button {
+  width: 46px;
+  align-self: stretch;
+  border: 0;
+  color: white;
+  background: var(--snapshot-green);
+  cursor: pointer;
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.snapshot-quote-link {
+  color: #59666c;
+  font-size: 0.85rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.snapshot-header-tools {
+  display: flex;
+  justify-self: end;
+  gap: 1.25rem;
+}
+
+.snapshot-quote-link:hover,
+.snapshot-brand:hover {
+  color: var(--snapshot-green);
+}
+
+.snapshot-intro {
+  padding: clamp(3.2rem, 7vw, 5.4rem) 0 2rem;
+  text-align: center;
+}
+
+.snapshot-eyebrow {
+  margin: 0 0 0.8rem;
+  color: var(--snapshot-green);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.snapshot-intro h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 6vw, 4.2rem);
+  font-weight: 750;
+  letter-spacing: -0.075em;
+  line-height: 1.05;
+}
+
+.snapshot-intro h1 span {
+  color: var(--snapshot-green);
+}
+
+.snapshot-intro > p:last-child {
+  margin: 1rem 0 0;
+  color: var(--snapshot-muted);
+  font-size: 0.98rem;
+}
+
+.snapshot-categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  padding: 1.25rem 0 2.4rem;
+}
+
+.snapshot-category {
+  padding: 0.65rem 1.2rem;
+  border: 1px solid #e0e6e1;
+  border-radius: 999px;
+  color: #56615d;
+  background: white;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.snapshot-category:hover,
+.snapshot-category.is-active {
+  border-color: var(--snapshot-green);
+  color: white;
+  background: var(--snapshot-green);
+}
+
+.snapshot-gallery-section {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.snapshot-results-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.15rem;
+}
+
+.snapshot-results-heading h2 {
+  margin: 0;
+  font-size: 1.12rem;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+}
+
+.snapshot-results-heading > span {
+  color: var(--snapshot-muted);
+  font-size: 0.78rem;
+}
+
+.snapshot-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.snapshot-photo {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1.22;
+  border-radius: 0.85rem;
+  background: #e4e9e6;
+  box-shadow: 0 6px 18px rgb(30 43 37 / 7%);
+}
+
+.snapshot-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.snapshot-photo:hover img,
+.snapshot-photo:focus-visible img {
+  transform: scale(1.07);
+}
+
+.snapshot-photo-caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2.8rem 0.85rem 0.8rem;
+  color: white;
+  background: linear-gradient(transparent, rgb(13 25 20 / 76%));
+  font-size: 0.78rem;
+  font-weight: 650;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.snapshot-photo:hover .snapshot-photo-caption,
+.snapshot-photo:focus-visible .snapshot-photo-caption {
+  opacity: 1;
+}
+
+.snapshot-photo-caption > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.snapshot-status,
+.snapshot-empty,
+.snapshot-error {
+  display: flex;
+  min-height: 180px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  color: var(--snapshot-muted);
+  text-align: center;
+}
+
+.snapshot-spinner {
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid #dce5df;
+  border-top-color: var(--snapshot-green);
+  border-radius: 50%;
+  animation: snapshot-spin 700ms linear infinite;
+}
+
+.snapshot-error {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.snapshot-error p {
+  margin: 0;
+}
+
+.snapshot-error button,
+.snapshot-load-more {
+  min-height: 42px;
+  padding: 0.65rem 1.2rem;
+  border: 1px solid var(--snapshot-green);
+  border-radius: 0.65rem;
+  color: white;
+  background: var(--snapshot-green);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.snapshot-error button:hover,
+.snapshot-load-more:hover:not(:disabled) {
+  background: #31564d;
+}
+
+.snapshot-load-more {
+  display: block;
+  margin: 2rem auto 0;
+}
+
+.snapshot-load-more:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.snapshot-footer {
+  padding: 3rem 0 1.5rem;
+  color: #89918c;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.snapshot-error-page {
+  display: grid;
+  min-height: 100vh;
+  align-content: center;
+  justify-items: center;
+  gap: 0.75rem;
+  color: var(--snapshot-ink);
+}
+
+.snapshot-error-page a {
+  color: var(--snapshot-green);
+}
+
+.snapshot-visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+@keyframes snapshot-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .snapshot-page {
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .snapshot-header {
+    grid-template-columns: auto minmax(180px, 1fr);
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .snapshot-quote-link {
+    font-size: 0.8rem;
+  }
+
+  .snapshot-header-tools {
+    grid-column: 1 / -1;
+  }
+
+  .snapshot-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .snapshot-page {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .snapshot-header {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    padding: 1rem 0;
+  }
+
+  .snapshot-brand {
+    font-size: 1.05rem;
+  }
+
+  .snapshot-search {
+    grid-row: 2;
+  }
+
+  .snapshot-intro {
+    padding: 3rem 0 1.5rem;
+  }
+
+  .snapshot-intro > p:last-child {
+    max-width: 25rem;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  .snapshot-categories {
+    gap: 0.45rem;
+    padding-bottom: 1.8rem;
+  }
+
+  .snapshot-category {
+    padding: 0.58rem 0.9rem;
+    font-size: 0.78rem;
+  }
+
+  .snapshot-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .snapshot-photo {
+    aspect-ratio: 0.95;
+  }
+
+  .snapshot-photo-caption {
+    padding: 2rem 0.6rem 0.6rem;
+    font-size: 0.68rem;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snapshot-spinner {
+    animation-duration: 1.5s;
+  }
+
+  .snapshot-photo img,
+  .snapshot-photo-caption,
+  .snapshot-category {
+    transition-duration: 0.01ms;
+  }
+}

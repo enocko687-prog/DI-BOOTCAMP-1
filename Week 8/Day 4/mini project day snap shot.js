@@ -1,0 +1,1 @@
+export { default } from './mini project day snap shot.jsx'
