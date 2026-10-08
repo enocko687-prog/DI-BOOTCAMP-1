@@ -1,0 +1,1 @@
+export { default } from './mini project herolo assignmet.jsx'

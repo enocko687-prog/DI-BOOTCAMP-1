@@ -1,0 +1,1 @@
+export { default } from './Daily challange and data server.jsx'
