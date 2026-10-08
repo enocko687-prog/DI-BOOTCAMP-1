@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Bavans &amp; Blades Admin Dashboard
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="brand">
+
+        <img src="/logo.svg" alt="Bavans &amp; Blades logo">
+
+        <span>
+            BAVANS
+            <small>
+                ADMIN DASHBOARD
+            </small>
+        </span>
+
+    </div>
+
+    <a href="/">
+        ← View Website
+    </a>
+    <button id="logoutButton" type="button" hidden>
+        Sign out
+    </button>
+
+</header>
+
+
+<main>
+
+    <section class="welcome">
+
+        <p>
+            BUSINESS CONTROL CENTER
+        </p>
+
+        <h1>
+            Dashboard
+        </h1>
+
+        <span>
+            Manage your barber shop.
+        </span>
+
+    </section>
+
+    <section id="loginPanel" class="login-panel" hidden>
+        <h2>Admin sign in</h2>
+        <p>Enter the admin username and password configured for this shop.</p>
+        <form id="loginForm">
+            <label>
+                Username
+                <input name="username" autocomplete="username" required>
+            </label>
+            <label>
+                Password
+                <input name="password" type="password" autocomplete="current-password" required>
+            </label>
+            <button type="submit">Sign in</button>
+        </form>
+        <p id="loginMessage" role="alert"></p>
+    </section>
+
+    <p id="dashboardNotice" class="dashboard-notice" role="status" hidden></p>
+
+    <div id="dashboardContent" hidden>
+
+    <section class="stats">
+
+        <div>
+            <small>
+                Today's Bookings
+            </small>
+
+            <b id="today">
+                —
+            </b>
+        </div>
+
+
+        <div>
+            <small>
+                Pending
+            </small>
+
+            <b id="pending">
+                —
+            </b>
+        </div>
+
+
+        <div>
+            <small>
+                Confirmed
+            </small>
+
+            <b id="confirmed">
+                —
+            </b>
+        </div>
+
+
+        <div>
+            <small>
+                Customers
+            </small>
+
+            <b id="customers">
+                —
+            </b>
+        </div>
+
+        <div>
+            <small>
+                Online Requests
+            </small>
+
+            <b id="requestCount">
+                —
+            </b>
+        </div>
+
+    </section>
+
+    <section>
+
+        <div class="section-title">
+
+            <h2>
+                Online Requests
+            </h2>
+
+            <button
+                onclick="loadDashboard()"
+            >
+                Refresh
+            </button>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Customer</th>
+                        <th>Request</th>
+                        <th>Location</th>
+                        <th>Received</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="requests">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <div class="section-title">
+
+            <h2>
+                Appointments
+            </h2>
+
+            <button
+                onclick="loadDashboard()"
+            >
+                Refresh
+            </button>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Customer
+                        </th>
+
+                        <th>
+                            Service
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Time
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="appointments">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <div class="section-title">
+
+            <h2>
+                Services & Prices
+            </h2>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Service
+                        </th>
+
+                        <th>
+                            Price
+                        </th>
+
+                        <th>
+                            Duration
+                        </th>
+
+                        <th>
+                            Active
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="services">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <section class="new-service">
+
+        <h2>
+            Add New Service
+        </h2>
+
+
+        <form id="serviceForm">
+
+            <input
+                name="name"
+                placeholder="Service name"
+                required
+            >
+
+
+            <input
+                name="price"
+                type="number"
+                placeholder="Price"
+                required
+            >
+
+
+            <input
+                name="duration_minutes"
+                type="number"
+                placeholder="Minutes"
+                required
+            >
+
+
+            <input
+                name="description"
+                placeholder="Description"
+            >
+
+
+            <button type="submit">
+                Add Service
+            </button>
+
+        </form>
+
+
+        <p id="message"></p>
+
+    </section>
+
+    </div>
+
+</main>
+
+
+<script src="admin.js"></script>
+
+</body>
+
+</html>
