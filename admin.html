@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#10251f">
+  <title>Staff Sign In | WOFEM</title>
+  <link rel="icon" type="image/png" href="assets/wofem-logo.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+  <script src="admin.js" defer></script>
+</head>
+<body class="admin-page">
+  <header class="site-header admin-header">
+    <a class="brand" href="/" aria-label="WOFEM home">
+      <img class="brand-mark" src="assets/wofem-logo.png" alt="WOFEM church logo" width="48" height="48">
+      <span>
+        <strong>WOFEM</strong>
+        <small>Staff prayer request portal</small>
+      </span>
+    </a>
+    <a class="text-link" href="/">Return to website</a>
+  </header>
+
+  <main class="admin-main">
+    <section class="admin-panel" aria-labelledby="adminHeading">
+      <div class="admin-heading">
+        <p class="eyebrow">PRIVATE STAFF AREA</p>
+        <h1 id="adminHeading">Prayer requests</h1>
+        <p>Prayer requests are private. Sign in with the church staff account to view and manage them.</p>
+      </div>
+
+      <form id="loginForm" class="admin-login" hidden>
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" autocomplete="username" required maxlength="80">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button class="button button-gold" type="submit">Sign in</button>
+      </form>
+
+      <section id="dashboard" class="admin-dashboard" aria-label="Prayer request dashboard" hidden>
+        <div class="dashboard-toolbar">
+          <p id="requestCount" aria-live="polite"></p>
+          <div class="dashboard-actions">
+            <button class="button button-copy" id="refreshRequests" type="button">Refresh</button>
+            <button class="button button-copy" id="logoutButton" type="button">Sign out</button>
+          </div>
+        </div>
+        <div id="requestList" class="request-list"></div>
+      </section>
+
+      <p id="adminMessage" class="form-message" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+</body>
+</html>
