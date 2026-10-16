@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#10251f">
-  <title>Staff Sign In | WOFEM</title>
+  <title>Prayer Care Dashboard | WOFEM</title>
   <link rel="icon" type="image/png" href="assets/wofem-logo.png">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="admin.css">
@@ -26,12 +26,13 @@
   <main class="admin-main">
     <section class="admin-panel" aria-labelledby="adminHeading">
       <div class="admin-heading">
-        <p class="eyebrow">PRIVATE STAFF AREA</p>
-        <h1 id="adminHeading">Prayer requests</h1>
-        <p>Prayer requests are private. Sign in with the church staff account to view and manage them.</p>
+        <p class="eyebrow">SERVING ONE ANOTHER IN LOVE</p>
+        <h1 id="adminHeading">Prayer Care Dashboard</h1>
+        <p>Thank you for caring for the WOFEM family. Prayer requests are shared here privately for authorized pastors, elders, deacons and the church secretary to support people with compassion and confidentiality.</p>
       </div>
 
       <form id="loginForm" class="admin-login" hidden>
+        <p class="login-welcome">Sign in to view the prayer requests entrusted to the church team.</p>
         <label for="username">Username</label>
         <input id="username" name="username" type="text" autocomplete="username" required maxlength="80">
         <label for="password">Password</label>
@@ -40,8 +41,19 @@
       </form>
 
       <section id="dashboard" class="admin-dashboard" aria-label="Prayer request dashboard" hidden>
+        <div class="dashboard-welcome">
+          <span class="welcome-heart" aria-hidden="true">♡</span>
+          <div>
+            <h2>Thank you for praying with care</h2>
+            <p>Each request represents someone who has trusted the church. Please keep every story confidential and respond with love.</p>
+          </div>
+        </div>
         <div class="dashboard-toolbar">
-          <p id="requestCount" aria-live="polite"></p>
+          <div>
+            <p id="requestCount" aria-live="polite"></p>
+            <p id="newRequestCount" class="new-request-count" aria-live="polite"></p>
+            <p class="dashboard-update-note">New requests appear every 15 seconds while this page is open.</p>
+          </div>
           <div class="dashboard-actions">
             <button class="button button-copy" id="refreshRequests" type="button">Refresh</button>
             <button class="button button-copy" id="logoutButton" type="button">Sign out</button>

@@ -35,6 +35,13 @@
 
 .admin-heading > p:last-child {
   color: var(--muted);
+  line-height: 1.75;
+}
+
+.login-welcome {
+  margin: 0 0 18px;
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 .admin-login {
@@ -73,9 +80,58 @@
   margin: 22px 0 18px;
 }
 
-.dashboard-toolbar > p {
+.dashboard-welcome {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 22px;
+  border: 1px solid rgba(200, 157, 72, 0.24);
+  border-radius: 16px;
+  background: linear-gradient(120deg, #fbf6e9, #fff);
+}
+
+.welcome-heart {
+  display: grid;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 15px;
+  background: #f6efd9;
+  color: #9a711d;
+  font-size: 27px;
+}
+
+.dashboard-welcome h2 {
+  margin-bottom: 5px;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+}
+
+.dashboard-welcome p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.dashboard-toolbar > p,
+.dashboard-toolbar > div > #requestCount {
   color: var(--muted);
   font-size: 14px;
+}
+
+.dashboard-update-note {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.new-request-count {
+  margin-top: 4px;
+  color: #8a6413;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .dashboard-actions {
@@ -99,12 +155,41 @@
   background: #fcfcfa;
 }
 
+.request-card[data-status="new"] {
+  border-left: 4px solid var(--gold);
+  background: #fffdf7;
+}
+
 .request-card-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
   margin-bottom: 12px;
+}
+
+.request-status {
+  display: inline-block;
+  margin-bottom: 7px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.request-status--new {
+  background: #f8edcf;
+  color: #75520f;
+}
+
+.request-status--prayed {
+  background: #e5f1e8;
+  color: #28613a;
+}
+
+.request-status--contacted {
+  background: #e9eef7;
+  color: #3c5278;
 }
 
 .request-card h2 {
@@ -170,6 +255,10 @@
   .request-card-header {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .dashboard-welcome {
+    padding: 17px;
   }
 
   .dashboard-actions,

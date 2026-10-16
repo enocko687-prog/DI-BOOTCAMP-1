@@ -422,6 +422,65 @@ textarea:focus-visible {
   background: var(--white);
 }
 
+.values-section {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(200, 157, 72, 0.13), transparent 48%),
+    var(--cream);
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.value-card {
+  padding: 30px;
+  border: 1px solid rgba(200, 157, 72, 0.25);
+  border-radius: 20px;
+  background: var(--white);
+  box-shadow: 0 8px 28px rgba(23, 55, 47, 0.06);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.value-icon {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 22px;
+  place-items: center;
+  border-radius: 18px;
+  background: #f6efd9;
+  color: #9a711d;
+  font-size: 28px;
+}
+
+.value-card .eyebrow {
+  margin-bottom: 5px;
+  color: #99711c;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.value-card h3 {
+  margin-bottom: 10px;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+}
+
+.value-card > p:last-child {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -621,6 +680,26 @@ textarea:focus-visible {
   font-size: 13px;
   margin: 9px 0;
   overflow-wrap: anywhere;
+}
+
+.event-card a {
+  color: var(--gold-light);
+}
+
+.event-video {
+  width: 100%;
+  margin: 0 0 16px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  background: #000;
+}
+
+.event-video iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 /* MEDIA */
@@ -1346,6 +1425,10 @@ textarea:focus-visible {
   pointer-events: auto;
 }
 
+.prayer-section {
+  scroll-margin-top: 100px;
+}
+
 @media (max-width: 800px) {
   .site-header {
     padding-left: 5%;
@@ -1519,6 +1602,7 @@ textarea:focus-visible {
   }
 
   .card-grid,
+  .values-grid,
   .event-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1595,6 +1679,7 @@ textarea:focus-visible {
 
   .leader-grid,
   .card-grid,
+  .values-grid,
   .event-grid,
   .photo-grid,
   .media-grid,

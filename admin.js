@@ -5,6 +5,8 @@ const dashboard = document.getElementById("dashboard");
 const requestList = document.getElementById("requestList");
 const requestCount = document.getElementById("requestCount");
 const adminMessage = document.getElementById("adminMessage");
+let knownRequestIds = null;
+let requestLoadInProgress = false;
 
 async function apiRequest(url, options = {}) {
   const response = await fetch(url, {
@@ -53,10 +55,19 @@ function showDashboard() {
 function makeRequestCard(request) {
   const card = document.createElement("article");
   card.className = "request-card";
+  card.dataset.status = request.status;
 
   const header = document.createElement("div");
   header.className = "request-card-header";
   const headingGroup = document.createElement("div");
+  const statusLabel = document.createElement("span");
+  statusLabel.className = `request-status request-status--${request.status}`;
+  const statusLabels = {
+    new: "Needs prayer",
+    prayed: "Prayed for",
+    contacted: "Follow-up",
+  };
+  statusLabel.textContent = statusLabels[request.status];
   const title = document.createElement("h2");
   title.textContent = request.name || "Anonymous request";
   const meta = document.createElement("p");
@@ -65,7 +76,7 @@ function makeRequestCard(request) {
     request.category,
     request.email || "No email provided",
   ].join(" · ");
-  headingGroup.append(title, meta);
+  headingGroup.append(statusLabel, title, meta);
 
   const date = document.createElement("time");
   date.className = "request-date";
@@ -99,7 +110,12 @@ function makeRequestCard(request) {
         method: "PATCH",
         body: JSON.stringify({ status: status.value }),
       });
-      setMessage("Prayer request status updated.");
+      request.status = status.value;
+      card.dataset.status = request.status;
+      statusLabel.className = `request-status request-status--${request.status}`;
+      statusLabel.textContent = statusLabels[request.status];
+      updateNewRequestCount();
+      setMessage("Thank you. The request has been updated.");
     } catch (error) {
       setMessage(error.message, true);
       status.value = request.status;
@@ -123,9 +139,10 @@ function makeRequestCard(request) {
       });
       card.remove();
       requestCount.textContent = `${requestList.children.length} prayer requests`;
+      updateNewRequestCount();
       setMessage("Prayer request deleted.");
       if (!requestList.children.length) {
-        requestList.textContent = "No prayer requests have been submitted.";
+        requestList.textContent = "No prayer requests yet. When someone reaches out, their request will appear here.";
       }
     } catch (error) {
       setMessage(error.message, true);
@@ -138,23 +155,52 @@ function makeRequestCard(request) {
   return card;
 }
 
-async function loadRequests() {
-  setMessage("Loading prayer requests...");
-  requestList.replaceChildren();
+function updateNewRequestCount(count = null) {
+  const newCount =
+    count ?? requestList.querySelectorAll('.request-card[data-status="new"]').length;
+  document.getElementById("newRequestCount").textContent = newCount
+    ? `${newCount} ${newCount === 1 ? "request" : "requests"} waiting for prayer`
+    : "All caught up. Thank you for praying.";
+}
+
+async function loadRequests({ silent = false } = {}) {
+  if (requestLoadInProgress) {
+    return;
+  }
+  requestLoadInProgress = true;
+  if (!silent) {
+    setMessage("Loading prayer requests...");
+  }
+
   try {
     const result = await apiRequest("/api/staff/prayer-requests");
     const requests = result.requests;
+    const newRequests =
+      knownRequestIds === null
+        ? []
+        : requests.filter((request) => !knownRequestIds.has(request._id));
+    knownRequestIds = new Set(requests.map((request) => request._id));
     requestCount.textContent = `${requests.length} prayer request${requests.length === 1 ? "" : "s"} (latest 100)`;
+    updateNewRequestCount(requests.filter((request) => request.status === "new").length);
+    requestList.replaceChildren();
     if (!requests.length) {
-      requestList.textContent = "No prayer requests have been submitted.";
+      requestList.textContent = "No prayer requests yet. When someone reaches out, their request will appear here.";
     } else {
       requestList.append(...requests.map(makeRequestCard));
     }
-    setMessage("");
+    setMessage(
+      newRequests.length
+        ? `${newRequests.length} new prayer request${newRequests.length === 1 ? "" : "s"} received. Thank you for keeping this person in prayer.`
+        : ""
+    );
   } catch (error) {
     if (loginForm.hidden) {
       setMessage(error.message, true);
+    } else {
+      setMessage("Your staff session ended. Please sign in again.", true);
     }
+  } finally {
+    requestLoadInProgress = false;
   }
 }
 
@@ -181,6 +227,18 @@ loginForm.addEventListener("submit", async (event) => {
 });
 
 document.getElementById("refreshRequests").addEventListener("click", loadRequests);
+
+window.setInterval(() => {
+  if (!dashboard.hidden && document.visibilityState === "visible") {
+    loadRequests({ silent: true });
+  }
+}, 15000);
+
+document.addEventListener("visibilitychange", () => {
+  if (!dashboard.hidden && document.visibilityState === "visible") {
+    loadRequests({ silent: true });
+  }
+});
 
 document.getElementById("logoutButton").addEventListener("click", async () => {
   try {

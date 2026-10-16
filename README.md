@@ -14,9 +14,13 @@ Church photo gallery and media sources:
 - Understanding the Gospel: https://www.facebook.com/Polamonz/videos/understanding-the-gospel/1383476860229229/
 - Sunday service: https://www.facebook.com/Polamonz/videos/sunday-service/1616706506564184/
 
-The photos are stored locally under `assets/church/`. Video cards link to the
-original Facebook videos so playback, ownership, and availability remain with
-the church's Facebook page.
+The photos are stored locally under `assets/church/`. The Sunday Worship and
+Church Events cards embed public videos from the WOFEM Facebook page; visitors
+can also open each video directly on Facebook. Playback, ownership, and
+availability remain with Facebook.
+
+The homepage presents WOFEM's core values: a heart of gratitude, a heart of
+generosity, and a heart of the love of God.
 
 ## Run locally
 
@@ -79,6 +83,14 @@ public hostname. To request Google indexing:
 - Public visitors can submit a prayer request; submissions are not displayed
   publicly.
 - Only a signed-in staff session can list, update, or delete submissions.
+- Pastors, elders, deacons, and the church secretary can use the authorized
+  staff login. Share its credentials privately, not on the public website.
+- The private Prayer Care Dashboard highlights new requests and lets
+  authorized leaders record whether a request has been prayed for or needs
+  follow-up.
+- The staff dashboard checks for new requests every 15 seconds while open and
+  visible, and refreshes when staff return to the page. The dashboard must be
+  open in a signed-in browser for requests to appear automatically.
 - The form records when consent to share the request was given.
 - Staff sessions expire after eight hours. Login and submission endpoints are
   rate-limited, and cookies are HttpOnly and SameSite=Strict.
