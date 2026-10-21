@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A locally saved recipe book built with TypeScript."
+    />
+    <meta name="theme-color" content="#f7f8f3" />
+    <title>Recipe Book</title>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <p class="eyebrow">YOUR KITCHEN COLLECTION</p>
+        <h1>Recipe Book</h1>
+        <p>Keep favorite meals and the recipes you want to make next.</p>
+      </header>
+
+      <section class="panel" aria-labelledby="add-recipe-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">ADD SOMETHING GOOD</p>
+            <h2 id="add-recipe-title">New recipe</h2>
+          </div>
+        </div>
+        <form id="recipeEntryForm">
+          <label>
+            Recipe title
+            <input
+              type="text"
+              id="recipeTitle"
+              placeholder="e.g. Lemon pasta"
+              maxlength="100"
+              required
+            />
+          </label>
+          <label>
+            Ingredients <span class="hint">(one per line)</span>
+            <textarea
+              id="ingredients"
+              placeholder="Pasta&#10;Lemon&#10;Olive oil"
+              rows="5"
+              required
+            ></textarea>
+          </label>
+          <label>
+            Instructions
+            <textarea
+              id="instructions"
+              placeholder="Write the cooking steps..."
+              rows="5"
+              required
+            ></textarea>
+          </label>
+          <button class="button button-primary" type="submit">Add recipe</button>
+        </form>
+      </section>
+
+      <section class="collection-section" aria-labelledby="collection-title">
+        <div class="collection-heading">
+          <div>
+            <p class="eyebrow">SAVED IN THIS BROWSER</p>
+            <h2 id="collection-title">Your recipes</h2>
+          </div>
+          <button class="button button-danger" id="clearRecipesButton" type="button">
+            Clear all recipes
+          </button>
+        </div>
+        <p id="statusMessage" class="status-message" role="status" aria-live="polite"></p>
+        <div id="recipeContainer" class="recipe-grid"></div>
+      </section>
+      <footer>Recipes are saved locally in this browser.</footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
