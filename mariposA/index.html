@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mariposa Studio</title>
+    <meta
+      name="description"
+      content="Mariposa Studio creates elevated digital experiences with motion, elegance, and clarity."
+    />
+    <meta name="theme-color" content="#020817" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              sunset: '#ff7a59',
+              rose: '#ff4d94',
+              plum: '#8b5cf6',
+              midnight: '#0f172a',
+              mist: '#e2e8f0',
+              bloom: '#fdf2f8'
+            },
+            boxShadow: {
+              glow: '0 0 30px rgba(255, 122, 89, 0.35)',
+              soft: '0 20px 60px rgba(15, 23, 42, 0.18)'
+            },
+            animation: {
+              float: 'float 6s ease-in-out infinite',
+              drift: 'drift 12s ease-in-out infinite alternate',
+              shimmer: 'shimmer 2.8s linear infinite'
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-18px)' }
+              },
+              drift: {
+                '0%': { transform: 'translate3d(0, 0, 0) scale(1)' },
+                '100%': { transform: 'translate3d(18px, -14px, 0) scale(1.04)' }
+              },
+              shimmer: {
+                '0%': { backgroundPosition: '-200% 0' },
+                '100%': { backgroundPosition: '200% 0' }
+              }
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body class="bg-slate-950 text-white antialiased selection:bg-pink-500/60 selection:text-white">
+    <section id="welcome-screen" class="welcome-screen" role="dialog" aria-modal="true" aria-labelledby="welcome-heading" hidden>
+      <div class="welcome-card">
+        <img src="mariposa-studio-logo.svg" alt="Mariposa Studio — Kenya, all 47 counties" class="welcome-logo" width="360" height="82" />
+        <p class="welcome-eyebrow">A Kenyan creative studio</p>
+        <h1 id="welcome-heading">A good idea starts with a little light.</h1>
+        <p class="welcome-copy">Switch on Mariposa Studio to explore our work, services, and approach.</p>
+        <button id="light-switch" class="light-switch" type="button" aria-label="Switch on Mariposa Studio">
+          <span class="switch-track" aria-hidden="true"><span class="switch-knob"></span></span>
+          <span>Switch on the studio</span>
+        </button>
+        <p class="welcome-location">Rooted in Kenya · Working across all 47 counties</p>
+      </div>
+    </section>
+    <div class="page-shell relative">
+      <div class="orb orb-one"></div>
+      <div class="orb orb-two"></div>
+      <div class="orb orb-three"></div>
+
+      <header id="top" class="sticky top-0 z-40 mx-auto max-w-7xl px-4 pt-3 sm:px-6 lg:px-10">
+        <nav class="relative flex items-center justify-between rounded-full border border-white/10 bg-slate-950/75 px-4 py-3 shadow-soft backdrop-blur-xl" aria-label="Main navigation">
+          <a href="#top" class="brand-lockup rounded-full" aria-label="Mariposa Studio home">
+          <img src="mariposa-studio-logo.svg" alt="Mariposa Studio — Kenya, serving all 47 counties" width="360" height="82" />
+          </a>
+
+          <div class="hidden items-center gap-4 text-sm text-slate-200 lg:flex xl:gap-6">
+            <a href="#features" class="transition hover:text-white">Services</a>
+            <a href="#about" class="transition hover:text-white">Why Mariposa</a>
+            <a href="#vision" class="transition hover:text-white">Studio</a>
+            <a href="#process" class="transition hover:text-white">Process</a>
+            <a href="#pricing" class="transition hover:text-white">Packages</a>
+            <a href="#faq" class="transition hover:text-white">FAQ</a>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <a href="#contact" class="hidden items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 via-orange-400 to-violet-500 px-5 py-2.5 text-sm font-semibold text-white shadow-glow transition hover:scale-[1.02] sm:inline-flex">
+              Book a call
+            </a>
+            <button
+              id="menu-toggle"
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition hover:bg-white/10 lg:hidden"
+              type="button"
+              aria-label="Open navigation menu"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
+            >
+              <span aria-hidden="true" class="menu-icon">☰</span>
+            </button>
+          </div>
+          <div id="mobile-menu" class="mobile-menu absolute left-0 right-0 top-full z-30 mt-3 hidden rounded-2xl border border-white/10 bg-slate-900/95 p-4 shadow-soft backdrop-blur-xl lg:hidden">
+            <div class="flex flex-col gap-1 text-sm text-slate-200">
+              <a href="#features" class="rounded-xl px-4 py-3 transition hover:bg-white/10">Services</a>
+              <a href="#about" class="rounded-xl px-4 py-3 transition hover:bg-white/10">Why Mariposa</a>
+              <a href="#vision" class="rounded-xl px-4 py-3 transition hover:bg-white/10">Studio</a>
+              <a href="#process" class="rounded-xl px-4 py-3 transition hover:bg-white/10">Process</a>
+              <a href="#pricing" class="rounded-xl px-4 py-3 transition hover:bg-white/10">Packages</a>
+              <a href="#faq" class="rounded-xl px-4 py-3 transition hover:bg-white/10">FAQ</a>
+              <a href="#contact" class="rounded-xl px-4 py-3 font-semibold text-pink-200 transition hover:bg-white/10">Book a call</a>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <main class="relative z-10">
+        <section class="hero-section mx-auto grid max-w-7xl items-center gap-16 px-6 pb-20 pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:px-10 lg:pb-28 lg:pt-20">
+          <div class="relative">
+            <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-pink-400/30 bg-pink-500/10 px-3 py-1.5 text-xs font-medium text-pink-100 shadow-lg shadow-pink-950/40">
+              <span class="h-2 w-2 rounded-full bg-pink-400 animate-pulse"></span>
+              Independent creative studio · Strategy to launch
+            </div>
+
+            <h1 class="max-w-xl text-5xl font-black leading-[0.9] tracking-[-0.06em] text-white md:text-6xl lg:text-7xl">
+              Make your next
+              <span class="gradient-text block">chapter</span>
+              impossible to ignore.
+            </h1>
+
+            <p class="mt-6 max-w-lg text-lg leading-8 text-slate-300">
+              Mariposa is a strategy, brand, and digital design studio for ambitious teams. We turn what makes your business different into a clear story and a considered online experience.
+            </p>
+
+            <div class="mt-9 flex flex-wrap items-center gap-4">
+              <a href="#contact" class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-bold text-slate-900 transition hover:-translate-y-0.5 hover:shadow-lg">
+                Tell us what you’re building
+              </a>
+              <a href="#process" class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+                See how we work
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+
+            <div class="mt-10 flex items-start gap-3 border-t border-white/10 pt-5 text-sm leading-6 text-slate-300">
+              <span class="mt-0.5 text-lg text-pink-300" aria-hidden="true">⌖</span>
+              <p><span class="font-semibold text-white">Rooted in Kenya.</span> Proudly working with clients across all 47 counties.</p>
+            </div>
+          </div>
+
+          <div class="relative mx-auto w-full max-w-xl">
+            <div class="studio-poster relative overflow-hidden rounded-[32px] border border-white/10 p-7 shadow-soft sm:p-9">
+              <div class="poster-topline">
+                <span>MARIPOSA STUDIO</span>
+                <span>BRAND · DIGITAL · DESIGN</span>
+              </div>
+              <div class="poster-art" aria-hidden="true">
+                <span class="poster-orbit poster-orbit-one"></span>
+                <span class="poster-orbit poster-orbit-two"></span>
+                <span class="poster-monogram">M</span>
+              </div>
+              <p class="poster-kicker">A note on good design</p>
+              <h2 class="poster-heading">Make it mean something.</h2>
+              <p class="poster-copy">A clear story. A distinctive identity. A digital experience made for the people it needs to reach.</p>
+              <div class="poster-rule"></div>
+              <div class="poster-footer">
+                <span>Strategy with intention</span>
+                <span>Design with care</span>
+                <span>Built together</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="features" class="mx-auto max-w-7xl scroll-mt-28 px-6 pb-20 lg:px-10">
+          <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-pink-300">What we do</p>
+              <h2 class="mt-3 text-3xl font-black tracking-tight text-white md:text-5xl">Everything connects. Nothing is by accident.</h2>
+            </div>
+            <p class="max-w-xl leading-7 text-slate-300">
+              Build a new brand from the ground up, bring a business into its next era, or make the digital experience you already have work harder.
+            </p>
+          </div>
+
+          <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <article class="feature-card rounded-[28px] border border-white/10 bg-white/5 p-7 backdrop-blur-xl">
+              <div class="feature-icon mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-orange-400 text-xl shadow-glow">
+                ✦
+              </div>
+              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-pink-200">01 / Direction</p>
+              <h3 class="mt-2 text-xl font-bold text-white">Brand strategy</h3>
+              <p class="mt-3 leading-7 text-slate-300">Know who you’re for, what makes you different, and how to say it with confidence.</p>
+              <ul class="deliverable-list"><li>Discovery and audience insight</li><li>Positioning and brand story</li><li>Voice, tone, and messaging</li></ul>
+            </article>
+
+            <article class="feature-card rounded-[28px] border border-white/10 bg-white/5 p-7 backdrop-blur-xl">
+              <div class="feature-icon mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-500 text-xl shadow-glow">
+                ◌
+              </div>
+              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-violet-200">02 / Identity</p>
+              <h3 class="mt-2 text-xl font-bold text-white">Visual identity</h3>
+              <p class="mt-3 leading-7 text-slate-300">Create a distinctive, flexible identity that feels recognizable wherever it appears.</p>
+              <ul class="deliverable-list"><li>Logo and visual system</li><li>Color, type, and art direction</li><li>Practical brand guidelines</li></ul>
+            </article>
+
+            <article class="feature-card rounded-[28px] border border-white/10 bg-white/5 p-7 backdrop-blur-xl">
+              <div class="feature-icon mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-emerald-400 text-xl shadow-glow">
+                ⟡
+              </div>
+              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">03 / Experience</p>
+              <h3 class="mt-2 text-xl font-bold text-white">Websites and digital</h3>
+              <p class="mt-3 leading-7 text-slate-300">Turn your strategy into a welcoming, intuitive website that works beautifully across screens.</p>
+              <ul class="deliverable-list"><li>Site structure and user journeys</li><li>Responsive interface design</li><li>Accessible, developer-ready handoff</li></ul>
+            </article>
+
+            <article class="feature-card rounded-[28px] border border-white/10 bg-white/5 p-7 backdrop-blur-xl">
+              <div class="feature-icon mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400 to-rose-500 text-xl shadow-glow">✧</div>
+              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-orange-200">04 / Product</p>
+              <h3 class="mt-2 text-xl font-bold text-white">Product and UX</h3>
+              <p class="mt-3 leading-7 text-slate-300">Make complex tools feel simple with thoughtful flows and a consistent interface system.</p>
+              <ul class="deliverable-list"><li>User flows and wireframes</li><li>Interactive prototypes</li><li>Reusable UI foundations</li></ul>
+            </article>
+
+            <article class="feature-card rounded-[28px] border border-white/10 bg-white/5 p-7 backdrop-blur-xl">
+              <div class="feature-icon mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-500 to-violet-500 text-xl shadow-glow">✺</div>
+              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-fuchsia-200">05 / Launch</p>
+              <h3 class="mt-2 text-xl font-bold text-white">Campaign and content</h3>
+              <p class="mt-3 leading-7 text-slate-300">Bring launches and everyday communications to life with a clear creative thread.</p>
+              <ul class="deliverable-list"><li>Campaign art direction</li><li>Social and launch assets</li><li>Content templates and guidance</li></ul>
+            </article>
+
+            <article class="feature-card rounded-[28px] border border-white/10 bg-white/5 p-7 backdrop-blur-xl">
+              <div class="feature-icon mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-indigo-500 text-xl shadow-glow">↗</div>
+              <p class="text-xs font-semibold uppercase tracking-[0.2em] text-sky-200">06 / Momentum</p>
+              <h3 class="mt-2 text-xl font-bold text-white">Ongoing creative partner</h3>
+              <p class="mt-3 leading-7 text-slate-300">Keep your brand fresh as your business grows, with a trusted design partner by your side.</p>
+              <ul class="deliverable-list"><li>Flexible design support</li><li>New pages and experiences</li><li>Regular creative check-ins</li></ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="mx-auto max-w-7xl px-6 pb-20 lg:px-10" aria-labelledby="fit-heading">
+          <div class="grid gap-8 rounded-[32px] border border-white/10 bg-slate-900/50 p-7 md:grid-cols-[0.8fr_1.2fr] md:items-center md:p-9">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-violet-300">Who we work with</p>
+              <h2 id="fit-heading" class="mt-3 text-2xl font-black tracking-tight text-white md:text-3xl">For the people ready to make a meaningful move.</h2>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-3">
+              <div><p class="font-semibold text-white">Founders</p><p class="mt-2 text-sm leading-6 text-slate-400">Turn a promising idea into a brand people can understand and believe in.</p></div>
+              <div><p class="font-semibold text-white">Growing teams</p><p class="mt-2 text-sm leading-6 text-slate-400">Bring consistency and confidence to a business moving into its next stage.</p></div>
+              <div><p class="font-semibold text-white">Established brands</p><p class="mt-2 text-sm leading-6 text-slate-400">Refresh a familiar story and create digital experiences built for today.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" class="mx-auto max-w-7xl px-6 py-20 lg:px-10">
+          <div class="grid items-center gap-8 rounded-[36px] border border-white/10 bg-white/5 p-5 backdrop-blur-xl md:grid-cols-[0.85fr_1.15fr] md:p-8 lg:gap-12">
+            <figure class="ceo-portrait">
+              <img
+                src="ceo-photo.png"
+                alt="Portrait of Mariposa Studio’s CEO"
+                width="768"
+                height="1151"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption class="ceo-caption">
+                <span class="ceo-caption-label">Meet the studio leadership</span>
+                <span class="ceo-caption-role">Founder &amp; CEO, Mariposa Studio</span>
+              </figcaption>
+            </figure>
+
+            <div class="flex flex-col justify-center">
+              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-slate-400">Why teams choose us</p>
+              <div class="mt-6 space-y-5">
+                <div class="flex items-start gap-4">
+                  <span class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-pink-500/20 text-sm text-pink-300" aria-hidden="true">✓</span>
+                  <div>
+                    <h3 class="text-lg font-semibold text-white">Clear creative direction</h3>
+                    <p class="mt-1 text-slate-300">Focused strategy for sharper decision-making and faster momentum.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <span class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-violet-500/20 text-sm text-violet-300" aria-hidden="true">✓</span>
+                  <div>
+                    <h3 class="text-lg font-semibold text-white">A direct, human partnership</h3>
+                    <p class="mt-1 text-slate-300">Work closely with studio leadership and the creative team from first conversation to handoff.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <span class="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/20 text-sm text-emerald-300" aria-hidden="true">✓</span>
+                  <div>
+                    <h3 class="text-lg font-semibold text-white">Design made for real people</h3>
+                    <p class="mt-1 text-slate-300">Every decision is considered for your audience, your goals, and the way your business works.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col justify-center md:col-span-2 md:grid md:grid-cols-[1.15fr_0.85fr] md:items-center md:gap-10">
+              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-pink-300">Why Mariposa</p>
+              <h2 class="mt-3 max-w-lg text-3xl font-black tracking-tight text-white md:text-5xl">
+                Thoughtful work. Clear direction. Real collaboration.
+              </h2>
+              <p class="mt-5 max-w-xl text-lg leading-8 text-slate-300 md:col-start-2 md:row-span-2 md:mt-0">
+                We bring strategy and craft into the same conversation. You work directly with a close creative partner, make decisions with a clear view of the options, and get a connected set of ideas instead of disconnected deliverables.
+              </p>
+
+              <div class="mt-8 grid gap-4 sm:grid-cols-3 md:col-span-2">
+                <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                  <p class="text-3xl font-black text-white">01</p>
+                  <p class="mt-3 text-slate-300">Discover</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                  <p class="text-3xl font-black text-white">02</p>
+                  <p class="mt-3 text-slate-300">Design</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                  <p class="text-3xl font-black text-white">03</p>
+                  <p class="mt-3 text-slate-300">Scale</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="process" class="mx-auto max-w-7xl scroll-mt-28 px-6 pb-20 lg:px-10" aria-labelledby="process-heading">
+          <div class="mb-10 max-w-3xl">
+            <p class="text-sm font-semibold uppercase tracking-[0.25em] text-pink-300">A clear, collaborative process</p>
+            <h2 id="process-heading" class="mt-3 text-3xl font-black tracking-tight text-white md:text-5xl">Good work grows from good questions.</h2>
+            <p class="mt-5 text-lg leading-8 text-slate-300">No mystery handoffs or design for design’s sake. We work in considered stages, share decisions early, and keep the work connected to your goals.</p>
+          </div>
+          <div class="process-grid">
+            <article class="process-card"><span class="process-index">01</span><p class="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-pink-200">Listen & learn</p><h3 class="mt-2 text-xl font-bold text-white">Get to the heart of it.</h3><p class="mt-3 leading-7 text-slate-300">We explore your business, audience, ambitions, and challenges together. The result is a shared brief and a focused direction.</p><p class="process-output"><strong>We create:</strong> discovery notes, project goals, audience priorities.</p></article>
+            <article class="process-card"><span class="process-index">02</span><p class="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-orange-200">Find the story</p><h3 class="mt-2 text-xl font-bold text-white">Make the difference clear.</h3><p class="mt-3 leading-7 text-slate-300">We find the useful truth in your offer and shape a brand idea, message, and creative route your team can get behind.</p><p class="process-output"><strong>We create:</strong> positioning, messaging, creative direction.</p></article>
+            <article class="process-card"><span class="process-index">03</span><p class="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-violet-200">Design the experience</p><h3 class="mt-2 text-xl font-bold text-white">Turn direction into detail.</h3><p class="mt-3 leading-7 text-slate-300">We develop the visual identity and digital experience, testing the important journeys and refining the details with your feedback.</p><p class="process-output"><strong>We create:</strong> identity, interface, content and prototypes.</p></article>
+            <article class="process-card"><span class="process-index">04</span><p class="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">Prepare for what’s next</p><h3 class="mt-2 text-xl font-bold text-white">Launch with a foundation.</h3><p class="mt-3 leading-7 text-slate-300">We prepare the agreed files and guidance, walk your team through the work, and help you move confidently into launch.</p><p class="process-output"><strong>We create:</strong> organized handoff, guidelines, next-step plan.</p></article>
+          </div>
+          <p class="mt-6 text-sm leading-6 text-slate-400">The scope, schedule, and deliverables are agreed together before the project begins, so you know what to expect.</p>
+        </section>
+
+        <section id="vision" class="mx-auto max-w-7xl scroll-mt-8 px-6 pb-20 lg:px-10" aria-labelledby="vision-heading">
+          <div class="overflow-hidden rounded-[36px] border border-white/10 bg-gradient-to-br from-pink-500/10 via-white/5 to-violet-500/10 p-8 md:p-12">
+            <div class="max-w-3xl">
+              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-pink-300">The thinking behind Mariposa</p>
+              <h2 id="vision-heading" class="mt-3 text-3xl font-black tracking-tight text-white md:text-5xl">A clearer path from idea to impact.</h2>
+              <p class="mt-5 text-lg leading-8 text-slate-300">
+                Mariposa Studio is a creative partner for businesses shaping what comes next. This platform brings our brand strategy, user experience design, and launch creative together in one connected process—so your story stays clear from the first conversation through launch.
+              </p>
+            </div>
+
+            <div class="mt-10 grid gap-5 md:grid-cols-2">
+              <article class="rounded-[28px] border border-white/10 bg-slate-950/50 p-6 md:p-8">
+                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-pink-300">Our vision</p>
+                <h3 class="mt-3 text-2xl font-bold text-white">A digital world with more meaning.</h3>
+                <p class="mt-4 leading-7 text-slate-300">
+                  We envision a world where every business can express what makes it different through thoughtful, welcoming, and memorable digital experiences.
+                </p>
+              </article>
+              <article class="rounded-[28px] border border-white/10 bg-slate-950/50 p-6 md:p-8">
+                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-violet-300">Our mission</p>
+                <h3 class="mt-3 text-2xl font-bold text-white">Make good ideas feel unmistakable.</h3>
+                <p class="mt-4 leading-7 text-slate-300">
+                  We turn each client’s goals into a clear brand story and useful, beautiful digital experiences that are ready to grow with their business.
+                </p>
+              </article>
+            </div>
+
+            <div class="mt-5 rounded-[28px] border border-white/10 bg-slate-950/50 p-6 md:p-8">
+              <div class="md:flex md:items-end md:justify-between md:gap-8">
+                <div class="max-w-xl">
+                  <p class="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-300">Our values</p>
+                  <h3 class="mt-3 text-2xl font-bold text-white">The principles behind every project.</h3>
+                </div>
+                <p class="mt-3 max-w-xl leading-7 text-slate-300 md:mt-0">
+                  They guide how we listen, make decisions, and work alongside your team.
+                </p>
+              </div>
+              <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <h4 class="font-semibold text-white">Clarity</h4>
+                  <p class="mt-2 text-sm leading-6 text-slate-300">Make the message and the next step easy to understand.</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <h4 class="font-semibold text-white">Curiosity</h4>
+                  <p class="mt-2 text-sm leading-6 text-slate-300">Ask better questions before jumping to answers.</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <h4 class="font-semibold text-white">Craft</h4>
+                  <p class="mt-2 text-sm leading-6 text-slate-300">Give every detail care, purpose, and a place in the whole.</p>
+                </div>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <h4 class="font-semibold text-white">Partnership</h4>
+                  <p class="mt-2 text-sm leading-6 text-slate-300">Build with people, not just for them.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-10">
+              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-pink-300">Why Mariposa</p>
+              <h3 class="mt-3 text-2xl font-black tracking-tight text-white md:text-3xl">One connected team, from first thought to final details.</h3>
+              <div class="mt-6 grid gap-5 md:grid-cols-3">
+                <article class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                  <h4 class="font-bold text-white">Strategy with a purpose</h4>
+                  <p class="mt-2 text-sm leading-6 text-slate-300">We begin with your audience and goals, so creative choices solve real problems.</p>
+                </article>
+                <article class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                  <h4 class="font-bold text-white">A joined-up experience</h4>
+                  <p class="mt-2 text-sm leading-6 text-slate-300">Your brand, website, and launch materials work together rather than feeling disconnected.</p>
+                </article>
+                <article class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                  <h4 class="font-bold text-white">A thoughtful partnership</h4>
+                  <p class="mt-2 text-sm leading-6 text-slate-300">A clear process and close collaboration keep your team involved at every stage.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="pricing" class="mx-auto max-w-7xl scroll-mt-28 px-6 pb-20 lg:px-10">
+          <div class="rounded-[36px] border border-white/10 bg-gradient-to-br from-white/8 via-white/5 to-transparent p-8 md:p-10">
+            <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p class="text-sm font-semibold uppercase tracking-[0.25em] text-pink-300">Ways to work together</p>
+                <h2 class="mt-3 text-3xl font-black tracking-tight text-white md:text-5xl">The right-sized way to begin.</h2>
+                <p class="mt-4 max-w-2xl leading-7 text-slate-300">Every business is at a different point. Start with a focused piece of work or bring us in as a creative partner. We’ll recommend a scope after we understand what you need.</p>
+              </div>
+              <a href="#contact" class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-pink-500 via-orange-400 to-violet-500 px-6 py-3 text-sm font-bold text-white shadow-glow transition hover:scale-[1.02]">
+                Discuss your project
+              </a>
+            </div>
+
+            <div class="mt-10 grid gap-6 lg:grid-cols-3">
+              <div class="pricing-card rounded-[28px] border border-white/10 bg-slate-950/60 p-6">
+                <p class="text-sm uppercase tracking-[0.2em] text-pink-200">A clear starting point</p>
+                <h3 class="mt-5 text-2xl font-black text-white">Brand foundations</h3>
+                <p class="mt-3 leading-7 text-slate-300">For a new idea that needs a distinctive, credible place to begin.</p>
+                <ul class="deliverable-list mt-5">
+                  <li>Focused discovery and positioning</li>
+                  <li>Core identity and brand voice</li>
+                  <li>Practical guidelines for your team</li>
+                </ul>
+                <a href="#contact" class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-pink-200">Ask about brand foundations <span aria-hidden="true">→</span></a>
+              </div>
+
+              <div class="pricing-card featured rounded-[28px] border border-pink-400/40 bg-gradient-to-br from-pink-500/15 to-violet-500/10 p-6 shadow-glow">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm uppercase tracking-[0.2em] text-pink-200">A connected presence</p>
+                  <span class="rounded-full border border-pink-300/35 bg-pink-500/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-pink-200">Brand + digital</span>
+                </div>
+                <h3 class="mt-5 text-2xl font-black text-white">A complete experience</h3>
+                <p class="mt-3 leading-7 text-slate-200">For a growing business ready to bring its brand and website into alignment.</p>
+                <ul class="mt-6 space-y-3 text-slate-100">
+                  <li>Brand strategy and identity</li>
+                  <li>Website structure and design</li>
+                  <li>Launch creative and handoff</li>
+                </ul>
+                <a href="#contact" class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-pink-200">Ask about a complete experience <span aria-hidden="true">→</span></a>
+              </div>
+
+              <div class="pricing-card rounded-[28px] border border-white/10 bg-slate-950/60 p-6">
+                <p class="text-sm uppercase tracking-[0.2em] text-violet-200">A partner as you grow</p>
+                <h3 class="mt-5 text-2xl font-black text-white">Ongoing creative</h3>
+                <p class="mt-3 leading-7 text-slate-300">For teams who want a reliable design partner beyond one launch.</p>
+                <ul class="deliverable-list mt-5">
+                  <li>Flexible design and creative support</li>
+                  <li>New pages, campaigns, and assets</li>
+                  <li>Regular planning and prioritization</li>
+                </ul>
+                <a href="#contact" class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-violet-200">Ask about ongoing support <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+            <p class="mt-6 text-sm leading-6 text-slate-400">Pricing and timelines depend on scope. You’ll receive a tailored proposal with deliverables, milestones, and costs before any work begins.</p>
+          </div>
+        </section>
+
+        <section id="faq" class="mx-auto max-w-7xl scroll-mt-28 px-6 pb-20 lg:px-10" aria-labelledby="faq-heading">
+          <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-pink-300">A few helpful details</p>
+              <h2 id="faq-heading" class="mt-3 text-3xl font-black tracking-tight text-white md:text-5xl">Good questions, welcome.</h2>
+              <p class="mt-5 max-w-md leading-7 text-slate-300">Still wondering if we’re the right fit? Here are a few things people often ask before getting in touch.</p>
+              <a href="#contact" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-pink-200 hover:text-white">Ask us something else <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="faq-list">
+              <details class="faq-item"><summary>What kind of businesses do you work with?<span aria-hidden="true">+</span></summary><p>We partner with founders, growing teams, and established businesses who care about how their brand shows up. We’re especially helpful when you’re launching something new, repositioning, or ready to improve a digital experience.</p></details>
+              <details class="faq-item"><summary>Do I need to know exactly what I need?<span aria-hidden="true">+</span></summary><p>No. You can start with the challenge you’re facing or the outcome you want. We’ll ask questions, understand the context, and suggest a focused first step before preparing a proposal.</p></details>
+              <details class="faq-item"><summary>Can you work with our existing team or developer?<span aria-hidden="true">+</span></summary><p>Yes. We can collaborate with your internal team and provide organized design files, documentation, and a handoff that supports implementation. Development scope should be confirmed in your proposal.</p></details>
+              <details class="faq-item"><summary>How long does a project take?<span aria-hidden="true">+</span></summary><p>It depends on the scope, decision-making, and the number of deliverables. After our first conversation, we’ll outline milestones and a realistic schedule so everyone knows what happens next.</p></details>
+              <details class="faq-item"><summary>How do pricing and proposals work?<span aria-hidden="true">+</span></summary><p>We tailor the scope to your goals and priorities. Before work begins, you’ll receive a written proposal that sets out the deliverables, timeline, investment, and any assumptions.</p></details>
+              <details class="faq-item"><summary>What happens after I send an inquiry?<span aria-hidden="true">+</span></summary><p>We’ll review the details and arrange a first conversation to learn more, answer questions, and see whether the project is a good fit. There’s no obligation to proceed.</p></details>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" class="mx-auto max-w-7xl scroll-mt-28 px-6 pb-28 lg:px-10" aria-labelledby="contact-heading">
+          <div class="grid gap-10 rounded-[36px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl md:grid-cols-[0.8fr_1.2fr] md:p-10">
+            <div class="flex flex-col justify-center">
+              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-pink-300">Let’s make it happen</p>
+              <h2 id="contact-heading" class="mt-3 text-3xl font-black tracking-tight text-white md:text-5xl">Have a good idea?</h2>
+              <p class="mt-5 max-w-lg leading-7 text-slate-300">
+                Tell us what you’re working on and what you’d love to change. We’ll get back to you with a thoughtful next step.
+              </p>
+              <p class="mt-6 text-sm text-slate-400">Share only what you’re comfortable sharing. Your inquiry opens in your email app for you to review and send.</p>
+            </div>
+
+            <form id="contact-form" class="grid gap-5" novalidate>
+              <div class="grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label for="contact-name" class="mb-2 block text-sm font-medium text-slate-200">Your name</label>
+                  <input id="contact-name" name="name" autocomplete="name" required class="contact-input w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white placeholder:text-slate-500" placeholder="Name" />
+                </div>
+                <div>
+                  <label for="contact-service" class="mb-2 block text-sm font-medium text-slate-200">What kind of support are you looking for?</label>
+                  <select id="contact-service" name="service" class="contact-input w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white">
+                    <option value="">I’m still figuring that out</option>
+                    <option>Brand strategy and identity</option>
+                    <option>Website or digital experience</option>
+                    <option>Product design and UX</option>
+                    <option>Campaign or launch creative</option>
+                    <option>Ongoing creative partnership</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="contact-email" class="mb-2 block text-sm font-medium text-slate-200">Email address</label>
+                  <input id="contact-email" name="email" type="email" autocomplete="email" required class="contact-input w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white placeholder:text-slate-500" placeholder="you@example.com" />
+                </div>
+              </div>
+              <div>
+                <label for="contact-message" class="mb-2 block text-sm font-medium text-slate-200">What are you building?</label>
+                <textarea id="contact-message" name="message" rows="4" required class="contact-input w-full resize-y rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white placeholder:text-slate-500" placeholder="A few details about your project, goals, or timeline..."></textarea>
+              </div>
+              <div class="flex flex-wrap items-center gap-4">
+                <button type="submit" class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-pink-500 via-orange-400 to-violet-500 px-6 py-3 text-sm font-bold text-white shadow-glow transition hover:scale-[1.02]">
+                  Send project inquiry
+                </button>
+                <p id="form-status" class="text-sm text-slate-300" role="status" aria-live="polite"></p>
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer class="relative z-10 border-t border-white/10 bg-slate-950/80">
+        <div class="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-8 text-sm text-slate-300 md:flex-row md:items-center md:justify-between lg:px-10">
+          <div class="flex items-center gap-3">
+            <img src="mariposa-studio-logo.svg" alt="Mariposa Studio — Kenya, serving all 47 counties" class="footer-brand-logo" width="360" height="82" />
+          </div>
+          <p>Kenyan creative studio · Working with clients in all 47 counties.</p>
+          <p>© <span id="current-year"></span> Mariposa Studio</p>
+        </div>
+      </footer>
+    </div>
+
+    <button id="discussion-toggle" class="discussion-toggle" type="button" aria-expanded="false" aria-controls="discussion-panel">
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5 7.9 7.9 0 0 1-3.2-.7L4 20l1.7-4.2a7.5 7.5 0 1 1 14.3-4.3Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.5 11.5h7m-7 3h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <span>Talk to the team</span>
+    </button>
+
+    <section id="discussion-panel" class="discussion-panel" role="dialog" aria-modal="false" aria-labelledby="discussion-heading" hidden>
+      <div class="discussion-header">
+        <div>
+          <p class="discussion-eyebrow">MARIPOSA STUDIO</p>
+          <h2 id="discussion-heading">Who would you like to speak with?</h2>
+        </div>
+        <button id="discussion-close" class="discussion-close" type="button" aria-label="Close discussion panel">×</button>
+      </div>
+      <p class="discussion-intro">Choose who to address. Your message opens in your email app and is labeled for that team.</p>
+      <div class="discussion-rooms" role="group" aria-label="Choose a studio contact">
+        <button class="discussion-room is-selected" type="button" data-room="CEO" aria-pressed="true">
+          <span class="room-initial">C</span><span><strong>CEO</strong><small>Studio direction and partnerships</small></span>
+        </button>
+        <button class="discussion-room" type="button" data-room="Administration" aria-pressed="false">
+          <span class="room-initial">A</span><span><strong>Administration</strong><small>General and business enquiries</small></span>
+        </button>
+        <button class="discussion-room" type="button" data-room="Studio staff" aria-pressed="false">
+          <span class="room-initial">S</span><span><strong>Studio staff</strong><small>Creative projects and services</small></span>
+        </button>
+      </div>
+      <form id="discussion-form" class="discussion-form">
+        <label for="discussion-message">Your message</label>
+        <textarea id="discussion-message" name="message" rows="3" required placeholder="How can we help?"></textarea>
+        <button class="discussion-send" type="submit">Continue in email <span aria-hidden="true">→</span></button>
+        <p id="discussion-status" class="discussion-status" role="status" aria-live="polite"></p>
+      </form>
+      <p class="discussion-note">Messages currently go to the studio’s shared inbox, marked for your chosen contact. This is email, not live chat.</p>
+    </section>
+  </body>
+</html>
