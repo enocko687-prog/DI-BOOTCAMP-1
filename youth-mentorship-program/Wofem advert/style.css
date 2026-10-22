@@ -1,0 +1,777 @@
+/* =========================
+   GENERAL SETTINGS
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --gold: #d4af37;
+    --gold-soft: #f4d77a;
+    --gold-dark: #b99520;
+    --gold-deep: #8f6a10;
+    --charcoal: #141414;
+    --charcoal-soft: #272727;
+    --cream: #f8f3e8;
+    --white: #ffffff;
+    --muted: #5a5a5a;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    color: var(--charcoal);
+    background: linear-gradient(180deg, #fffefb 0%, #f9f2df 100%);
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    background: rgba(20, 20, 20, 0.72);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    font-weight: 800;
+}
+
+.logo span {
+    color: var(--gold-soft);
+    text-shadow: 0 0 18px rgba(212, 175, 55, 0.25);
+}
+
+.brand-mark {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 18px rgba(212, 175, 55, 0.45);
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.brand-mark svg {
+    width: 28px;
+    height: 28px;
+    display: block;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    color: white;
+    font-weight: 600;
+    transition: 0.3s;
+    position: relative;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 0;
+    height: 2px;
+    background: var(--gold-soft);
+    transition: 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--gold-soft);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+.menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.video-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.65),
+        rgba(0, 0, 0, 0.35)
+    );
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    max-width: 850px;
+    padding: 20px;
+}
+
+.welcome {
+    letter-spacing: 5px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--gold-soft);
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(45px, 8vw, 90px);
+    margin-bottom: 20px;
+    text-shadow: 0 4px 28px rgba(0, 0, 0, 0.45);
+}
+
+.tagline {
+    font-size: 20px;
+    line-height: 1.7;
+    margin-bottom: 35px;
+    color: #f4f4f4;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: 700;
+    transition: 0.3s;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.18);
+}
+
+.primary-btn {
+    background: linear-gradient(135deg, var(--gold-soft) 0%, var(--gold) 45%, var(--gold-dark) 100%);
+    color: white;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 35px rgba(212, 175, 55, 0.35);
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+}
+
+.secondary-btn {
+    border: 2px solid rgba(255,255,255,0.9);
+    color: white;
+    background: rgba(255,255,255,0.04);
+}
+
+.secondary-btn:hover {
+    background: white;
+    color: #222;
+}
+
+.scroll-down {
+    position: absolute;
+    bottom: 25px;
+    color: white;
+    z-index: 3;
+    font-size: 13px;
+}
+
+.scroll-down div {
+    font-size: 25px;
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    padding: 100px 7%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.section-title span {
+    color: var(--gold-deep);
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-size: 13px;
+}
+
+.section-title h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 45px;
+    margin-top: 10px;
+    color: var(--charcoal);
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-image img {
+    height: 500px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.14);
+    border: 3px solid rgba(212, 175, 55, 0.35);
+}
+
+.about-text h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 35px;
+    margin-bottom: 20px;
+    color: var(--charcoal-soft);
+}
+
+.about-text p {
+    line-height: 1.8;
+    margin-bottom: 20px;
+    color: var(--muted);
+}
+
+
+/* =========================
+   SERVICES
+========================= */
+
+.services {
+    background: linear-gradient(180deg, #fffdf9 0%, #f7f1e2 100%);
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.service-card {
+    background: rgba(255,255,255,0.92);
+    padding: 35px 25px;
+    border-radius: 18px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    border: 1px solid rgba(212,175,55,0.2);
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+}
+
+.service-image {
+    width: calc(100% + 50px);
+    height: 150px;
+    object-fit: cover;
+    margin: -35px -25px 20px;
+    border-radius: 18px 18px 0 0;
+}
+
+.icon {
+    font-size: 42px;
+    margin-bottom: 16px;
+}
+
+.service-card h3 {
+    margin-bottom: 15px;
+}
+
+.service-card p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.service-card strong {
+    color: var(--gold-deep);
+    font-size: 0.9rem;
+}
+
+
+/* =========================
+   VIDEO SECTION
+========================= */
+
+.video-section {
+    position: relative;
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 50px 20px;
+    overflow: hidden;
+}
+
+.section-bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.video-overlay-dark {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65));
+    z-index: 1;
+}
+
+.video-content {
+    position: relative;
+    z-index: 2;
+    max-width: 750px;
+}
+
+.video-content span {
+    color: var(--gold-soft);
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.video-content h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 50px;
+    margin: 20px 0;
+    text-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.video-content p {
+    line-height: 1.7;
+}
+
+
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.gallery-group + .gallery-group {
+    margin-top: 48px;
+}
+
+.gallery-subtitle {
+    color: #1f2937;
+    font-family: "Playfair Display", serif;
+    font-size: 30px;
+    margin: 0 0 20px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    min-height: 300px;
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.08);
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    cursor: pointer;
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 22px 42px rgba(212, 175, 55, 0.18);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08);
+    filter: saturate(1.05);
+}
+
+.gallery-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.05));
+}
+
+.media-badge {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    z-index: 1;
+    background: rgba(212, 175, 55, 0.95);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+.video-item .media-badge {
+    background: rgba(212, 175, 55, 0.95);
+}
+
+.photo-item .media-badge {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+
+/* =========================
+   INVITATION
+========================= */
+
+.invitation {
+    position: relative;
+    min-height: 450px;
+    background:
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.7)),
+        url("https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1800&q=85") center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    box-shadow: inset 0 0 90px rgba(0,0,0,0.18);
+}
+
+.invitation-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+}
+
+.invitation-content {
+    position: relative;
+    max-width: 750px;
+    padding: 30px;
+}
+
+.invitation-content p:first-child {
+    color: #d4af37;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.invitation-content h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 50px;
+    margin: 15px 0;
+}
+
+.invitation-content p {
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   VIDEO MODAL
+========================= */
+
+.video-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.video-modal-content {
+    width: min(900px, 90vw);
+    position: relative;
+}
+
+.video-modal video {
+    width: 100%;
+    border-radius: 12px;
+    background: #000;
+}
+
+.close-btn {
+    position: absolute;
+    right: -10px;
+    top: -50px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.contact-card {
+    text-align: center;
+    padding: 35px;
+    background: linear-gradient(180deg, #fffefb 0%, #f7f1e2 100%);
+    border-radius: 18px;
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    box-shadow: 0 15px 28px rgba(0,0,0,0.06);
+}
+
+.contact-card div {
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.contact-card h3 {
+    margin-bottom: 10px;
+}
+
+.contact-card p {
+    color: #666;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: linear-gradient(180deg, #111 0%, #1b1b1b 100%);
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+    border-top: 2px solid rgba(212,175,55,0.5);
+}
+
+.footer-logo {
+    font-family: "Playfair Display", serif;
+    font-size: 30px;
+    margin-bottom: 15px;
+    color: var(--gold);
+}
+
+.social-links {
+    margin: 25px 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.social-links a {
+    color: var(--gold);
+}
+
+.floating-social {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1500;
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #1877f2;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    box-shadow: 0 12px 28px rgba(24, 119, 242, 0.35);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.floating-social:hover,
+.floating-social:focus-visible {
+    color: white;
+    transform: translateY(-4px);
+    box-shadow: 0 16px 34px rgba(24, 119, 242, 0.48);
+}
+
+.copyright {
+    color: #888;
+    font-size: 13px;
+}
+
+
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+    .floating-social {
+        right: 16px;
+        bottom: 16px;
+    }
+
+    nav {
+        position: absolute;
+        top: 80px;
+        right: 0;
+        width: 100%;
+        background: #111;
+        display: none;
+        flex-direction: column;
+        padding: 25px;
+        text-align: center;
+    }
+
+    nav.active {
+        display: flex;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .about-container {
+        grid-template-columns: 1fr;
+    }
+
+    .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .section {
+        padding: 70px 5%;
+    }
+
+    .section-title h2 {
+        font-size: 35px;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+
+    .tagline {
+        font-size: 16px;
+    }
+
+    .service-grid,
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-item img {
+        height: 250px;
+    }
+
+    .video-content h2,
+    .invitation-content h2 {
+        font-size: 35px;
+    }
+
+    .about-image img {
+        height: 350px;
+    }
+}

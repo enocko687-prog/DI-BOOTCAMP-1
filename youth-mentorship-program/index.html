@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Youth Mentorship Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a class="logo" href="#home" aria-label="Enock Brighton Ochieng Youth Mentorship home">
+            <svg class="logo-mark" viewBox="0 0 64 64" role="img" aria-labelledby="logoTitle">
+                <title id="logoTitle">Enock Brighton Ochieng logo for unity, peace, and growth</title>
+                <circle cx="32" cy="32" r="29" fill="#172033" stroke="#f2c14e" stroke-width="2" />
+                <path d="M32 48V30M32 39c-7 0-12-4-14-10 7 0 12 4 14 10Zm0-5c7 0 12-4 14-10-7 0-12 4-14 10Z" fill="none" stroke="#f2c14e" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" />
+                <path d="M32 46c-5 0-9-2-12-5M32 46c5 0 9-2 12-5M32 49c-7 0-13-2-17-6M32 49c7 0 13-2 17-6" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="2" />
+            </svg>
+            <span class="logo-copy">
+                <strong>Enock Brighton Ochieng</strong>
+                <small>Youth Mentorship Program</small>
+            </span>
+        </a>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#mentorship-requests">Requests</a>
+            <a href="#program-calendar">Calendar</a>
+            <a href="#tracker">Tracker</a>
+            <a href="#resume">Resume</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <button class="login-btn" onclick="showLogin()">
+            Login
+        </button>
+    </header>
+
+
+    <section id="home" class="hero">
+
+        <div class="hero-content">
+
+            <p class="small-title">
+                YOUTH DEVELOPMENT PLATFORM
+            </p>
+
+            <h1>
+                Empowering Youth.<br>
+                Building <span>Futures.</span>
+            </h1>
+
+            <p>
+                A digital management system designed to help
+                mentorship organizations manage youth,
+                mentors, attendance, activities and progress
+                in one place.
+            </p>
+
+            <div class="hero-buttons">
+                <button onclick="showLogin()" class="primary-btn">
+                    Get Started
+                </button>
+
+                <a href="#about" class="secondary-btn">
+                    Learn More
+                </a>
+            </div>
+
+        </div>
+
+        <div class="hero-card">
+
+            <div class="dashboard-preview">
+
+                <div class="preview-header">
+                    <h3>Dashboard</h3>
+                    <span>DEMO PREVIEW</span>
+                </div>
+
+                <div class="stats">
+
+                    <div class="stat-box">
+                        <strong>120</strong>
+                        <small>Youth</small>
+                    </div>
+
+                    <div class="stat-box">
+                        <strong>18</strong>
+                        <small>Mentors</small>
+                    </div>
+
+                    <div class="stat-box">
+                        <strong>32</strong>
+                        <small>Activities</small>
+                    </div>
+
+                </div>
+
+                <div class="progress-box">
+                    <p>Sample youth development progress</p>
+
+                    <div
+                        class="progress"
+                        role="progressbar"
+                        aria-label="Illustrative sample youth development progress"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="78"
+                    >
+                        <div class="progress-bar"></div>
+                    </div>
+
+                    <span>78% sample only — not real participant data</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="mentorship-gallery section" aria-labelledby="mentorship-gallery-title">
+        <div class="section-heading">
+            <p>MENTORSHIP IN ACTION</p>
+            <h2 id="mentorship-gallery-title">Guidance that grows <span>confidence.</span></h2>
+            <p>Illustrative scenes of the conversations, shared learning and encouragement at the heart of mentorship.</p>
+        </div>
+
+        <div class="mentorship-photo-grid">
+            <figure class="mentorship-photo">
+                <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1000&q=85" alt="A mentor supporting a young person during a one-to-one conversation" loading="lazy">
+                <figcaption>One-to-one guidance</figcaption>
+            </figure>
+            <figure class="mentorship-photo">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1000&q=85" alt="Young people learning and connecting together" loading="lazy">
+                <figcaption>Learning together</figcaption>
+            </figure>
+            <figure class="mentorship-photo">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1000&q=85" alt="A small team sharing ideas around a table" loading="lazy">
+                <figcaption>Building ideas as a team</figcaption>
+            </figure>
+        </div>
+    </section>
+
+
+    <section id="about" class="section">
+
+        <div class="section-heading">
+            <p>ABOUT THE SYSTEM</p>
+
+            <h2>
+                One platform for
+                <span>better mentorship.</span>
+            </h2>
+
+            <p>
+                The Youth Mentorship Management System provides
+                a simple digital way to organize mentorship
+                programs and keep important information accessible.
+            </p>
+        </div>
+
+        <div class="features">
+
+            <div class="feature-card">
+                <div class="icon" aria-label="Youth management icon">
+                    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+                        <circle cx="22" cy="20" r="8" />
+                        <circle cx="42" cy="22" r="7" />
+                        <path d="M10 50c2-9 9-14 18-14s16 5 18 14" />
+                        <path d="M30 38c2.5 2 6 3.5 12 3.5 4 0 8-.7 12-2.5" />
+                    </svg>
+                </div>
+                <h3>Youth Management</h3>
+                <p>
+                    Register and manage youth participants
+                    and their profiles.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon" aria-label="Mentor management icon">
+                    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+                        <path d="M18 49V30a14 14 0 0 1 28 0v19" />
+                        <circle cx="32" cy="18" r="9" />
+                        <path d="M22 22l-8 8M42 22l8 8" />
+                        <path d="M50 52H14" />
+                    </svg>
+                </div>
+                <h3>Mentor Management</h3>
+                <p>
+                    Organize mentors and connect them
+                    with mentorship activities.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon" aria-label="Attendance icon">
+                    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+                        <rect x="12" y="16" width="40" height="36" rx="4" />
+                        <path d="M22 12v8M42 12v8M12 26h40" />
+                        <path d="M22 36h8v8h-8zm10-6h12v8H32zm0 12h12v8H32" />
+                    </svg>
+                </div>
+                <h3>Attendance</h3>
+                <p>
+                    Record and monitor attendance
+                    during mentorship sessions.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon" aria-label="Progress reports icon">
+                    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+                        <path d="M16 48V28M32 48V18M48 48V34" />
+                        <path d="M12 52h40" />
+                        <path d="M20 12h24" />
+                    </svg>
+                </div>
+                <h3>Progress Reports</h3>
+                <p>
+                    Track youth development and
+                    generate useful reports.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="services" class="section services-section">
+
+        <div class="section-heading">
+            <p>CORE FEATURES</p>
+
+            <h2>
+                Everything you need to
+                <span>manage your program.</span>
+            </h2>
+        </div>
+
+        <div class="service-list">
+
+            <div>
+                <span>01</span>
+                <h3>Youth Registration</h3>
+                <p>Register and maintain participant information.</p>
+            </div>
+
+            <div>
+                <span>02</span>
+                <h3>Mentorship Activities</h3>
+                <p>Create and manage events and activities.</p>
+            </div>
+
+            <div>
+                <span>03</span>
+                <h3>Attendance Tracking</h3>
+                <p>Monitor participation in mentorship sessions.</p>
+            </div>
+
+            <div>
+                <span>04</span>
+                <h3>Progress Monitoring</h3>
+                <p>Track development and generate reports.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="mentorship-requests" class="mentorship-requests-section">
+        <div class="request-shell">
+            <div class="section-heading request-heading">
+                <p>MENTORSHIP REQUESTS · DEMO</p>
+                <h2>Connect young people with <span>the support they need.</span></h2>
+                <p>
+                    Invite a young person or group from your church, organization,
+                    or community to request guidance and suggest a topic for a session.
+                </p>
+            </div>
+
+            <div class="request-privacy-notice" role="note">
+                <strong>Privacy notice:</strong> This is a browser-only demo.
+                Requests appear only on this page and are not sent to a mentor or
+                saved after you close or refresh it. Do not include names, contact
+                details, or private case information. For an urgent safety concern,
+                speak directly with a trusted adult or local support service.
+            </div>
+
+            <div class="request-layout">
+                <form id="mentorshipRequestForm" class="request-form">
+                    <h3>Request mentorship</h3>
+
+                    <label for="requestGroupType">Church, organization, or community</label>
+                    <select id="requestGroupType" name="groupType" required>
+                        <option value="">Choose a group type</option>
+                        <option value="Church">Church</option>
+                        <option value="Organization">Organization</option>
+                        <option value="Community">Community</option>
+                    </select>
+
+                    <label for="requestGroupName">Group name (optional)</label>
+                    <input
+                        type="text"
+                        id="requestGroupName"
+                        name="groupName"
+                        maxlength="100"
+                        placeholder="Enter a church, organization, or community name"
+                    >
+
+                    <label for="requestAgeGroup">Who is the request for?</label>
+                    <select id="requestAgeGroup" name="ageGroup" required>
+                        <option value="">Choose an age group</option>
+                        <option value="Teenagers (13–17)">Teenagers (13–17)</option>
+                        <option value="Young adults (18–25)">Young adults (18–25)</option>
+                        <option value="Mixed youth group">Mixed youth group</option>
+                    </select>
+
+                    <label for="requestTopic">Topic they would like guidance on</label>
+                    <select id="requestTopic" name="topic" required>
+                        <option value="">Choose a topic</option>
+                        <option value="Confidence and self-esteem">Confidence and self-esteem</option>
+                        <option value="Education and career">Education and career</option>
+                        <option value="Relationships and boundaries">Relationships and boundaries</option>
+                        <option value="Emotional wellbeing">Emotional wellbeing</option>
+                        <option value="Faith and values">Faith and values</option>
+                        <option value="Leadership and life skills">Leadership and life skills</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <label for="requestSupport">What would they like support with?</label>
+                    <textarea
+                        id="requestSupport"
+                        name="support"
+                        rows="4"
+                        maxlength="500"
+                        placeholder="Describe the general challenge or support needed. Please leave out names and private details."
+                        required
+                    ></textarea>
+
+                    <button type="submit" class="primary-btn">Add request to demo dashboard</button>
+                </form>
+
+                <div class="request-records">
+                    <div class="request-records-heading">
+                        <h3>Incoming requests</h3>
+                        <span id="requestCount">0 requests</span>
+                    </div>
+                    <p id="emptyRequests" class="empty-requests">
+                        No requests yet. Add a demo request to see it here.
+                    </p>
+                    <div id="requestList" class="request-list" aria-live="polite"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="program-calendar" class="program-calendar-section">
+        <div class="calendar-shell">
+            <div class="section-heading calendar-heading">
+                <p>MENTORSHIP PROGRAM SESSION PLAN</p>
+                <h2>Topics, dates, and <span>session times.</span></h2>
+                <p>
+                    Add sessions and adjust each topic, date, discussion focus,
+                    and time to match your own plan.
+                </p>
+            </div>
+
+            <div class="calendar-note" role="note">
+                This editable sample schedule is saved only in this browser.
+                It does not sync to other devices. The plan is not a secure place
+                for participant details; keep it to general session topics and
+                logistics. All times use East Africa Time (EAT, UTC+03:00).
+            </div>
+
+            <p id="calendarMessage" class="calendar-message" role="status" aria-live="polite"></p>
+
+            <form id="programSessionForm" class="calendar-form">
+                <h3 id="calendarFormTitle">Add a program session</h3>
+
+                <div class="calendar-form-grid">
+                    <div>
+                        <label for="programAudience">Who is this program for?</label>
+                        <select id="programAudience" name="audience">
+                            <option value="self">My personal mentorship program</option>
+                            <option value="church">My church</option>
+                            <option value="organization">My organization</option>
+                            <option value="other">Another group</option>
+                        </select>
+                    </div>
+                    <div id="programGroupNameField" hidden>
+                        <label for="programGroupName">Church or group name</label>
+                        <input
+                            type="text"
+                            id="programGroupName"
+                            name="groupName"
+                            maxlength="100"
+                            placeholder="Enter the church or group name"
+                        >
+                    </div>
+                    <div>
+                        <label for="programDate">Session date</label>
+                        <input type="date" id="programDate" name="date" required>
+                    </div>
+                    <div>
+                        <label for="programTopic">Topic</label>
+                        <input
+                            type="text"
+                            id="programTopic"
+                            name="topic"
+                            maxlength="100"
+                            placeholder="e.g. Goal setting"
+                            required
+                        >
+                    </div>
+                    <div>
+                        <label for="programStartTime">Start time (EAT)</label>
+                        <input type="time" id="programStartTime" name="startTime" value="14:00" required>
+                    </div>
+                    <div>
+                        <label for="programEndTime">End time (EAT)</label>
+                        <input type="time" id="programEndTime" name="endTime" value="16:00" required>
+                    </div>
+                    <div class="calendar-focus-field">
+                        <label for="programFocus">Discussion focus</label>
+                        <textarea
+                            id="programFocus"
+                            name="focus"
+                            rows="2"
+                            maxlength="240"
+                            placeholder="What will the group discuss or practice?"
+                            required
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="calendar-form-actions">
+                    <button type="submit" id="saveProgramSession" class="primary-btn">Add session</button>
+                    <button type="button" id="cancelProgramEdit" class="calendar-secondary-btn" hidden>Cancel edit</button>
+                    <button type="button" id="resetProgramSchedule" class="calendar-secondary-btn">Restore sample schedule</button>
+                </div>
+            </form>
+
+            <p id="programAudienceSummary" class="program-audience-summary">
+                Planning a personal mentorship program.
+            </p>
+
+            <div class="calendar-table-wrap">
+                <table class="program-calendar">
+                    <caption>Editable mentorship program session plan</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Month</th>
+                            <th scope="col">Topic</th>
+                            <th scope="col">Discussion focus</th>
+                            <th scope="col">Time (EAT)</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><time datetime="2026-11-07">7</time></td>
+                            <td>November 2026</td>
+                            <td>Welcome and mentorship orientation</td>
+                            <td>Program purpose, group agreements, expectations, and how sessions work.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2026-11-21">21</time></td>
+                            <td>November 2026</td>
+                            <td>Knowing yourself and personal strengths</td>
+                            <td>Identify strengths, interests, values, and areas for growth.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2026-12-05">5</time></td>
+                            <td>December 2026</td>
+                            <td>Setting goals and making an action plan</td>
+                            <td>Turn a personal or learning goal into practical next steps and milestones.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2026-12-19">19</time></td>
+                            <td>December 2026</td>
+                            <td>Communication and active listening</td>
+                            <td>Practice clear expression, listening, asking questions, and respectful feedback.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-01-02">2</time></td>
+                            <td>January 2027</td>
+                            <td>Confidence and positive self-image</td>
+                            <td>Recognize personal achievements and build confidence through practice.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-01-16">16</time></td>
+                            <td>January 2027</td>
+                            <td>Emotional wellbeing and asking for support</td>
+                            <td>Explore healthy coping strategies and trusted sources of help.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-01-30">30</time></td>
+                            <td>January 2027</td>
+                            <td>Managing stress and building resilience</td>
+                            <td>Identify common pressures, helpful routines, and ways to recover from setbacks.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-02-13">13</time></td>
+                            <td>February 2027</td>
+                            <td>Healthy relationships, boundaries, and respect</td>
+                            <td>Discuss mutual respect, personal boundaries, consent, and trusted help.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-02-27">27</time></td>
+                            <td>February 2027</td>
+                            <td>Digital citizenship and online safety</td>
+                            <td>Consider privacy, respectful online behavior, scams, and reporting concerns.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-03-13">13</time></td>
+                            <td>March 2027</td>
+                            <td>Study skills and managing your time</td>
+                            <td>Plan a realistic weekly routine, prioritize tasks, and prepare for assessments.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-03-27">27</time></td>
+                            <td>March 2027</td>
+                            <td>Problem-solving and decision-making</td>
+                            <td>Compare options, consider consequences, and make informed choices.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-04-10">10</time></td>
+                            <td>April 2027</td>
+                            <td>Teamwork and handling disagreements</td>
+                            <td>Practice collaboration, compromise, and respectful conflict resolution.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-04-24">24</time></td>
+                            <td>April 2027</td>
+                            <td>Leadership and serving others</td>
+                            <td>Explore responsible leadership, accountability, and leading by example.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-05-08">8</time></td>
+                            <td>May 2027</td>
+                            <td>Career exploration and future pathways</td>
+                            <td>Connect interests and strengths with careers, training, and education options.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-05-22">22</time></td>
+                            <td>May 2027</td>
+                            <td>Preparing a CV and interview skills</td>
+                            <td>Introduce CV basics, interview preparation, and professional communication.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-06-05">5</time></td>
+                            <td>June 2027</td>
+                            <td>Financial literacy and budgeting</td>
+                            <td>Practice simple budgeting, saving, needs versus wants, and planning ahead.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-06-19">19</time></td>
+                            <td>June 2027</td>
+                            <td>Creativity and entrepreneurship</td>
+                            <td>Identify a community need and develop a simple, responsible solution or idea.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-07-03">3</time></td>
+                            <td>July 2027</td>
+                            <td>Health, wellbeing, and healthy routines</td>
+                            <td>Discuss everyday habits that support physical health, rest, and wellbeing.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-07-17">17</time></td>
+                            <td>July 2027</td>
+                            <td>Safeguarding and getting help safely</td>
+                            <td>Review safety, trusted adults, appropriate boundaries, and how to report a concern.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-07-31">31</time></td>
+                            <td>July 2027</td>
+                            <td>Community participation and civic responsibility</td>
+                            <td>Explore ways young people can contribute positively to their communities.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-08-14">14</time></td>
+                            <td>August 2027</td>
+                            <td>Public speaking and presenting ideas</td>
+                            <td>Organize a short message, speak clearly, and respond constructively to questions.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-08-28">28</time></td>
+                            <td>August 2027</td>
+                            <td>Building a personal support network</td>
+                            <td>Map positive sources of guidance, peer support, and appropriate professional help.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-09-11">11</time></td>
+                            <td>September 2027</td>
+                            <td>Reviewing goals and recognizing progress</td>
+                            <td>Reflect on milestones, learn from challenges, and update personal action plans.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-09-25">25</time></td>
+                            <td>September 2027</td>
+                            <td>Planning a youth-led community project</td>
+                            <td>Set a shared goal, roles, simple timeline, and ways to measure project progress.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-10-09">9</time></td>
+                            <td>October 2027</td>
+                            <td>Community project presentations and reflection</td>
+                            <td>Share project learning, teamwork experiences, and ideas for continued growth.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td><time datetime="2027-10-23">23</time></td>
+                            <td>October 2027</td>
+                            <td>Celebration, feedback, and next steps</td>
+                            <td>Celebrate participation, gather program feedback, and set goals for what comes next.</td>
+                            <td>2:00–4:00 PM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="tracker" class="tracker-section">
+        <div class="tracker-shell">
+            <div class="section-heading tracker-heading">
+                <p>MENTORSHIP SESSION TRACKER · DEMO</p>
+                <h2>Plan sessions and <span>follow progress.</span></h2>
+                <p>
+                    Record session dates, attendance totals, general progress, and
+                    follow-up dates. Use group-level information only.
+                </p>
+            </div>
+
+            <div class="privacy-notice" role="note">
+                <strong>Privacy notice:</strong> This is a browser-only demo.
+                Entries are kept temporarily in this page and disappear when you
+                refresh or close it. Do not enter names, contact details, case
+                notes, or other identifying or sensitive information. This is
+                not secure storage for real participant records.
+            </div>
+
+            <div class="tracker-layout">
+                <form id="sessionForm" class="tracker-form">
+                    <h3>Log or plan a session</h3>
+
+                    <label for="sessionDate">Session date</label>
+                    <input type="date" id="sessionDate" name="sessionDate" required>
+
+                    <label for="sessionTopic">Session topic or activity</label>
+                    <input
+                        type="text"
+                        id="sessionTopic"
+                        name="sessionTopic"
+                        maxlength="80"
+                        placeholder="e.g. Leadership workshop"
+                        required
+                    >
+
+                    <div class="tracker-fields">
+                        <div>
+                            <label for="attendanceCount">Attendance count</label>
+                            <input
+                                type="number"
+                                id="attendanceCount"
+                                name="attendanceCount"
+                                min="0"
+                                max="1000"
+                                step="1"
+                                value="0"
+                                required
+                            >
+                        </div>
+                        <div>
+                            <label for="sessionStatus">Session status</label>
+                            <select id="sessionStatus" name="sessionStatus" required>
+                                <option value="planned">Planned</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label for="progressStatus">General progress</label>
+                    <select id="progressStatus" name="progressStatus" required>
+                        <option value="Not reviewed">Not reviewed</option>
+                        <option value="Needs follow-up">Needs follow-up</option>
+                        <option value="On track">On track</option>
+                        <option value="Goal achieved">Goal achieved</option>
+                    </select>
+
+                    <label for="followUpDate">Next follow-up date (optional)</label>
+                    <input type="date" id="followUpDate" name="followUpDate">
+
+                    <label for="sessionSummary">General session notes (optional)</label>
+                    <textarea
+                        id="sessionSummary"
+                        name="sessionSummary"
+                        rows="3"
+                        maxlength="240"
+                        placeholder="Use general, non-identifying notes only."
+                    ></textarea>
+
+                    <button type="submit" class="primary-btn">Add to tracker</button>
+                </form>
+
+                <div class="tracker-records">
+                    <div class="tracker-records-heading">
+                        <h3>Sessions</h3>
+                        <span id="sessionCount">0 entries</span>
+                    </div>
+                    <p id="emptySessions" class="empty-sessions">
+                        No sessions yet. Add a session to start your demo tracker.
+                    </p>
+                    <div id="sessionList" class="session-list" aria-live="polite"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resume" class="resume-section">
+        <div class="resume-shell">
+            <div class="section-heading resume-heading">
+                <p>MY RESUME</p>
+                <h2>
+                    Experience built on
+                    <span>purpose, service, and growth.</span>
+                </h2>
+            </div>
+
+            <div class="resume-layout">
+                <aside class="resume-profile">
+                    <div class="profile-badge">EBO</div>
+                    <h3>Enock Brighton Ochieng</h3>
+                    <p class="profile-role">Mentorship Program Coordinator</p>
+
+                    <ul class="profile-list">
+                        <li><strong>Location:</strong> Kenya</li>
+                        <li><strong>Email:</strong> enocko687@gmail.com</li>
+                        <li><strong>Phone:</strong> +254 715 552 003</li>
+                        <li><strong>Focus:</strong> Youth development</li>
+                    </ul>
+                </aside>
+
+                <div class="resume-content">
+                    <div class="resume-card highlight-card">
+                        <h3>Career Summary</h3>
+                        <p>
+                            Dedicated youth development professional with a strong passion for
+                            mentorship, leadership, and helping young people unlock their full potential.
+                            Experienced in organizing programs, supporting youth growth, and creating
+                            structured systems that improve participation, accountability, and long-term impact.
+                        </p>
+                    </div>
+
+                    <div class="resume-grid">
+                        <div class="resume-card">
+                            <h3>Experience</h3>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <span class="year">2022 - Present</span>
+                                    <h4>Youth Mentor & Program Coordinator</h4>
+                                    <p>
+                                        Coordinate mentorship sessions, track youth progress, and support
+                                        engagement through structured mentorship and regular follow-up.
+                                    </p>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <span class="year">2020 - 2022</span>
+                                    <h4>Community Youth Support Worker</h4>
+                                    <p>
+                                        Assisted young people with academic, personal, and leadership challenges
+                                        while encouraging participation in community-building activities.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="resume-card">
+                            <h3>Education</h3>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <span class="year">2018 - 2022</span>
+                                    <h4>Secondary Education</h4>
+                                    <p>
+                                        Developed communication, teamwork, and leadership skills while engaging
+                                        actively in school and community development activities.
+                                    </p>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <span class="year">Professional Growth</span>
+                                    <h4>Mentorship & Leadership Training</h4>
+                                    <p>
+                                        Continued learning in youth empowerment, program coordination, and
+                                        community engagement strategies.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resume-card">
+                        <h3>Core Skills</h3>
+                        <div class="skill-tags">
+                            <span>Mentorship</span>
+                            <span>Leadership</span>
+                            <span>Program Coordination</span>
+                            <span>Communication</span>
+                            <span>Community Outreach</span>
+                            <span>Goal Setting</span>
+                            <span>Reporting</span>
+                            <span>Teamwork</span>
+                            <span>Youth Engagement</span>
+                            <span>Planning</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div
+        id="loginModal"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="loginTitle"
+    >
+
+        <div class="login-box">
+
+            <button class="close-btn" onclick="closeLogin()" aria-label="Close demo notice">
+                ×
+            </button>
+
+            <h2 id="loginTitle">Demo notice</h2>
+
+            <p>
+                This page is a visual demo, not a secure or authenticated system.
+                It does not save progress records. Do not enter personal information
+                or real participant data.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <section id="contact" class="contact">
+
+        <p class="owner-name">ENOCK BRIGHTON OCHING</p>
+        <h2>Ready to empower young people?</h2>
+
+        <p>
+            Build a stronger and more organized mentorship
+            program with digital technology.
+        </p>
+
+        <div class="contact-details">
+            <a href="tel:+254715552003">
+                <strong>Phone</strong>
+                +254 715 552 003
+            </a>
+
+            <a href="mailto:enocko687@gmail.com">
+                <strong>Email</strong>
+                enocko687@gmail.com
+            </a>
+
+            <div>
+                <strong>Location</strong>
+                Kenya
+            </div>
+        </div>
+
+        <div class="social-links" aria-label="Social networks">
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
+            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+            <a href="https://wa.me/254715552003" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">WhatsApp</a>
+            <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok">TikTok</a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+            <a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X">X</a>
+        </div>
+
+        <button onclick="showLogin()" class="primary-btn">
+            Enter System
+        </button>
+
+    </section>
+
+
+    <footer>
+
+        <div>
+            <strong>Youth Mentorship Management System</strong>
+            <strong>ENOCK BRIGHTON OCHING</strong>
+            <p>Empowering youth. Building futures.</p>
+        </div>
+
+        <p>
+            © 2026 Youth Mentorship Management System
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
