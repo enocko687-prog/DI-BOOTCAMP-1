@@ -1,0 +1,1 @@
+"""Studyspace Python API package."""

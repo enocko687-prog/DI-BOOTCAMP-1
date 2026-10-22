@@ -1,0 +1,23 @@
+{
+  "name": "studyspace-assignment-tracker",
+  "version": "2.0.0",
+  "private": true,
+  "description": "A golden-blue React assignment tracker with a Python and MongoDB API.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.2",
+    "vite": "^7.1.7"
+  }
+}

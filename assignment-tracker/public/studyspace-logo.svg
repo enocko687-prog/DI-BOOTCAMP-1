@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="290" height="72" viewBox="0 0 290 72" fill="none">
+  <defs>
+    <linearGradient id="tile" x1="5" y1="4" x2="63" y2="66" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#286DA8"/>
+      <stop offset="1" stop-color="#16436E"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="39" y1="38" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F3CB70"/>
+      <stop offset="1" stop-color="#D6A33C"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="3" width="66" height="66" rx="20" fill="url(#tile)"/>
+  <path d="M20 18.5C20 16.015 22.015 14 24.5 14H49V47H25.5C22.462 47 20 49.462 20 52.5v-34Z" fill="#fff"/>
+  <path d="M20 20v32.5c0-3.038 2.462-5.5 5.5-5.5H49" stroke="#DCE8F3" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M27 23h14" stroke="#1F5D94" stroke-width="3" stroke-linecap="round"/>
+  <path d="M27 30h13" stroke="#BDD0E2" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M27 37h10" stroke="#BDD0E2" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="51.5" cy="50.5" r="12.5" fill="url(#gold)" stroke="#fff" stroke-width="3"/>
+  <path d="m46 50.5 3.7 3.7 7.3-8" stroke="#173D61" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="82" y="48" fill="#172C45" font-family="Plus Jakarta Sans, DM Sans, Arial, sans-serif" font-size="30" font-weight="800" letter-spacing="-1.35">studyspace</text>
+  <circle cx="264" cy="45" r="3" fill="#D6A33C"/>
+  <path d="M271 46h11" stroke="#D6A33C" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+</svg>
