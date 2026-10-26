@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Youth Mentorship Management System</title>
+    <title>Mentorship for As We Move Upward and Forward</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,16 +12,16 @@
 <body>
 
     <header class="navbar">
-        <a class="logo" href="#home" aria-label="Enock Brighton Ochieng Youth Mentorship home">
+        <a class="logo" href="#home" aria-label="Mentorship for As We Move Upward and Forward home">
             <svg class="logo-mark" viewBox="0 0 64 64" role="img" aria-labelledby="logoTitle">
-                <title id="logoTitle">Enock Brighton Ochieng logo for unity, peace, and growth</title>
+                <title id="logoTitle">Mentorship for As We Move Upward and Forward mark for unity, peace, and growth</title>
                 <circle cx="32" cy="32" r="29" fill="#172033" stroke="#f2c14e" stroke-width="2" />
                 <path d="M32 48V30M32 39c-7 0-12-4-14-10 7 0 12 4 14 10Zm0-5c7 0 12-4 14-10-7 0-12 4-14 10Z" fill="none" stroke="#f2c14e" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" />
                 <path d="M32 46c-5 0-9-2-12-5M32 46c5 0 9-2 12-5M32 49c-7 0-13-2-17-6M32 49c7 0 13-2 17-6" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="2" />
             </svg>
             <span class="logo-copy">
-                <strong>Enock Brighton Ochieng</strong>
-                <small>Youth Mentorship Program</small>
+                <strong>Mentorship for As We Move Upward and Forward</strong>
+                <small>Youth mentorship program</small>
             </span>
         </a>
 
@@ -29,14 +29,17 @@
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#services">Services</a>
+            <a href="#materials">Materials</a>
+            <a href="#mentors">Find a mentor</a>
+            <a href="#mentor-dashboard">Mentor dashboard</a>
             <a href="#mentorship-requests">Requests</a>
             <a href="#program-calendar">Calendar</a>
             <a href="#tracker">Tracker</a>
-            <a href="#resume">Resume</a>
+            <a href="#approach">Our approach</a>
             <a href="#contact">Contact</a>
         </nav>
 
-        <button class="login-btn" onclick="showLogin()">
+        <button id="loginButton" class="login-btn">
             Login
         </button>
     </header>
@@ -161,7 +164,7 @@
             </h2>
 
             <p>
-                The Youth Mentorship Management System provides
+                Mentorship for As We Move Upward and Forward offers
                 a simple digital way to organize mentorship
                 programs and keep important information accessible.
             </p>
@@ -277,10 +280,174 @@
 
     </section>
 
+    <section id="materials" class="section materials-section">
+        <div class="section-heading">
+            <p>SESSION PREPARATION</p>
+            <h2>Materials for <span>meaningful mentoring.</span></h2>
+            <p>Use this practical checklist to prepare welcoming, useful and well-organized sessions. Adjust it for participants' ages, activities and access needs.</p>
+        </div>
+
+        <div class="materials-grid">
+            <article class="material-group">
+                <span class="material-number">01</span>
+                <h3>Session essentials</h3>
+                <ul>
+                    <li>Session plan and goal for the meeting</li>
+                    <li>Attendance sheet and pens</li>
+                    <li>Notebooks, pencils and name tags</li>
+                    <li>Quiet, accessible meeting space</li>
+                </ul>
+            </article>
+
+            <article class="material-group">
+                <span class="material-number">02</span>
+                <h3>Learning and activities</h3>
+                <ul>
+                    <li>Whiteboard or flip chart with markers</li>
+                    <li>Age-appropriate books and worksheets</li>
+                    <li>Art, reflection or problem-solving supplies</li>
+                    <li>Games or equipment for planned activities</li>
+                </ul>
+            </article>
+
+            <article class="material-group">
+                <span class="material-number">03</span>
+                <h3>Safety and wellbeing</h3>
+                <ul>
+                    <li>Program code of conduct and safety contacts</li>
+                    <li>Required consent and emergency details</li>
+                    <li>First-aid kit and drinking water</li>
+                    <li>Relevant support and referral contacts</li>
+                </ul>
+            </article>
+
+            <article class="material-group">
+                <span class="material-number">04</span>
+                <h3>Reflection and follow-up</h3>
+                <ul>
+                    <li>Goal-setting and reflection sheets</li>
+                    <li>Action points for the next session</li>
+                    <li>Participant feedback forms</li>
+                    <li>Secure place for approved program records</li>
+                </ul>
+            </article>
+        </div>
+
+        <p class="materials-privacy-note"><strong>Privacy reminder:</strong> Collect only the information your program needs and store participant records securely, following your organization's safeguarding and consent procedures.</p>
+    </section>
+
+    <section id="mentors" class="mentor-directory-section">
+        <div class="mentor-shell">
+            <div class="section-heading mentor-heading">
+                <p>MEET YOUR MENTOR</p>
+                <h2>Find the right guidance <span>for your goals.</span></h2>
+                <p>Explore mentor experience, session topics, and available times. Choose a session that works for you and reserve a place.</p>
+            </div>
+
+            <div class="mentor-filters" aria-label="Filter mentor sessions">
+                <div>
+                    <label for="mentorSearch">Search mentors or topics</label>
+                    <input type="search" id="mentorSearch" placeholder="Name, specialty, or topic">
+                </div>
+                <div>
+                    <label for="mentorTopicFilter">Topic</label>
+                    <select id="mentorTopicFilter">
+                        <option value="">All topics</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="mentorDateFilter">Available on</label>
+                    <input type="date" id="mentorDateFilter">
+                </div>
+            </div>
+            <p id="mentorDirectoryMessage" class="mentor-message" role="status" aria-live="polite">Loading mentor plans…</p>
+            <div id="mentorPlanCards" class="mentor-card-grid" aria-live="polite"></div>
+        </div>
+    </section>
+
+    <section id="mentor-dashboard" class="mentor-dashboard-section">
+        <div class="mentor-shell">
+            <div class="section-heading mentor-heading">
+                <p>MENTOR WORKSPACE</p>
+                <h2>Share a plan. <span>Welcome a booking.</span></h2>
+                <p>Publish your profile and a bookable session time, then keep track of the places reserved.</p>
+            </div>
+            <div id="mentorAdminPrompt" class="mentor-admin-prompt">
+                <p>Sign in to publish mentor plans and view the booking dashboard. Visitors can browse and reserve sessions without signing in.</p>
+                <button type="button" class="primary-btn" onclick="showLogin()">Sign in to manage plans</button>
+            </div>
+            <div id="mentorManagement" hidden>
+                <p id="mentorDashboardMessage" class="mentor-message" role="status" aria-live="polite"></p>
+                <div class="mentor-management-grid">
+                    <form id="mentorPlanForm" class="mentor-form">
+                        <h3>Publish a mentor session</h3>
+                        <label for="mentorName">Mentor name</label>
+                        <input type="text" id="mentorName" name="mentorName" maxlength="80" required>
+
+                        <label for="mentorSpecialty">Your experience or specialty</label>
+                        <input type="text" id="mentorSpecialty" name="specialty" maxlength="80" placeholder="e.g. Career guidance" required>
+
+                        <label for="mentorTopics">Topics you can support</label>
+                        <input type="text" id="mentorTopics" name="topics" maxlength="160" placeholder="e.g. Study skills, leadership" required>
+
+                        <label for="mentorBio">About you</label>
+                        <textarea id="mentorBio" name="bio" rows="3" maxlength="300" placeholder="Share a short, welcoming introduction." required></textarea>
+
+                        <label for="mentorSessionTopic">Session topic</label>
+                        <input type="text" id="mentorSessionTopic" name="sessionTopic" maxlength="100" placeholder="e.g. Planning your next career step" required>
+
+                        <label for="mentorFocus">What will the session cover?</label>
+                        <textarea id="mentorFocus" name="focus" rows="3" maxlength="240" required></textarea>
+
+                        <div class="mentor-time-fields">
+                            <div>
+                                <label for="mentorSessionDate">Session date</label>
+                                <input type="date" id="mentorSessionDate" name="sessionDate" required>
+                            </div>
+                            <div>
+                                <label for="mentorStartTime">Start time (EAT)</label>
+                                <input type="time" id="mentorStartTime" name="startTime" value="14:00" required>
+                            </div>
+                            <div>
+                                <label for="mentorEndTime">End time (EAT)</label>
+                                <input type="time" id="mentorEndTime" name="endTime" value="15:00" required>
+                            </div>
+                            <div>
+                                <label for="mentorCapacity">Places available</label>
+                                <input type="number" id="mentorCapacity" name="capacity" min="1" max="20" value="1" required>
+                            </div>
+                        </div>
+                        <p class="mentor-form-note">Use a group alias or first name only when booking. Do not publish contact details or private information about young people.</p>
+                        <button type="submit" class="primary-btn">Publish session plan</button>
+                    </form>
+
+                    <div class="mentor-admin-lists">
+                        <section class="mentor-admin-list" aria-labelledby="publishedPlansTitle">
+                            <div class="mentor-list-heading">
+                                <h3 id="publishedPlansTitle">Published plans</h3>
+                                <span id="mentorPlanCount">0 plans</span>
+                            </div>
+                            <p id="emptyMentorPlans" class="mentor-empty">No mentor plans published yet.</p>
+                            <div id="mentorPlanList" class="mentor-admin-cards"></div>
+                        </section>
+                        <section class="mentor-admin-list" aria-labelledby="bookingsTitle">
+                            <div class="mentor-list-heading">
+                                <h3 id="bookingsTitle">Session bookings</h3>
+                                <span id="bookingCount">0 bookings</span>
+                            </div>
+                            <p id="emptyBookings" class="mentor-empty">No one has booked a session yet.</p>
+                            <div id="bookingList" class="mentor-admin-cards"></div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="mentorship-requests" class="mentorship-requests-section">
         <div class="request-shell">
             <div class="section-heading request-heading">
-                <p>MENTORSHIP REQUESTS · DEMO</p>
+                <p>MENTORSHIP REQUESTS · LOCAL DEMO</p>
                 <h2>Connect young people with <span>the support they need.</span></h2>
                 <p>
                     Invite a young person or group from your church, organization,
@@ -289,11 +456,13 @@
             </div>
 
             <div class="request-privacy-notice" role="note">
-                <strong>Privacy notice:</strong> This is a browser-only demo.
-                Requests appear only on this page and are not sent to a mentor or
-                saved after you close or refresh it. Do not include names, contact
-                details, or private case information. For an urgent safety concern,
-                speak directly with a trusted adult or local support service.
+                <strong>Privacy notice:</strong> Requests are saved in a local SQLite
+                database on this computer and are not sent to a mentor. This local
+                demo requires a local account to access records, but it does not
+                encrypt the database or restrict access to files on this computer.
+                Do not include names, contact details, or private case information.
+                For an urgent safety concern, speak directly with a trusted adult
+                or local support service.
             </div>
 
             <div class="request-layout">
@@ -347,7 +516,7 @@
                         required
                     ></textarea>
 
-                    <button type="submit" class="primary-btn">Add request to demo dashboard</button>
+                    <button type="submit" class="primary-btn">Save mentorship request</button>
                 </form>
 
                 <div class="request-records">
@@ -356,7 +525,7 @@
                         <span id="requestCount">0 requests</span>
                     </div>
                     <p id="emptyRequests" class="empty-requests">
-                        No requests yet. Add a demo request to see it here.
+                        No requests yet. Submit a request to see it here.
                     </p>
                     <div id="requestList" class="request-list" aria-live="polite"></div>
                 </div>
@@ -376,10 +545,12 @@
             </div>
 
             <div class="calendar-note" role="note">
-                This editable sample schedule is saved only in this browser.
-                It does not sync to other devices. The plan is not a secure place
-                for participant details; keep it to general session topics and
-                logistics. All times use East Africa Time (EAT, UTC+03:00).
+                This editable sample schedule is stored in a local SQLite database
+                on this computer and does not sync to other devices. The local demo
+                requires a local account to access records, but it does not encrypt
+                the database or restrict access to files on this computer. Keep it
+                to general session topics and logistics, not participant details.
+                Times use East Africa Time (EAT, UTC+03:00).
             </div>
 
             <p id="calendarMessage" class="calendar-message" role="status" aria-live="polite"></p>
@@ -659,7 +830,7 @@
     <section id="tracker" class="tracker-section">
         <div class="tracker-shell">
             <div class="section-heading tracker-heading">
-                <p>MENTORSHIP SESSION TRACKER · DEMO</p>
+                <p>MENTORSHIP SESSION TRACKER · LOCAL DEMO</p>
                 <h2>Plan sessions and <span>follow progress.</span></h2>
                 <p>
                     Record session dates, attendance totals, general progress, and
@@ -668,11 +839,19 @@
             </div>
 
             <div class="privacy-notice" role="note">
-                <strong>Privacy notice:</strong> This is a browser-only demo.
-                Entries are kept temporarily in this page and disappear when you
-                refresh or close it. Do not enter names, contact details, case
-                notes, or other identifying or sensitive information. This is
-                not secure storage for real participant records.
+                <strong>Privacy notice:</strong> Entries are saved to a local SQLite
+                database on this computer. A local account is required to use the
+                records, but the database is not encrypted and local file access is
+                not restricted. Do not enter names, contact details, case notes, or
+                other identifying or sensitive information. It is not secure storage
+                for real participant records.
+            </div>
+
+            <div class="data-tools" aria-label="Data backup tools">
+                <button type="button" id="exportData" class="calendar-secondary-btn">Export all data as JSON</button>
+                <button type="button" id="importData" class="calendar-secondary-btn">Import JSON backup</button>
+                <input id="importDataFile" type="file" accept="application/json,.json" hidden>
+                <p id="dataMessage" role="status" aria-live="polite">Connecting to local database…</p>
             </div>
 
             <div class="tracker-layout">
@@ -735,7 +914,7 @@
                         placeholder="Use general, non-identifying notes only."
                     ></textarea>
 
-                    <button type="submit" class="primary-btn">Add to tracker</button>
+                    <button type="submit" class="primary-btn">Save tracker entry</button>
                 </form>
 
                 <div class="tracker-records">
@@ -744,7 +923,7 @@
                         <span id="sessionCount">0 entries</span>
                     </div>
                     <p id="emptySessions" class="empty-sessions">
-                        No sessions yet. Add a session to start your demo tracker.
+                        No sessions yet. Add an entry to start the tracker.
                     </p>
                     <div id="sessionList" class="session-list" aria-live="polite"></div>
                 </div>
@@ -752,102 +931,57 @@
         </div>
     </section>
 
-    <section id="resume" class="resume-section">
+    <section id="approach" class="resume-section">
         <div class="resume-shell">
             <div class="section-heading resume-heading">
-                <p>MY RESUME</p>
+                <p>OUR APPROACH</p>
                 <h2>
-                    Experience built on
-                    <span>purpose, service, and growth.</span>
+                    Moving young people
+                    <span>upward and forward.</span>
                 </h2>
             </div>
 
             <div class="resume-layout">
                 <aside class="resume-profile">
-                    <div class="profile-badge">EBO</div>
-                    <h3>Enock Brighton Ochieng</h3>
-                    <p class="profile-role">Mentorship Program Coordinator</p>
-
-                    <ul class="profile-list">
-                        <li><strong>Location:</strong> Kenya</li>
-                        <li><strong>Email:</strong> enocko687@gmail.com</li>
-                        <li><strong>Phone:</strong> +254 715 552 003</li>
-                        <li><strong>Focus:</strong> Youth development</li>
-                    </ul>
+                    <div class="profile-badge" aria-hidden="true">UP</div>
+                    <h3>Mentorship for As We Move Upward and Forward</h3>
+                    <p class="profile-role">A welcoming space to learn, grow, and plan ahead.</p>
                 </aside>
 
                 <div class="resume-content">
                     <div class="resume-card highlight-card">
-                        <h3>Career Summary</h3>
+                        <h3>Our purpose</h3>
                         <p>
-                            Dedicated youth development professional with a strong passion for
-                            mentorship, leadership, and helping young people unlock their full potential.
-                            Experienced in organizing programs, supporting youth growth, and creating
-                            structured systems that improve participation, accountability, and long-term impact.
+                            Connect young people with mentors who can share guidance, practical plans,
+                            and time that fits their goals.
                         </p>
                     </div>
 
                     <div class="resume-grid">
                         <div class="resume-card">
-                            <h3>Experience</h3>
+                            <h3>Find support</h3>
                             <div class="timeline">
                                 <div class="timeline-item">
-                                    <span class="year">2022 - Present</span>
-                                    <h4>Youth Mentor & Program Coordinator</h4>
+                                    <span class="year">Explore</span>
+                                    <h4>Choose a mentor</h4>
                                     <p>
-                                        Coordinate mentorship sessions, track youth progress, and support
-                                        engagement through structured mentorship and regular follow-up.
-                                    </p>
-                                </div>
-
-                                <div class="timeline-item">
-                                    <span class="year">2020 - 2022</span>
-                                    <h4>Community Youth Support Worker</h4>
-                                    <p>
-                                        Assisted young people with academic, personal, and leadership challenges
-                                        while encouraging participation in community-building activities.
+                                        Compare mentors' areas of experience, session plans, and available times.
                                     </p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="resume-card">
-                            <h3>Education</h3>
+                            <h3>Plan together</h3>
                             <div class="timeline">
                                 <div class="timeline-item">
-                                    <span class="year">2018 - 2022</span>
-                                    <h4>Secondary Education</h4>
+                                    <span class="year">Connect</span>
+                                    <h4>Book a session</h4>
                                     <p>
-                                        Developed communication, teamwork, and leadership skills while engaging
-                                        actively in school and community development activities.
-                                    </p>
-                                </div>
-
-                                <div class="timeline-item">
-                                    <span class="year">Professional Growth</span>
-                                    <h4>Mentorship & Leadership Training</h4>
-                                    <p>
-                                        Continued learning in youth empowerment, program coordination, and
-                                        community engagement strategies.
+                                        Reserve a suitable session and take a positive next step with a mentor.
                                     </p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="resume-card">
-                        <h3>Core Skills</h3>
-                        <div class="skill-tags">
-                            <span>Mentorship</span>
-                            <span>Leadership</span>
-                            <span>Program Coordination</span>
-                            <span>Communication</span>
-                            <span>Community Outreach</span>
-                            <span>Goal Setting</span>
-                            <span>Reporting</span>
-                            <span>Teamwork</span>
-                            <span>Youth Engagement</span>
-                            <span>Planning</span>
                         </div>
                     </div>
                 </div>
@@ -865,17 +999,53 @@
 
         <div class="login-box">
 
-            <button class="close-btn" onclick="closeLogin()" aria-label="Close demo notice">
+            <button id="closeLoginButton" class="close-btn" onclick="closeLogin()" aria-label="Close sign-in dialog" hidden>
                 ×
             </button>
 
-            <h2 id="loginTitle">Demo notice</h2>
+            <h2 id="loginTitle">Sign in</h2>
 
-            <p>
-                This page is a visual demo, not a secure or authenticated system.
-                It does not save progress records. Do not enter personal information
-                or real participant data.
-            </p>
+            <p id="loginDescription">Sign in to access this local mentorship program.</p>
+
+            <form id="loginForm">
+                <label for="loginUsername">Username</label>
+                <input
+                    type="text"
+                    id="loginUsername"
+                    name="username"
+                    minlength="3"
+                    maxlength="32"
+                    pattern="[A-Za-z0-9_.\-]{3,32}"
+                    autocomplete="username"
+                    required
+                >
+
+                <label for="loginPassword">Password</label>
+                <input
+                    type="password"
+                    id="loginPassword"
+                    name="password"
+                    minlength="12"
+                    maxlength="128"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <div id="confirmPasswordField" hidden>
+                    <label for="confirmPassword">Confirm password</label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        minlength="12"
+                        maxlength="128"
+                        autocomplete="new-password"
+                    >
+                </div>
+
+                <p id="loginMessage" class="login-message" role="status" aria-live="polite"></p>
+                <button id="loginSubmit" type="submit" class="primary-btn">Sign in</button>
+            </form>
 
         </div>
 
@@ -884,7 +1054,7 @@
 
     <section id="contact" class="contact">
 
-        <p class="owner-name">ENOCK BRIGHTON OCHING</p>
+        <p class="owner-name">MENTORSHIP FOR UPWARD AND FORWARD</p>
         <h2>Ready to empower young people?</h2>
 
         <p>
@@ -892,35 +1062,7 @@
             program with digital technology.
         </p>
 
-        <div class="contact-details">
-            <a href="tel:+254715552003">
-                <strong>Phone</strong>
-                +254 715 552 003
-            </a>
-
-            <a href="mailto:enocko687@gmail.com">
-                <strong>Email</strong>
-                enocko687@gmail.com
-            </a>
-
-            <div>
-                <strong>Location</strong>
-                Kenya
-            </div>
-        </div>
-
-        <div class="social-links" aria-label="Social networks">
-            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">Facebook</a>
-            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
-            <a href="https://wa.me/254715552003" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">WhatsApp</a>
-            <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok">TikTok</a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
-            <a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X">X</a>
-        </div>
-
-        <button onclick="showLogin()" class="primary-btn">
-            Enter System
-        </button>
+        <a href="#mentors" class="primary-btn contact-cta">Find a mentor</a>
 
     </section>
 
@@ -928,17 +1070,19 @@
     <footer>
 
         <div>
-            <strong>Youth Mentorship Management System</strong>
-            <strong>ENOCK BRIGHTON OCHING</strong>
+            <strong>Mentorship for As We Move Upward and Forward</strong>
             <p>Empowering youth. Building futures.</p>
         </div>
 
         <p>
-            © 2026 Youth Mentorship Management System
+            © 2026 Mentorship for As We Move Upward and Forward
         </p>
 
     </footer>
 
+    <a class="floating-book-button" href="#mentors" aria-label="Book a mentorship session">
+        Book me
+    </a>
 
     <script src="script.js"></script>
 

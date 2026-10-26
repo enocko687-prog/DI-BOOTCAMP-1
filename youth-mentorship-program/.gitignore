@@ -1,0 +1,4 @@
+mentorship.sqlite3*
+__pycache__/
+tests/__pycache__/
+*.py[cod]

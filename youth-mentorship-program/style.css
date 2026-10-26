@@ -427,6 +427,49 @@ nav a:hover {
     color: #667085;
 }
 
+.materials-section {
+    background: #ffffff;
+}
+
+.materials-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.material-group {
+    padding: 24px;
+    border-left: 3px solid #8a5a00;
+    background: #f8f8f8;
+}
+
+.material-number {
+    color: #8a5a00;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.material-group h3 {
+    margin: 7px 0 12px;
+}
+
+.material-group ul {
+    padding-left: 20px;
+    color: #4b5563;
+}
+
+.material-group li + li {
+    margin-top: 6px;
+}
+
+.materials-privacy-note {
+    margin-top: 20px;
+    padding: 16px 18px;
+    border-left: 4px solid #176b35;
+    background: #f0f7f1;
+    color: #294b32;
+}
+
 /* ================================
    PROGRAM CALENDAR
 ================================ */
@@ -807,6 +850,26 @@ nav a:hover {
     color: #493600;
 }
 
+.data-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    margin: -8px 0 28px;
+}
+
+.data-tools p {
+    flex-basis: 100%;
+    min-height: 1.4em;
+    margin: 0;
+    color: #176b35;
+    font-weight: 700;
+}
+
+.data-tools p.error {
+    color: #b42318;
+}
+
 .tracker-layout {
     display: grid;
     grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
@@ -1178,6 +1241,18 @@ nav a:hover {
     margin-top: 20px;
 }
 
+.login-message {
+    min-height: 1.4em;
+    margin: 14px 0 0;
+    color: #425066;
+    font-size: 0.9rem;
+}
+
+.login-box .primary-btn:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
 .close-btn {
     position: absolute;
     top: 15px;
@@ -1237,6 +1312,42 @@ nav a:hover {
     border-color: #f2c14e;
 }
 
+.contact-cta {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.floating-book-button {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1200;
+    display: inline-flex;
+    min-height: 54px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    border: 2px solid #ffffff;
+    border-radius: 999px;
+    background: #8a5a00;
+    box-shadow: 0 8px 24px rgba(23, 32, 51, 0.28);
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.floating-book-button:hover {
+    transform: translateY(-3px);
+    background: #684300;
+}
+
+.floating-book-button:focus-visible {
+    outline: 3px solid #172033;
+    outline-offset: 4px;
+}
+
 .contact-details strong {
     display: block;
     color: #f2c14e;
@@ -1291,6 +1402,302 @@ footer strong {
 footer strong + strong {
     margin-top: 6px;
     color: #f2c14e;
+}
+
+/* ================================
+   MENTOR DIRECTORY AND BOOKINGS
+================================ */
+
+.mentor-directory-section,
+.mentor-dashboard-section {
+    padding: 90px 7%;
+    background: #f7f9fc;
+    scroll-margin-top: 110px;
+}
+
+.mentor-dashboard-section {
+    background: #ffffff;
+}
+
+.mentor-shell {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mentor-heading {
+    margin-bottom: 28px;
+}
+
+.mentor-filters {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.4fr) minmax(180px, 1fr) minmax(180px, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+    padding: 20px;
+    border: 1px solid #e6e9ee;
+    border-radius: 14px;
+    background: #ffffff;
+}
+
+.mentor-filters label,
+.mentor-form label {
+    display: block;
+    margin: 0 0 6px;
+    font-weight: 700;
+}
+
+.mentor-filters input,
+.mentor-filters select,
+.mentor-form input,
+.mentor-form textarea {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid #cbd0d8;
+    border-radius: 8px;
+    color: #172033;
+    font: inherit;
+}
+
+.mentor-form textarea {
+    resize: vertical;
+}
+
+.mentor-filters input:focus,
+.mentor-filters select:focus,
+.mentor-form input:focus,
+.mentor-form textarea:focus {
+    outline: 2px solid #8a5a00;
+    outline-offset: 2px;
+}
+
+.mentor-message {
+    min-height: 1.5em;
+    margin: 10px 0 18px;
+    color: #425066;
+    font-weight: 600;
+}
+
+.mentor-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+    align-items: start;
+    gap: 18px;
+}
+
+.mentor-card,
+.mentor-form,
+.mentor-admin-list,
+.mentor-admin-prompt {
+    padding: 24px;
+    border: 1px solid #e6e9ee;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(23, 32, 51, 0.06);
+}
+
+.mentor-card h3,
+.mentor-form h3,
+.mentor-admin-list h3 {
+    font-size: 1.25rem;
+}
+
+.mentor-card .mentor-specialty {
+    margin: 4px 0 14px;
+    color: #8a5a00;
+    font-weight: 700;
+}
+
+.mentor-card p {
+    margin-top: 10px;
+    color: #525e70;
+    overflow-wrap: anywhere;
+}
+
+.mentor-card .mentor-session-title {
+    color: #172033;
+    font-weight: 700;
+}
+
+.mentor-card .mentor-availability {
+    padding: 10px 12px;
+    border-radius: 9px;
+    background: #fff7df;
+    color: #493600;
+    font-weight: 700;
+}
+
+.mentor-booking-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 90px;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.mentor-booking-form label {
+    grid-column: 1 / -1;
+    font-weight: 700;
+}
+
+.mentor-booking-form input {
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid #cbd0d8;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.mentor-booking-form button {
+    grid-column: 1 / -1;
+    padding: 11px 14px;
+    border: 0;
+    border-radius: 8px;
+    background: #172033;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.mentor-booking-form button:hover {
+    background: #8a5a00;
+}
+
+.mentor-booking-form button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.mentor-empty {
+    padding: 18px;
+    border: 1px dashed #cbd0d8;
+    border-radius: 10px;
+    color: #667085;
+    text-align: center;
+}
+
+.mentor-admin-prompt {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    background: #fffaf0;
+}
+
+.mentor-admin-prompt[hidden] {
+    display: none;
+}
+
+.mentor-admin-prompt p {
+    max-width: 700px;
+    color: #525e70;
+}
+
+.mentor-management-grid {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+    gap: 22px;
+}
+
+.mentor-form label {
+    margin-top: 14px;
+}
+
+.mentor-form .primary-btn {
+    width: 100%;
+    margin-top: 18px;
+}
+
+.mentor-time-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.mentor-time-fields label {
+    margin-top: 0;
+}
+
+.mentor-form-note {
+    margin-top: 14px;
+    color: #667085;
+    font-size: 0.9rem;
+}
+
+.mentor-admin-lists {
+    display: grid;
+    gap: 18px;
+}
+
+.mentor-list-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.mentor-list-heading span {
+    color: #667085;
+    font-size: 0.9rem;
+}
+
+.mentor-admin-cards {
+    display: grid;
+    gap: 10px;
+}
+
+.mentor-admin-card {
+    padding: 14px;
+    border: 1px solid #e6e9ee;
+    border-radius: 10px;
+}
+
+.mentor-admin-card h4 {
+    overflow-wrap: anywhere;
+}
+
+.mentor-admin-card p {
+    margin-top: 6px;
+    color: #525e70;
+    overflow-wrap: anywhere;
+}
+
+.mentor-admin-card .calendar-action-btn {
+    margin-top: 10px;
+}
+
+@media (max-width: 900px) {
+    .mentor-management-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mentor-directory-section,
+    .mentor-dashboard-section {
+        scroll-margin-top: 310px;
+    }
+}
+
+@media (max-width: 650px) {
+    .mentor-directory-section,
+    .mentor-dashboard-section {
+        padding: 64px 5%;
+    }
+
+    .mentor-filters,
+    .mentor-time-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .mentor-card,
+    .mentor-form,
+    .mentor-admin-list,
+    .mentor-admin-prompt {
+        padding: 18px;
+    }
 }
 
 
@@ -1363,6 +1770,13 @@ footer strong + strong {
 
 @media (max-width: 650px) {
 
+    .floating-book-button {
+        right: 16px;
+        bottom: 16px;
+        min-height: 50px;
+        padding: 0 20px;
+    }
+
     .navbar {
         gap: 15px;
     }
@@ -1393,7 +1807,8 @@ footer strong + strong {
     }
 
     .features,
-    .service-list {
+    .service-list,
+    .materials-grid {
         grid-template-columns: 1fr;
     }
 
