@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start RemindDesk",
+      "type": "npm",
+      "script": "start",
+      "path": ".",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "reminddesk",
+        "pattern": {
+          "regexp": "^$"
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "RemindDesk is running at",
+          "endsPattern": "RemindDesk is running at"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "reminddesk-assignment-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A responsive student assignment tracker and teacher reminder dashboard.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
