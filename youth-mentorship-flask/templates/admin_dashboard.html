@@ -10,6 +10,14 @@
                 <p class="dashboard-subtitle">Review mentor profiles, support requests, matches and learning resources.</p>
             </div>
         </div>
+        <nav class="dashboard-shortcuts" aria-label="Admin workspace sections">
+            <a href="#contact-requests">View contact requests</a>
+            <a href="#mentors">Mentors</a>
+            <a href="#matches">Matches</a>
+            <a href="#resources">Resources</a>
+            <a href="#feedback">Feedback</a>
+            <a href="#reports">Support reports</a>
+        </nav>
 
         <div class="workspace-grid">
             <section class="workspace-card" id="mentors">
@@ -34,6 +42,37 @@
                 <div class="workspace-list">{% for match in matches %}<article class="list-item"><div class="list-item-main"><strong>{{ match["mentee_name"] }} and {{ match["mentor_name"] }}</strong><span>{{ match["match_status"]|title }}</span></div></article>{% else %}<p class="empty-state">Mentor matches will appear here.</p>{% endfor %}</div>
             </section>
         </div>
+
+        <section class="workspace-card workspace-wide" id="contact-requests">
+            <div class="workspace-heading"><div><span class="card-kicker">FOLLOW UP WITH PEOPLE</span><h2>Contact requests</h2></div><span class="workspace-symbol" aria-hidden="true">✉</span></div>
+            <p class="workspace-intro">Reply by phone, WhatsApp or email using the contact details provided, then mark the request as responded.</p>
+            <div class="workspace-list">
+                {% for item in contact_requests %}
+                    <article class="list-item contact-request-item">
+                        <div class="list-item-main">
+                            <strong>{{ item["full_name"] }} · {{ item["request_type"]|replace("_", " ")|title }}</strong>
+                            <span>{{ item["created_at"] }} · {{ item["status"]|title }}</span>
+                            <span>{{ item["message"] }}</span>
+                            <div class="contact-request-links">
+                                <a href="mailto:{{ item['email'] }}?subject={{ ('YMP follow-up: ' ~ item['request_type'])|urlencode }}">Email {{ item["email"] }}</a>
+                                {% if item["phone"] %}
+                                    <a href="tel:{{ item['phone']|replace(' ', '')|replace('-', '') }}">Call {{ item["phone"] }}</a>
+                                    <a href="https://wa.me/{{ item['phone']|replace('+', '')|replace(' ', '')|replace('-', '')|replace('(', '')|replace(')', '')|replace('.', '') }}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if item["status"] == "pending" %}
+                            <form action="{{ url_for('mark_contact_request_responded', contact_request_id=item['id']) }}" method="post">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button class="mini-button" type="submit">Mark responded</button>
+                            </form>
+                        {% endif %}
+                    </article>
+                {% else %}
+                    <p class="empty-state">New messages sent from the contact form will appear here.</p>
+                {% endfor %}
+            </div>
+        </section>
 
         <div class="workspace-grid">
             <section class="workspace-card" id="resources">

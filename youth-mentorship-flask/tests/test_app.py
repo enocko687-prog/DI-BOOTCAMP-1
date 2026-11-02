@@ -86,12 +86,114 @@ class MentorshipAppTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Mentorship, with a plan.", response.data)
         self.assertIn(b"Learning resources", response.data)
+        self.assertIn(b"+254715552003", response.data)
+        self.assertIn(b"https://wa.me/254715552003", response.data)
+        self.assertIn(b"Send your request", response.data)
         self.assertNotIn(b"hero-art", response.data)
         self.assertIn(b'class="menu-toggle" type="button"', response.data)
         self.assertIn(b'aria-controls="primary-nav"', response.data)
         asset_response = self.client.get("/static/ymp-mark.svg")
         self.assertEqual(asset_response.status_code, 200)
         asset_response.close()
+
+    def test_public_contact_request_is_saved_and_admin_can_follow_up(self):
+        token = self.csrf_token("/")
+        response = self.client.post(
+            "/contact",
+            data={
+                "csrf_token": token,
+                "full_name": "Amina Njeri",
+                "email": "AMINA@example.com",
+                "phone": "+254 700 123 456",
+                "request_type": "mentorship",
+                "message": "I would like to find a mentor.",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Your request has been sent.", response.data)
+
+        connection = sqlite3.connect(self.database_path)
+        try:
+            contact_request_id, email, status = connection.execute(
+                "SELECT id, email, status FROM contact_requests"
+            ).fetchone()
+        finally:
+            connection.close()
+        self.assertEqual((email, status), ("amina@example.com", "pending"))
+
+        admin_result = self.app.test_cli_runner().invoke(
+            args=["create-admin"],
+            input=(
+                "Programme Admin\nadmin@example.com\n"
+                "secure-admin-passphrase\nsecure-admin-passphrase\n"
+            ),
+        )
+        self.assertEqual(admin_result.exit_code, 0, admin_result.output)
+        token = self.csrf_token("/login")
+        login_response = self.client.post(
+            "/login",
+            data={
+                "csrf_token": token,
+                "email": "admin@example.com",
+                "password": "secure-admin-passphrase",
+            },
+            follow_redirects=True,
+        )
+        self.assertIn(b"Amina Njeri", login_response.data)
+        self.assertIn(b"I would like to find a mentor.", login_response.data)
+        self.assertIn(b"mailto:amina@example.com", login_response.data)
+        self.assertIn(b"https://wa.me/254700123456", login_response.data)
+        self.assertIn(b"WhatsApp", login_response.data)
+
+        self.post_as_signed_in_user(
+            f"/admin/contact-requests/{contact_request_id}/responded",
+            client=self.client,
+        )
+        connection = sqlite3.connect(self.database_path)
+        try:
+            status = connection.execute(
+                "SELECT status FROM contact_requests WHERE id = ?",
+                (contact_request_id,),
+            ).fetchone()[0]
+        finally:
+            connection.close()
+        self.assertEqual(status, "responded")
+        self.assertNotIn(b"Mark responded", self.client.get("/admin").data)
+
+    def test_public_contact_request_validates_fields_and_requires_csrf(self):
+        response = self.client.post(
+            "/contact",
+            data={
+                "full_name": "Amina Njeri",
+                "email": "amina@example.com",
+                "request_type": "feedback",
+                "message": "A note",
+            },
+        )
+        self.assertEqual(response.status_code, 400)
+
+        token = self.csrf_token("/")
+        response = self.client.post(
+            "/contact",
+            data={
+                "csrf_token": token,
+                "full_name": "Amina Njeri",
+                "email": "not-an-email",
+                "request_type": "feedback",
+                "message": "A note",
+            },
+            follow_redirects=True,
+        )
+        self.assertIn(b"Enter a valid email address.", response.data)
+        connection = sqlite3.connect(self.database_path)
+        try:
+            self.assertEqual(
+                connection.execute("SELECT COUNT(*) FROM contact_requests").fetchone()[0],
+                0,
+            )
+        finally:
+            connection.close()
 
     def test_registration_login_dashboard_and_logout(self):
         token = self.csrf_token("/register")

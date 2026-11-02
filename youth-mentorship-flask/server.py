@@ -49,6 +49,9 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY=_get_secret_key(app.instance_path),
         DATABASE=os.environ.get("YMP_DATABASE_PATH", str(database.DATABASE_PATH)),
+        PUBLIC_CONTACT_PHONE=os.environ.get(
+            "YMP_PUBLIC_CONTACT_PHONE", "+254715552003"
+        ),
         SESSION_COOKIE_HTTPONLY=True,
         SESSION_COOKIE_SAMESITE="Lax",
         SESSION_COOKIE_SECURE=os.environ.get("YMP_COOKIE_SECURE") == "1",
@@ -82,7 +85,12 @@ def create_app(test_config=None):
 
     @app.context_processor
     def inject_template_values():
-        return {"csrf_token": current_csrf_token}
+        whatsapp_number = re.sub(r"\D", "", app.config["PUBLIC_CONTACT_PHONE"])
+        return {
+            "csrf_token": current_csrf_token,
+            "public_contact_phone": app.config["PUBLIC_CONTACT_PHONE"],
+            "public_whatsapp_url": f"https://wa.me/{whatsapp_number}",
+        }
 
     @app.before_request
     def clear_invalid_session():
@@ -194,6 +202,44 @@ def create_app(test_config=None):
     @app.get("/")
     def home():
         return render_template("index.html")
+
+    @app.post("/contact")
+    def submit_contact_request():
+        full_name = request.form.get("full_name", "").strip()
+        email = request.form.get("email", "").strip().lower()
+        phone = request.form.get("phone", "").strip()
+        request_type = request.form.get("request_type", "").strip()
+        message = request.form.get("message", "").strip()
+
+        if not 2 <= len(full_name) <= 100:
+            flash("Enter your name (2 to 100 characters).", "error")
+        elif len(email) > 254 or not re.fullmatch(
+            r"[^@\s]+@[^@\s]+\.[^@\s]+", email
+        ):
+            flash("Enter a valid email address.", "error")
+        elif len(phone) > 30 or (
+            phone and not re.fullmatch(r"[+()\d.\-\s]+", phone)
+        ):
+            flash("Enter a valid phone number or leave it blank.", "error")
+        elif request_type not in {"mentorship", "question", "feedback", "other"}:
+            flash("Choose what you are contacting us about.", "error")
+        elif not message or len(message) > 3000:
+            flash("Add a message of up to 3,000 characters.", "error")
+        else:
+            get_db().execute(
+                """
+                INSERT INTO contact_requests
+                    (full_name, email, phone, request_type, message)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (full_name, email, phone or None, request_type, message),
+            )
+            get_db().commit()
+            flash(
+                "Your request has been sent. We will contact you using the details provided.",
+                "success",
+            )
+        return redirect(url_for("home") + "#contact")
 
     @app.route("/register", methods=["GET", "POST"])
     def register():
@@ -854,6 +900,14 @@ def create_app(test_config=None):
             LIMIT 50
             """
         ).fetchall()
+        contact_requests = connection.execute(
+            """
+            SELECT id, full_name, email, phone, request_type, message, status, created_at
+            FROM contact_requests
+            ORDER BY CASE status WHEN 'pending' THEN 0 ELSE 1 END, created_at DESC
+            LIMIT 100
+            """
+        ).fetchall()
         resources = connection.execute(
             "SELECT id, title, category, resource_url FROM resources "
             "ORDER BY created_at DESC, id DESC"
@@ -866,6 +920,7 @@ def create_app(test_config=None):
             matches=matches,
             reports=reports,
             feedback_items=feedback_items,
+            contact_requests=contact_requests,
             resources=resources,
         )
 
@@ -972,6 +1027,20 @@ def create_app(test_config=None):
         get_db().commit()
         flash("The support report has been marked as reviewed.", "success")
         return redirect(url_for("admin_dashboard") + "#reports")
+
+    @app.post("/admin/contact-requests/<int:contact_request_id>/responded")
+    @role_required("admin")
+    def mark_contact_request_responded(contact_request_id):
+        result = get_db().execute(
+            "UPDATE contact_requests SET status = 'responded' "
+            "WHERE id = ? AND status = 'pending'",
+            (contact_request_id,),
+        )
+        if result.rowcount == 0:
+            abort(404)
+        get_db().commit()
+        flash("The contact request has been marked as responded.", "success")
+        return redirect(url_for("admin_dashboard") + "#contact-requests")
 
     return app
 

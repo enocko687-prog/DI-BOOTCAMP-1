@@ -105,10 +105,24 @@ img { display: block; max-width: 100%; }
 .closing-signin { margin: 17px 0 0; color: var(--muted); font-size: 11px; }
 .closing-signin a { color: var(--green-deep); font-weight: 700; }
 
+.contact-section { background: #f5f3ec; }
+.contact-layout { display: grid; grid-template-columns: .8fr 1fr; align-items: start; gap: 64px; }
+.contact-copy h2 { margin: 0; font-family: var(--display); font-size: clamp(32px, 4vw, 45px); letter-spacing: -.055em; line-height: 1.2; }
+.contact-copy > p:not(.eyebrow) { max-width: 430px; margin: 16px 0 0; color: var(--muted); font-size: 13px; line-height: 1.9; }
+.contact-links { display: grid; justify-items: start; gap: 12px; margin-top: 24px; }
+.contact-links a, .contact-request-links a { color: var(--green-deep); font-size: 12px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.contact-form { margin-top: 0; padding: 24px; border: 1px solid var(--line); border-radius: 12px; background: white; }
+.contact-form label { font-size: 12px; }
+.contact-form input, .contact-form textarea, .contact-form select { min-height: 44px; font-size: 13px; }
+.contact-form textarea { min-height: 110px; }
+.contact-form .button { margin-top: 4px; }
+
 .site-footer { color: #d6e0df; background: #0c2032; }
 .footer-inner { min-height: 100px; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
 .footer-brand .brand-copy small { color: #aab9bc; }
 .footer-inner > p, .footer-copy { color: #aab9bc; font-size: 10px; }
+.footer-contact { display: flex; flex-wrap: wrap; gap: 12px; color: #d6e0df; font-size: 10px; }
+.contact-request-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
 .footer-copy { white-space: nowrap; }
 
 .auth-section { min-height: calc(100vh - 188px); display: grid; grid-template-columns: .92fr 1.08fr; }
@@ -261,6 +275,8 @@ img { display: block; max-width: 100%; }
     .promise-section { padding-block: 57px; }
     .promise-grid { grid-template-columns: 1fr; gap: 18px; }
     .promise-grid h2 { font-size: 36px; }
+    .contact-layout { grid-template-columns: 1fr; gap: 28px; }
+    .contact-form { padding: 18px; }
     .closing-section { padding: 54px 0; }
     .closing-card { padding: 37px 20px; }
     .footer-inner { min-height: 0; flex-wrap: wrap; padding-block: 24px; }

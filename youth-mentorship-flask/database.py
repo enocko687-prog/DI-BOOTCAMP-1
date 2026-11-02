@@ -169,6 +169,18 @@ def initialize_database(database_path=DATABASE_PATH):
                 FOREIGN KEY(user_id) REFERENCES users(id)
             );
 
+            CREATE TABLE IF NOT EXISTS contact_requests (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                full_name TEXT NOT NULL,
+                email TEXT NOT NULL,
+                phone TEXT,
+                request_type TEXT NOT NULL,
+                message TEXT NOT NULL,
+                status TEXT NOT NULL DEFAULT 'pending'
+                    CHECK(status IN ('pending', 'responded')),
+                created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+            );
+
             CREATE TABLE IF NOT EXISTS audit_logs (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER,
@@ -193,6 +205,8 @@ def initialize_database(database_path=DATABASE_PATH):
             CREATE INDEX IF NOT EXISTS idx_bookings_mentee ON bookings(mentee_id);
             CREATE INDEX IF NOT EXISTS idx_matches_mentee ON mentor_matches(mentee_id);
             CREATE INDEX IF NOT EXISTS idx_reports_status ON safeguarding_reports(status);
+            CREATE INDEX IF NOT EXISTS idx_contact_requests_status
+                ON contact_requests(status, created_at);
             """)
         _ensure_columns(connection, "mentor_profiles", {
             "expertise": "TEXT",

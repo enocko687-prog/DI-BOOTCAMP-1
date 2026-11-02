@@ -72,4 +72,35 @@
         <p class="closing-signin">Already part of YMP? <a href="{{ url_for('login') }}">Sign in</a></p>
     </div>
 </section>
+
+<section class="section contact-section" id="contact">
+    <div class="shell contact-layout">
+        <div class="contact-copy">
+            <p class="eyebrow eyebrow-dark">GET IN TOUCH</p>
+            <h2>Tell us what you need.</h2>
+            <p>Send a mentorship request, ask a question or share feedback. Our programme team will follow up using the contact details you provide.</p>
+            <div class="contact-links">
+                <a href="tel:{{ public_contact_phone|replace(' ', '') }}">Call {{ public_contact_phone }}</a>
+                <a href="{{ public_whatsapp_url }}" target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a>
+            </div>
+        </div>
+        <form class="workspace-form contact-form" action="{{ url_for('submit_contact_request') }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label>Your name<input name="full_name" type="text" autocomplete="name" maxlength="100" required></label>
+            <label>Email address<input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+            <label>Phone number (optional)<input name="phone" type="tel" autocomplete="tel" maxlength="30"></label>
+            <label>What is this about?
+                <select name="request_type" required>
+                    <option value="">Choose one</option>
+                    <option value="mentorship">Mentorship request</option>
+                    <option value="question">Programme question</option>
+                    <option value="feedback">Feedback</option>
+                    <option value="other">Something else</option>
+                </select>
+            </label>
+            <label>Your message<textarea name="message" rows="5" maxlength="3000" required placeholder="How can we help?"></textarea></label>
+            <button class="button button-dark" type="submit">Send your request</button>
+        </form>
+    </div>
+</section>
 {% endblock %}

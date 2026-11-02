@@ -71,12 +71,6 @@ The app is prepared for deployment, but is not yet published. You need a PythonA
 
 Production mode refuses to start without `YMP_SECRET_KEY`. Keep the database on your account's persistent storage, back it up regularly, and do not run multiple app instances against the same SQLite file. The built-in Flask server is for local development only. See the [PythonAnywhere Flask deployment guide](https://help.pythonanywhere.com/pages/Flask/) for provider-specific setup details.
 
-## Render free demo
-
-The repository root includes a `render.yaml` Blueprint for a free Render web service. To deploy it, sign in to Render, connect your GitHub account, choose **New → Blueprint**, select this repository and the `deploy/render-youth-mentorship` branch, then apply the Blueprint. Render generates the production session secret automatically; open the service URL after the first deploy finishes.
-
-This free configuration stores SQLite at `/tmp/youth_mentorship.db` on ephemeral storage. **Do not use it for real participant data:** data may be erased on restart or redeploy, and the free tier may sleep while idle. Public admin registration is intentionally disabled, and the production administrator must be created with the `create-admin` command; use a paid instance with shell access to initialize the admin and persistent storage before relying on mentor/admin workflows. For a durable deployment, move to a paid service with a persistent disk and change the database path to that disk.
-
 ## Current functionality
 
 - Mentee account registration, sign-in, and sign-out.
@@ -85,7 +79,9 @@ This free configuration stores SQLite at `/tmp/youth_mentorship.db` on ephemeral
 - Mentee goal progress and action-plan management, mentorship session requests and confirmations, resource viewing, feedback, and safeguarding reports.
 - Admin tools to approve mentors, match members, publish learning resources, and review support reports.
 - Dashboard counts sourced from goals, action plans, bookings, and resources in the shared database.
+- Public contact form with an admin inbox, direct email/phone/WhatsApp follow-up links, and responded status.
 - Responsive landing page and dashboard with the custom YMP logo.
+- Public programme phone defaults to `+254715552003`; set `YMP_PUBLIC_CONTACT_PHONE` to change it. WhatsApp contact links are generated from that number.
 
 Password recovery and email verification still need a configured email provider and are not enabled.
 
