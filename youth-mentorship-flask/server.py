@@ -52,6 +52,33 @@ def create_app(test_config=None):
         PUBLIC_CONTACT_PHONE=os.environ.get(
             "YMP_PUBLIC_CONTACT_PHONE", "+254715552003"
         ),
+        PUBLIC_SOCIAL_LINKS=(
+            (
+                "Facebook",
+                os.environ.get(
+                    "YMP_FACEBOOK_URL",
+                    "https://www.facebook.com/profile.php?id=100083323632489",
+                ),
+            ),
+            (
+                "YouTube",
+                os.environ.get(
+                    "YMP_YOUTUBE_URL",
+                    "https://www.youtube.com/@enockochiengu9r",
+                ),
+            ),
+            (
+                "LinkedIn",
+                os.environ.get("YMP_LINKEDIN_URL", "https://www.linkedin.com/feed/"),
+            ),
+            (
+                "GitHub",
+                os.environ.get(
+                    "YMP_GITHUB_URL",
+                    "https://github.com/enocko687-prog/DI-BOOTCAMP-1",
+                ),
+            ),
+        ),
         SESSION_COOKIE_HTTPONLY=True,
         SESSION_COOKIE_SAMESITE="Lax",
         SESSION_COOKIE_SECURE=os.environ.get("YMP_COOKIE_SECURE") == "1",
@@ -90,6 +117,7 @@ def create_app(test_config=None):
             "csrf_token": current_csrf_token,
             "public_contact_phone": app.config["PUBLIC_CONTACT_PHONE"],
             "public_whatsapp_url": f"https://wa.me/{whatsapp_number}",
+            "public_social_links": app.config["PUBLIC_SOCIAL_LINKS"],
         }
 
     @app.before_request

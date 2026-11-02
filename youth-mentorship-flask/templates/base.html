@@ -61,6 +61,9 @@
             <div class="footer-contact">
                 <a href="tel:{{ public_contact_phone|replace(' ', '') }}">{{ public_contact_phone }}</a>
                 <a href="{{ public_whatsapp_url }}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                {% for network, profile_url in public_social_links %}
+                    <a href="{{ profile_url }}" target="_blank" rel="noopener noreferrer">{{ network }}</a>
+                {% endfor %}
             </div>
             <span class="footer-copy">© <span data-current-year>2026</span> YMP</span>
         </div>

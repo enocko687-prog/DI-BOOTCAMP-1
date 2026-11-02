@@ -82,6 +82,7 @@ Production mode refuses to start without `YMP_SECRET_KEY`. Keep the database on 
 - Public contact form with an admin inbox, direct email/phone/WhatsApp follow-up links, and responded status.
 - Responsive landing page and dashboard with the custom YMP logo.
 - Public programme phone defaults to `+254715552003`; set `YMP_PUBLIC_CONTACT_PHONE` to change it. WhatsApp contact links are generated from that number.
+- Public Facebook, YouTube, LinkedIn, and GitHub links are shown in the homepage contact section and footer. Override them with `YMP_FACEBOOK_URL`, `YMP_YOUTUBE_URL`, `YMP_LINKEDIN_URL`, and `YMP_GITHUB_URL`.
 
 Password recovery and email verification still need a configured email provider and are not enabled.
 

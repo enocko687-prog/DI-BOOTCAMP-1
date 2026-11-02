@@ -82,6 +82,9 @@
             <div class="contact-links">
                 <a href="tel:{{ public_contact_phone|replace(' ', '') }}">Call {{ public_contact_phone }}</a>
                 <a href="{{ public_whatsapp_url }}" target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a>
+                {% for network, profile_url in public_social_links %}
+                    <a href="{{ profile_url }}" target="_blank" rel="noopener noreferrer">{{ network }}</a>
+                {% endfor %}
             </div>
         </div>
         <form class="workspace-form contact-form" action="{{ url_for('submit_contact_request') }}" method="post">
