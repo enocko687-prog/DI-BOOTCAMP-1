@@ -1,0 +1,92 @@
+# Youth Mentorship Platform
+
+YMP is a Flask web application with a responsive interface, account registration and sign-in, role-specific dashboards, and a shared SQLite database.
+
+## Run locally
+
+1. Install Python 3.10 or later.
+2. From this folder, create and install the project environment:
+
+   ```powershell
+   python -m venv .venv
+   .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+   ```
+
+3. Start the server:
+
+   ```powershell
+   .\.venv\Scripts\python.exe server.py
+   ```
+
+4. Open `http://127.0.0.1:5000` in your browser and create an account.
+
+The database is created as `youth_mentorship.db` in this folder the first time the app starts. Existing databases receive additive schema updates on startup; existing records are kept. For local use, the app generates a persistent session key under `instance/`.
+
+## Deploy to PythonAnywhere
+
+The app is prepared for deployment, but is not yet published. You need a PythonAnywhere account and a GitHub repository containing the project. A public repository is simplest to clone; for a private repository, configure GitHub SSH access from PythonAnywhere first. The `.gitignore` excludes the local database, virtual environment, and session key; do not upload these files or commit secrets.
+
+1. Push the project to a GitHub repository. A private repository is recommended.
+2. In PythonAnywhere, create a web app using **Manual configuration** and a Python version 3.10 or later.
+3. Open a PythonAnywhere Bash console and clone your repository, then create a virtual environment and install dependencies. Replace the example account and repository names:
+
+   ```bash
+   cd /home/<username>
+   git clone https://github.com/<github-name>/<repository>.git ymp
+   cd ymp
+   mkvirtualenv --python=/usr/bin/python3.13 ymp
+   pip install -r requirements.txt
+   ```
+
+   If Python 3.13 is not available for your account, use the path for another available Python 3.10+ interpreter consistently for the web app and virtual environment.
+4. In the PythonAnywhere **Web** tab, set the web app's virtualenv to `/home/<username>/.virtualenvs/ymp`. Open its WSGI configuration file, replace the example values below, and save it:
+
+   ```python
+   import os
+   import sys
+
+   project_home = "/home/<username>/ymp"
+   if project_home not in sys.path:
+       sys.path.insert(0, project_home)
+
+   os.environ["YMP_ENV"] = "production"
+   os.environ["YMP_SECRET_KEY"] = "<paste-a-new-random-secret-here>"
+   os.environ["YMP_DATABASE_PATH"] = "/home/<username>/youth_mentorship.db"
+   os.environ["YMP_COOKIE_SECURE"] = "1"
+
+   from server import app as application
+   ```
+
+   Generate the secret in a local terminal with `python -c "import secrets; print(secrets.token_hex(32))"`. Paste it only into the private PythonAnywhere WSGI file—never into GitHub or this README. The database path is outside the cloned repository so redeploying code does not overwrite it.
+5. In the Web tab, click **Reload** and open the site URL to check the homepage and registration page.
+6. Create the first administrator in a Bash console. Use the same secret and database path configured in the WSGI file:
+
+   ```bash
+   cd /home/<username>/ymp
+   export YMP_ENV=production
+   export YMP_SECRET_KEY='<the-same-random-secret>'
+   export YMP_DATABASE_PATH=/home/<username>/youth_mentorship.db
+   /home/<username>/.virtualenvs/ymp/bin/python -m flask --app server create-admin
+   ```
+
+Production mode refuses to start without `YMP_SECRET_KEY`. Keep the database on your account's persistent storage, back it up regularly, and do not run multiple app instances against the same SQLite file. The built-in Flask server is for local development only. See the [PythonAnywhere Flask deployment guide](https://help.pythonanywhere.com/pages/Flask/) for provider-specific setup details.
+
+## Current functionality
+
+- Mentee account registration, sign-in, and sign-out.
+- Mentor registration, profile completion, admin review, mentee match requests, and mentor acceptance.
+- CSRF protection for forms and session-protected dashboard access.
+- Mentee goal progress and action-plan management, mentorship session requests and confirmations, resource viewing, feedback, and safeguarding reports.
+- Admin tools to approve mentors, match members, publish learning resources, and review support reports.
+- Dashboard counts sourced from goals, action plans, bookings, and resources in the shared database.
+- Responsive landing page and dashboard with the custom YMP logo.
+
+Password recovery and email verification still need a configured email provider and are not enabled.
+
+Create the first administrator from this folder with `python -m flask --app server create-admin`. The command prompts for a name, email and a password of at least 12 characters. Administrator accounts must not be created through public registration.
+
+Run the focused checks with:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+```
