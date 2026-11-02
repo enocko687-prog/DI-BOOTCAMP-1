@@ -2,6 +2,7 @@ import re
 import sqlite3
 import tempfile
 import unittest
+from io import BytesIO
 from datetime import date, timedelta
 from pathlib import Path
 from unittest.mock import patch
@@ -19,6 +20,7 @@ class MentorshipAppTests(unittest.TestCase):
                 "TESTING": True,
                 "SECRET_KEY": "test-key",
                 "DATABASE": str(database_path),
+                "UPLOAD_FOLDER": str(Path(self.temp_dir.name) / "uploads"),
             }
         )
         self.database_path = database_path
@@ -80,6 +82,43 @@ class MentorshipAppTests(unittest.TestCase):
             return cursor.lastrowid
         finally:
             connection.close()
+
+    def create_matched_mentee_with_goal(self, client, mentee_email):
+        self.register(mentee_email, client=client)
+        mentor_id = self.create_user(
+            "Matched Mentor", "matched-mentor@example.com", "mentor"
+        )
+        connection = sqlite3.connect(self.database_path)
+        try:
+            connection.execute(
+                "INSERT INTO mentor_profiles (user_id, expertise, vetting_status) "
+                "VALUES (?, 'Career guidance', 'approved')",
+                (mentor_id,),
+            )
+            mentee_id = connection.execute(
+                "SELECT id FROM users WHERE email = ?", (mentee_email,)
+            ).fetchone()[0]
+            connection.execute(
+                "INSERT INTO mentor_matches (mentor_id, mentee_id, match_status) "
+                "VALUES (?, ?, 'accepted')",
+                (mentor_id, mentee_id),
+            )
+            connection.commit()
+        finally:
+            connection.close()
+        self.post_as_signed_in_user(
+            "/goals",
+            {"title": "Build a portfolio", "description": "Complete a sample project"},
+            client=client,
+        )
+        connection = sqlite3.connect(self.database_path)
+        try:
+            goal_id = connection.execute(
+                "SELECT id FROM goals WHERE mentee_id = ?", (mentee_id,)
+            ).fetchone()[0]
+        finally:
+            connection.close()
+        return mentee_id, mentor_id, goal_id
 
     def test_home_and_assets_render(self):
         response = self.client.get("/")
@@ -506,9 +545,7 @@ class MentorshipAppTests(unittest.TestCase):
             ).fetchone()[0]
         finally:
             connection.close()
-        self.post_as_signed_in_user(
-            f"/actions/{action_id}/complete"
-        )
+        self.post_as_signed_in_user(f"/actions/{action_id}/complete")
         self.post_as_signed_in_user(
             "/feedback",
             {"subject": "Getting started", "message": "The dashboard is clear", "rating": "5"},
@@ -547,6 +584,177 @@ class MentorshipAppTests(unittest.TestCase):
                     "SELECT COUNT(*) FROM safeguarding_reports WHERE reporter_id = 1"
                 ).fetchone()[0],
                 1,
+            )
+        finally:
+            connection.close()
+
+    def test_mentee_can_submit_pdf_and_matched_mentor_can_reply(self):
+        mentee_client = self.app.test_client()
+        mentee_id, mentor_id, goal_id = self.create_matched_mentee_with_goal(
+            mentee_client, "submitter@example.com"
+        )
+        token = self.csrf_token("/dashboard", mentee_client)
+        response = mentee_client.post(
+            "/submissions",
+            data={
+                "csrf_token": token,
+                "goal_id": str(goal_id),
+                "work_notes": "I completed the first draft of my portfolio.",
+                "work_url": "https://example.com/portfolio",
+                "work_file": (BytesIO(b"%PDF-1.7\nportfolio evidence"), "portfolio.pdf"),
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Your work has been sent to your mentor for review.", response.data)
+        self.assertIn(b"portfolio.pdf", response.data)
+        self.assertIn(b"Build a portfolio", response.data)
+
+        connection = sqlite3.connect(self.database_path)
+        try:
+            submission_id, stored_file_name = connection.execute(
+                "SELECT id, stored_file_name FROM work_submissions WHERE mentee_id = ?",
+                (mentee_id,),
+            ).fetchone()
+        finally:
+            connection.close()
+        self.assertTrue(
+            (Path(self.app.config["UPLOAD_FOLDER"]) / stored_file_name).is_file()
+        )
+        self.post_as_signed_in_user(
+            f"/goals/{goal_id}/delete", client=mentee_client
+        )
+        self.assertIn(
+            b"This goal has submitted work.",
+            mentee_client.get("/dashboard").data,
+        )
+
+        mentee_download = mentee_client.get(
+            f"/submissions/{submission_id}/file"
+        )
+        self.assertEqual(mentee_download.status_code, 200)
+        self.assertIn("attachment", mentee_download.headers["Content-Disposition"])
+        self.assertEqual(
+            mentee_download.headers["Content-Type"], "application/octet-stream"
+        )
+        mentee_download.close()
+
+        mentor_client = self.app.test_client()
+        with mentor_client.session_transaction() as current_session:
+            current_session["user_id"] = mentor_id
+        mentor_dashboard = mentor_client.get("/mentor")
+        self.assertEqual(mentor_dashboard.status_code, 200)
+        self.assertIn(b"I completed the first draft of my portfolio.", mentor_dashboard.data)
+        mentor_download = mentor_client.get(f"/submissions/{submission_id}/file")
+        self.assertEqual(mentor_download.status_code, 200)
+        mentor_download.close()
+
+        other_mentee_client = self.app.test_client()
+        self.register("another-mentee@example.com", client=other_mentee_client)
+        unauthorized_download = other_mentee_client.get(
+            f"/submissions/{submission_id}/file"
+        )
+        self.assertEqual(unauthorized_download.status_code, 404)
+
+        self.post_as_signed_in_user(
+            f"/mentor/submissions/{submission_id}/feedback",
+            {"mentor_feedback": "Great start. Add a short introduction."},
+            client=mentor_client,
+        )
+        mentee_dashboard = mentee_client.get("/dashboard")
+        self.assertIn(b"Great start. Add a short introduction.", mentee_dashboard.data)
+        connection = sqlite3.connect(self.database_path)
+        try:
+            self.assertEqual(
+                connection.execute(
+                    "SELECT status, mentor_feedback FROM work_submissions WHERE id = ?",
+                    (submission_id,),
+                ).fetchone(),
+                ("reviewed", "Great start. Add a short introduction."),
+            )
+        finally:
+            connection.close()
+
+    def test_work_submission_requires_accepted_mentor_and_valid_file_or_link(self):
+        mentee_client = self.app.test_client()
+        self.register("no-mentor@example.com", client=mentee_client)
+        self.post_as_signed_in_user(
+            "/goals", {"title": "Practice", "description": ""}, client=mentee_client
+        )
+        token = self.csrf_token("/dashboard", mentee_client)
+        response = mentee_client.post(
+            "/submissions",
+            data={
+                "csrf_token": token,
+                "goal_id": "1",
+                "work_notes": "Here is my result.",
+            },
+            follow_redirects=True,
+        )
+        self.assertIn(b"accepted mentor match", response.data)
+
+        matched_client = self.app.test_client()
+        mentee_id, _, goal_id = self.create_matched_mentee_with_goal(
+            matched_client, "other-mentee@example.com"
+        )
+        token = self.csrf_token("/dashboard", matched_client)
+        response = matched_client.post(
+            "/submissions",
+            data={
+                "csrf_token": token,
+                "goal_id": str(goal_id),
+                "work_url": "javascript:alert(1)",
+                "work_file": (BytesIO(b"not a real PDF"), "evidence.pdf"),
+            },
+            follow_redirects=True,
+        )
+        self.assertIn(b"valid public HTTP or HTTPS link", response.data)
+        token = self.csrf_token("/dashboard", matched_client)
+        response = matched_client.post(
+            "/submissions",
+            data={
+                "csrf_token": token,
+                "goal_id": str(goal_id),
+                "work_file": (BytesIO(b"not a PDF"), "evidence.pdf"),
+            },
+            follow_redirects=True,
+        )
+        self.assertIn(
+            b"file content does not match a supported PDF", response.data
+        )
+        token = self.csrf_token("/dashboard", matched_client)
+        response = matched_client.post(
+            "/submissions",
+            data={
+                "csrf_token": token,
+                "goal_id": str(goal_id),
+                "work_file": (BytesIO(b"some notes"), "evidence.txt"),
+            },
+            follow_redirects=True,
+        )
+        self.assertIn(b"Upload a PDF, JPG, or PNG file.", response.data)
+        token = self.csrf_token("/dashboard", matched_client)
+        response = matched_client.post(
+            "/submissions",
+            data={
+                "csrf_token": token,
+                "goal_id": str(goal_id),
+                "work_file": (
+                    BytesIO(b"%PDF-" + b"x" * (5 * 1024 * 1024)),
+                    "large.pdf",
+                ),
+            },
+            follow_redirects=True,
+        )
+        self.assertIn(b"Work files must be 5 MB or smaller.", response.data)
+        connection = sqlite3.connect(self.database_path)
+        try:
+            self.assertEqual(
+                connection.execute(
+                    "SELECT COUNT(*) FROM work_submissions WHERE mentee_id = ?",
+                    (mentee_id,),
+                ).fetchone()[0],
+                0,
             )
         finally:
             connection.close()

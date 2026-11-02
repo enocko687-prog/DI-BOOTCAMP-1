@@ -14,5 +14,7 @@ services:
         generateValue: true
       - key: YMP_DATABASE_PATH
         value: /tmp/youth_mentorship.db
+      - key: YMP_UPLOAD_FOLDER
+        value: /tmp/ymp-uploads
       - key: YMP_COOKIE_SECURE
         value: "1"

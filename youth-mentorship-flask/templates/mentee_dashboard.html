@@ -19,7 +19,7 @@
             <a class="stat-card" href="#resources"><span class="stat-icon" aria-hidden="true">✳</span><span class="stat-label">Resources</span><strong>{{ stats["resources"] }}</strong><span class="stat-note">ready to explore · open</span></a>
         </div>
         <nav class="dashboard-shortcuts" aria-label="Dashboard sections">
-            <a href="#goals">Goals</a><a href="#actions">Action steps</a><a href="#sessions">Sessions</a><a href="#resources">Resources</a><a href="#feedback">Feedback</a><a href="#support">Support</a>
+            <a href="#goals">Goals</a><a href="#actions">Action steps</a><a href="#submissions">Send work</a><a href="#sessions">Sessions</a><a href="#resources">Resources</a><a href="#feedback">Feedback</a><a href="#support">Support</a>
         </nav>
 
         <div class="dashboard-columns">
@@ -77,13 +77,12 @@
                         <article class="list-item">
                             <div class="list-item-main"><strong>{{ goal["title"] }}</strong><span>{{ goal["description"] or "Keep taking small steps towards this goal." }}{% if goal["target_date"] %} · Target {{ goal["target_date"] }}{% endif %}</span><div class="progress-track" role="progressbar" aria-label="{{ goal['title'] }} progress" aria-valuenow="{{ goal['progress'] }}" aria-valuemin="0" aria-valuemax="100"><span style="width: {{ goal['progress'] }}%"></span></div><small>{{ goal["progress"] }}% complete</small></div>
                             <div class="list-item-actions">
-                                {% if goal["progress"] < 100 %}
-                                    <form action="{{ url_for('update_goal_progress', goal_id=goal['id']) }}" method="post" class="inline-form">
-                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                        <input type="hidden" name="progress" value="{{ [goal['progress'] + 10, 100]|min }}">
-                                        <button class="mini-button" type="submit">Add progress</button>
-                                    </form>
-                                {% endif %}
+                                <form action="{{ url_for('update_goal_progress', goal_id=goal['id']) }}" method="post" class="progress-update-form">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <label for="progress-{{ goal['id'] }}">Update progress</label>
+                                    <input id="progress-{{ goal['id'] }}" name="progress" type="range" min="0" max="100" step="5" value="{{ goal['progress'] }}" aria-label="Set {{ goal['title'] }} progress">
+                                    <button class="mini-button" type="submit">Save</button>
+                                </form>
                                 <form action="{{ url_for('delete_goal', goal_id=goal['id']) }}" method="post" class="inline-form">
                                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="mini-button mini-button-muted" type="submit">Remove</button>
                                 </form>
@@ -125,6 +124,45 @@
                 </div>
             </section>
         </div>
+
+        <section class="workspace-card workspace-wide" id="submissions">
+            <div class="workspace-heading"><div><span class="card-kicker">SHARE WHAT YOU HAVE DONE</span><h2>Send your work to your mentor</h2></div><span class="workspace-symbol" aria-hidden="true">↗</span></div>
+            {% if mentor and goals %}
+                <p class="workspace-intro">Send a written update, a link, or a PDF/JPG/PNG file up to 5 MB. Your matched mentor will review it and send feedback here.</p>
+                <form class="workspace-form submission-form" action="{{ url_for('submit_goal_work') }}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <label>Related goal
+                        <select name="goal_id" required data-goal-submission-select>
+                            {% for goal in goals %}<option value="{{ goal['id'] }}">{{ goal["title"] }}</option>{% endfor %}
+                        </select>
+                    </label>
+                    <label>What did you work on?<textarea name="work_notes" rows="4" maxlength="3000" placeholder="Describe what you tried, learned, or completed"></textarea></label>
+                    <label>Link to your work (optional)<input name="work_url" type="url" maxlength="2000" placeholder="https://..."></label>
+                    <label>Attach your work (optional)<input name="work_file" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"><span class="field-hint">PDF, JPG or PNG · maximum 5 MB</span></label>
+                    <button class="button button-dark" type="submit">Send to my mentor</button>
+                </form>
+            {% elif not mentor %}
+                <p class="workspace-intro">Request and accept a mentor match before sending work for review. Your goals and progress are saved while you wait.</p>
+            {% else %}
+                <p class="workspace-intro">Add a goal first, then you can send work and results related to it.</p>
+            {% endif %}
+            <div class="workspace-list">
+                {% for submission in submissions %}
+                    <article class="list-item submission-item">
+                        <div class="list-item-main">
+                            <strong>{{ submission["goal_title"] }} · {{ submission["status"]|title }}</strong>
+                            <span>Sent {{ submission["created_at"] }} to {{ submission["mentor_name"] }}</span>
+                            {% if submission["work_notes"] %}<span>{{ submission["work_notes"] }}</span>{% endif %}
+                            {% if submission["work_url"] %}<a href="{{ submission['work_url'] }}" target="_blank" rel="noopener noreferrer">Open submitted work link</a>{% endif %}
+                            {% if submission["file_name"] %}<a href="{{ url_for('download_work_submission', submission_id=submission['id']) }}">Download {{ submission["file_name"] }}</a>{% endif %}
+                            {% if submission["mentor_feedback"] %}<span class="submission-feedback"><strong>Mentor feedback:</strong> {{ submission["mentor_feedback"] }}</span>{% endif %}
+                        </div>
+                    </article>
+                {% else %}
+                    <p class="empty-state">Your sent work and mentor feedback will appear here.</p>
+                {% endfor %}
+            </div>
+        </section>
 
         <section class="workspace-card workspace-wide" id="sessions">
             <div class="workspace-heading"><div><span class="card-kicker">MAKE TIME TO CONNECT</span><h2>Mentorship sessions</h2></div><span class="workspace-symbol" aria-hidden="true">◷</span></div>

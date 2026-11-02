@@ -3,9 +3,11 @@ import os
 import re
 import secrets
 import sqlite3
+import uuid
 from datetime import date, datetime, time
 from functools import wraps
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from flask import (
     Flask,
@@ -15,16 +17,20 @@ from flask import (
     redirect,
     render_template,
     request,
+    send_from_directory,
     session,
     url_for,
 )
 import click
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
 
 import database
 
 
 BASE_DIR = Path(__file__).resolve().parent
+MAX_WORK_FILE_BYTES = 5 * 1024 * 1024
+MAX_UPLOAD_REQUEST_BYTES = MAX_WORK_FILE_BYTES + 64 * 1024
 
 
 def _get_secret_key(instance_path):
@@ -79,6 +85,11 @@ def create_app(test_config=None):
                 ),
             ),
         ),
+        MAX_CONTENT_LENGTH=MAX_UPLOAD_REQUEST_BYTES,
+        UPLOAD_FOLDER=os.environ.get(
+            "YMP_UPLOAD_FOLDER",
+            str(Path(app.instance_path) / "submissions"),
+        ),
         SESSION_COOKIE_HTTPONLY=True,
         SESSION_COOKIE_SAMESITE="Lax",
         SESSION_COOKIE_SECURE=os.environ.get("YMP_COOKIE_SECURE") == "1",
@@ -89,6 +100,7 @@ def create_app(test_config=None):
     database_path = app.config["DATABASE"]
     if str(database_path) != ":memory:":
         Path(database_path).parent.mkdir(parents=True, exist_ok=True)
+    Path(app.config["UPLOAD_FOLDER"]).mkdir(parents=True, exist_ok=True)
     database.initialize_database(app.config["DATABASE"])
 
     def get_db():
@@ -149,6 +161,13 @@ def create_app(test_config=None):
         response.headers.setdefault("X-Frame-Options", "DENY")
         response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
         return response
+
+    @app.errorhandler(413)
+    def handle_request_too_large(_error):
+        if request.endpoint == "submit_goal_work":
+            flash("Work files must be 5 MB or smaller.", "error")
+            return redirect(url_for("dashboard") + "#submissions")
+        return "The submitted request is too large.", 413
 
     def login_required(view):
         @wraps(view)
@@ -413,6 +432,21 @@ def create_app(test_config=None):
             "FROM goals WHERE mentee_id = ? ORDER BY created_at DESC, id DESC",
             (user_id,),
         ).fetchall()
+        submissions = connection.execute(
+            """
+            SELECT work_submissions.id, work_submissions.work_notes,
+                   work_submissions.work_url, work_submissions.file_name,
+                   work_submissions.status, work_submissions.mentor_feedback,
+                   work_submissions.created_at, work_submissions.reviewed_at,
+                   goals.title AS goal_title, mentors.full_name AS mentor_name
+            FROM work_submissions
+            JOIN goals ON goals.id = work_submissions.goal_id
+            JOIN users AS mentors ON mentors.id = work_submissions.mentor_id
+            WHERE work_submissions.mentee_id = ?
+            ORDER BY work_submissions.created_at DESC, work_submissions.id DESC
+            """,
+            (user_id,),
+        ).fetchall()
         actions = connection.execute(
             "SELECT id, title, description, action_date, completed "
             "FROM action_plans WHERE mentee_id = ? "
@@ -463,6 +497,7 @@ def create_app(test_config=None):
             stats=stats,
             mentor=mentor,
             goals=goals,
+            submissions=submissions,
             actions=actions,
             bookings=bookings,
             resources=resources,
@@ -508,7 +543,9 @@ def create_app(test_config=None):
             "WHERE id = ? AND mentee_id = ?",
             (
                 progress,
-                "completed" if progress == 100 else "in_progress",
+                "completed" if progress == 100 else (
+                    "not_started" if progress == 0 else "in_progress"
+                ),
                 goal_id,
                 g.user["id"],
             ),
@@ -519,9 +556,179 @@ def create_app(test_config=None):
         flash("Your goal progress has been updated.", "success")
         return redirect(url_for("dashboard") + "#goals")
 
+    @app.post("/submissions")
+    @mentee_required
+    def submit_goal_work():
+        try:
+            goal_id = int(request.form.get("goal_id", ""))
+        except ValueError:
+            flash("Choose the goal this work is for.", "error")
+            return redirect(url_for("dashboard") + "#submissions")
+        goal = get_db().execute(
+            "SELECT id FROM goals WHERE id = ? AND mentee_id = ?",
+            (goal_id, g.user["id"]),
+        ).fetchone()
+        if goal is None:
+            abort(404)
+
+        mentor = get_db().execute(
+            """
+            SELECT users.id
+            FROM mentor_matches
+            JOIN users ON users.id = mentor_matches.mentor_id
+            WHERE mentor_matches.mentee_id = ?
+                AND mentor_matches.match_status = 'accepted'
+                AND users.role = 'mentor'
+                AND users.account_status = 'active'
+            ORDER BY mentor_matches.matched_at DESC
+            LIMIT 1
+            """,
+            (g.user["id"],),
+        ).fetchone()
+        if mentor is None:
+            flash("You need an accepted mentor match before sending work for review.", "error")
+            return redirect(url_for("dashboard") + "#submissions")
+
+        work_notes = request.form.get("work_notes", "").strip()
+        work_url = request.form.get("work_url", "").strip()
+        upload = request.files.get("work_file")
+        if upload is not None and not upload.filename:
+            upload = None
+
+        if len(work_notes) > 3000 or len(work_url) > 2000:
+            flash("Keep your notes under 3,000 characters and link under 2,000.", "error")
+            return redirect(url_for("dashboard") + "#submissions")
+        if work_url:
+            try:
+                parsed_url = urlsplit(work_url)
+                valid_url = (
+                    parsed_url.scheme in {"http", "https"}
+                    and bool(parsed_url.hostname)
+                    and parsed_url.username is None
+                    and parsed_url.password is None
+                )
+            except ValueError:
+                valid_url = False
+            if not valid_url:
+                flash("Use a valid public HTTP or HTTPS link.", "error")
+                return redirect(url_for("dashboard") + "#submissions")
+        if not work_notes and not work_url and upload is None:
+            flash("Add notes, a work link, or an allowed file before sending.", "error")
+            return redirect(url_for("dashboard") + "#submissions")
+
+        safe_file_name = None
+        stored_file_name = None
+        if upload is not None:
+            safe_file_name = secure_filename(upload.filename or "")
+            extension = Path(safe_file_name).suffix.lower()
+            if extension not in {".pdf", ".jpg", ".jpeg", ".png"}:
+                flash("Upload a PDF, JPG, or PNG file.", "error")
+                return redirect(url_for("dashboard") + "#submissions")
+
+            upload.stream.seek(0, os.SEEK_END)
+            file_size = upload.stream.tell()
+            upload.stream.seek(0)
+            if file_size > MAX_WORK_FILE_BYTES:
+                flash("Work files must be 5 MB or smaller.", "error")
+                return redirect(url_for("dashboard") + "#submissions")
+
+            signature = upload.stream.read(8)
+            upload.stream.seek(0)
+            valid_signature = (
+                (extension == ".pdf" and signature.startswith(b"%PDF-"))
+                or (extension == ".png" and signature.startswith(b"\x89PNG\r\n\x1a\n"))
+                or (extension in {".jpg", ".jpeg"} and signature.startswith(b"\xff\xd8\xff"))
+            )
+            if not safe_file_name or not valid_signature:
+                flash("The file content does not match a supported PDF, JPG, or PNG.", "error")
+                return redirect(url_for("dashboard") + "#submissions")
+
+            safe_file_name = safe_file_name[:120]
+            stored_file_name = f"{uuid.uuid4().hex}{extension}"
+            upload.save(Path(app.config["UPLOAD_FOLDER"]) / stored_file_name)
+
+        try:
+            get_db().execute(
+                """
+                INSERT INTO work_submissions
+                    (goal_id, mentee_id, mentor_id, work_notes, work_url,
+                     file_name, stored_file_name)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    goal_id,
+                    g.user["id"],
+                    mentor["id"],
+                    work_notes,
+                    work_url or None,
+                    safe_file_name,
+                    stored_file_name,
+                ),
+            )
+            get_db().commit()
+        except sqlite3.Error:
+            if stored_file_name:
+                (Path(app.config["UPLOAD_FOLDER"]) / stored_file_name).unlink(
+                    missing_ok=True
+                )
+            raise
+
+        flash("Your work has been sent to your mentor for review.", "success")
+        return redirect(url_for("dashboard") + "#submissions")
+
+    @app.get("/submissions/<int:submission_id>/file")
+    @login_required
+    def download_work_submission(submission_id):
+        submission = get_db().execute(
+            """
+            SELECT id, mentee_id, mentor_id, file_name, stored_file_name
+            FROM work_submissions
+            WHERE id = ?
+            """,
+            (submission_id,),
+        ).fetchone()
+        if submission is None or not submission["stored_file_name"]:
+            abort(404)
+
+        is_owner = (
+            g.user["role"] == "mentee"
+            and submission["mentee_id"] == g.user["id"]
+        )
+        is_assigned_mentor = (
+            g.user["role"] == "mentor"
+            and submission["mentor_id"] == g.user["id"]
+            and get_db().execute(
+                """
+                SELECT 1 FROM mentor_matches
+                WHERE mentee_id = ? AND mentor_id = ? AND match_status = 'accepted'
+                """,
+                (submission["mentee_id"], g.user["id"]),
+            ).fetchone()
+            is not None
+        )
+        if not is_owner and not is_assigned_mentor:
+            abort(404)
+        return send_from_directory(
+            app.config["UPLOAD_FOLDER"],
+            submission["stored_file_name"],
+            as_attachment=True,
+            download_name=submission["file_name"],
+            mimetype="application/octet-stream",
+            max_age=0,
+        )
+
     @app.post("/goals/<int:goal_id>/delete")
     @mentee_required
     def delete_goal(goal_id):
+        if get_db().execute(
+            "SELECT 1 FROM work_submissions WHERE goal_id = ? LIMIT 1",
+            (goal_id,),
+        ).fetchone():
+            flash(
+                "This goal has submitted work. Keep it so your mentor can review the submission history.",
+                "error",
+            )
+            return redirect(url_for("dashboard") + "#goals")
         result = get_db().execute(
             "DELETE FROM goals WHERE id = ? AND mentee_id = ?",
             (goal_id, g.user["id"]),
@@ -771,12 +978,34 @@ def create_app(test_config=None):
             """,
             (mentor_id,),
         ).fetchall()
+        work_submissions = connection.execute(
+            """
+            SELECT work_submissions.id, work_submissions.work_notes,
+                   work_submissions.work_url, work_submissions.file_name,
+                   work_submissions.status, work_submissions.created_at,
+                   goals.title AS goal_title, users.full_name AS mentee_name
+            FROM work_submissions
+            JOIN goals ON goals.id = work_submissions.goal_id
+            JOIN users ON users.id = work_submissions.mentee_id
+            WHERE work_submissions.mentor_id = ?
+                AND EXISTS (
+                    SELECT 1 FROM mentor_matches
+                    WHERE mentor_matches.mentor_id = work_submissions.mentor_id
+                        AND mentor_matches.mentee_id = work_submissions.mentee_id
+                        AND mentor_matches.match_status = 'accepted'
+                )
+            ORDER BY CASE work_submissions.status WHEN 'pending' THEN 0 ELSE 1 END,
+                     work_submissions.created_at DESC
+            """,
+            (mentor_id,),
+        ).fetchall()
         return render_template(
             "mentor_dashboard.html",
             user=g.user,
             profile=profile,
             matches=matches,
             bookings=bookings,
+            work_submissions=work_submissions,
         )
 
     @app.post("/mentor/profile")
@@ -876,6 +1105,35 @@ def create_app(test_config=None):
         get_db().commit()
         flash("The mentorship session has been confirmed.", "success")
         return redirect(url_for("mentor_dashboard") + "#sessions")
+
+    @app.post("/mentor/submissions/<int:submission_id>/feedback")
+    @role_required("mentor")
+    def review_work_submission(submission_id):
+        feedback = request.form.get("mentor_feedback", "").strip()
+        if not feedback or len(feedback) > 3000:
+            flash("Add feedback (up to 3,000 characters).", "error")
+            return redirect(url_for("mentor_dashboard") + "#submissions")
+
+        result = get_db().execute(
+            """
+            UPDATE work_submissions
+            SET mentor_feedback = ?, status = 'reviewed',
+                reviewed_at = CURRENT_TIMESTAMP
+            WHERE id = ? AND mentor_id = ? AND status = 'pending'
+                AND EXISTS (
+                    SELECT 1 FROM mentor_matches
+                    WHERE mentor_matches.mentor_id = work_submissions.mentor_id
+                        AND mentor_matches.mentee_id = work_submissions.mentee_id
+                        AND mentor_matches.match_status = 'accepted'
+                )
+            """,
+            (feedback, submission_id, g.user["id"]),
+        )
+        if result.rowcount == 0:
+            abort(404)
+        get_db().commit()
+        flash("Your feedback has been sent to the mentee.", "success")
+        return redirect(url_for("mentor_dashboard") + "#submissions")
 
     @app.get("/admin")
     @role_required("admin")

@@ -11,6 +11,12 @@
             </div>
             <span class="status-pill"><span></span> Profile {{ profile["vetting_status"]|title }}</span>
         </div>
+        <nav class="dashboard-shortcuts" aria-label="Mentor workspace sections">
+            <a href="#profile">Profile</a>
+            <a href="#matches">Mentee requests</a>
+            <a href="#submissions">Work to review</a>
+            <a href="#sessions">Sessions</a>
+        </nav>
 
         <div class="workspace-grid">
             <section class="workspace-card" id="profile">
@@ -46,6 +52,33 @@
                 </div>
             </section>
         </div>
+
+        <section class="workspace-card workspace-wide" id="submissions">
+            <div class="workspace-heading"><div><span class="card-kicker">REVIEW MENTEE WORK</span><h2>Work sent for review</h2></div><span class="workspace-symbol" aria-hidden="true">↙</span></div>
+            <p class="workspace-intro">Review submissions from your matched mentees and send written feedback.</p>
+            <div class="workspace-list">
+                {% for submission in work_submissions %}
+                    <article class="list-item submission-item">
+                        <div class="list-item-main">
+                            <strong>{{ submission["goal_title"] }} · {{ submission["mentee_name"] }}</strong>
+                            <span>Sent {{ submission["created_at"] }} · {{ submission["status"]|title }}</span>
+                            {% if submission["work_notes"] %}<span>{{ submission["work_notes"] }}</span>{% endif %}
+                            {% if submission["work_url"] %}<a href="{{ submission['work_url'] }}" target="_blank" rel="noopener noreferrer">Open submitted work link</a>{% endif %}
+                            {% if submission["file_name"] %}<a href="{{ url_for('download_work_submission', submission_id=submission['id']) }}">Download {{ submission["file_name"] }}</a>{% endif %}
+                            {% if submission["status"] == "pending" %}
+                                <form class="workspace-form submission-feedback-form" action="{{ url_for('review_work_submission', submission_id=submission['id']) }}" method="post">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <label>Feedback for {{ submission["mentee_name"] }}<textarea name="mentor_feedback" rows="3" maxlength="3000" required placeholder="Share helpful next steps or encouragement"></textarea></label>
+                                    <button class="mini-button" type="submit">Send feedback</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% else %}
+                    <p class="empty-state">Work submitted by your matched mentees will appear here.</p>
+                {% endfor %}
+            </div>
+        </section>
 
         <section class="workspace-card workspace-wide" id="sessions">
             <div class="workspace-heading"><div><span class="card-kicker">PLAN YOUR TIME</span><h2>Session requests</h2></div><span class="workspace-symbol" aria-hidden="true">◷</span></div>

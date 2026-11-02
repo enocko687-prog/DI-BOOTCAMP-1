@@ -181,6 +181,25 @@ def initialize_database(database_path=DATABASE_PATH):
                 created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
             );
 
+            CREATE TABLE IF NOT EXISTS work_submissions (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                goal_id INTEGER NOT NULL,
+                mentee_id INTEGER NOT NULL,
+                mentor_id INTEGER NOT NULL,
+                work_notes TEXT NOT NULL DEFAULT '',
+                work_url TEXT,
+                file_name TEXT,
+                stored_file_name TEXT,
+                status TEXT NOT NULL DEFAULT 'pending'
+                    CHECK(status IN ('pending', 'reviewed')),
+                mentor_feedback TEXT,
+                created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                reviewed_at TEXT,
+                FOREIGN KEY(goal_id) REFERENCES goals(id) ON DELETE CASCADE,
+                FOREIGN KEY(mentee_id) REFERENCES users(id) ON DELETE CASCADE,
+                FOREIGN KEY(mentor_id) REFERENCES users(id) ON DELETE CASCADE
+            );
+
             CREATE TABLE IF NOT EXISTS audit_logs (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER,
@@ -207,6 +226,10 @@ def initialize_database(database_path=DATABASE_PATH):
             CREATE INDEX IF NOT EXISTS idx_reports_status ON safeguarding_reports(status);
             CREATE INDEX IF NOT EXISTS idx_contact_requests_status
                 ON contact_requests(status, created_at);
+            CREATE INDEX IF NOT EXISTS idx_work_submissions_mentee
+                ON work_submissions(mentee_id, created_at);
+            CREATE INDEX IF NOT EXISTS idx_work_submissions_mentor
+                ON work_submissions(mentor_id, status, created_at);
             """)
         _ensure_columns(connection, "mentor_profiles", {
             "expertise": "TEXT",

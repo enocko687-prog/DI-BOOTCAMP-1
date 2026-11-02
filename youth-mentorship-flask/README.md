@@ -52,12 +52,13 @@ The app is prepared for deployment, but is not yet published. You need a PythonA
    os.environ["YMP_ENV"] = "production"
    os.environ["YMP_SECRET_KEY"] = "<paste-a-new-random-secret-here>"
    os.environ["YMP_DATABASE_PATH"] = "/home/<username>/youth_mentorship.db"
+   os.environ["YMP_UPLOAD_FOLDER"] = "/home/<username>/ymp_uploads"
    os.environ["YMP_COOKIE_SECURE"] = "1"
 
    from server import app as application
    ```
 
-   Generate the secret in a local terminal with `python -c "import secrets; print(secrets.token_hex(32))"`. Paste it only into the private PythonAnywhere WSGI file—never into GitHub or this README. The database path is outside the cloned repository so redeploying code does not overwrite it.
+   Generate the secret in a local terminal with `python -c "import secrets; print(secrets.token_hex(32))"`. Paste it only into the private PythonAnywhere WSGI file—never into GitHub or this README. The database and uploads paths are outside the cloned repository so redeploying code does not overwrite them.
 5. In the Web tab, click **Reload** and open the site URL to check the homepage and registration page.
 6. Create the first administrator in a Bash console. Use the same secret and database path configured in the WSGI file:
 
@@ -80,6 +81,8 @@ Production mode refuses to start without `YMP_SECRET_KEY`. Keep the database on 
 - Admin tools to approve mentors, match members, publish learning resources, and review support reports.
 - Dashboard counts sourced from goals, action plans, bookings, and resources in the shared database.
 - Public contact form with an admin inbox, direct email/phone/WhatsApp follow-up links, and responded status.
+- Mentees can send goal-related work as notes, an HTTP/HTTPS link, or a PDF/JPG/PNG attachment (up to 5 MB); only their accepted mentor can review it and return feedback.
+- Uploaded work is private to the submitting mentee and their currently matched mentor. Configure `YMP_UPLOAD_FOLDER` on a persistent disk for deployments where uploaded files must survive restarts.
 - Responsive landing page and dashboard with the custom YMP logo.
 - Public programme phone defaults to `+254715552003`; set `YMP_PUBLIC_CONTACT_PHONE` to change it. WhatsApp contact links are generated from that number.
 - Public Facebook, YouTube, LinkedIn, and GitHub links are shown in the homepage contact section and footer. Override them with `YMP_FACEBOOK_URL`, `YMP_YOUTUBE_URL`, `YMP_LINKEDIN_URL`, and `YMP_GITHUB_URL`.
