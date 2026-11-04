@@ -1,8 +1,13 @@
 # WOFEM Website
 
-The site is served by the same Node.js app as its MongoDB API. Keeping the
-frontend and API on one origin lets the staff dashboard use secure session
-cookies without exposing database credentials to a browser.
+The site combines a Next.js App Router frontend built with React, TypeScript,
+Redux Toolkit, and Tailwind CSS with an Express API and MongoDB. The custom
+Node.js server keeps the frontend and API on one origin, so member and staff
+sessions use secure cookies and database credentials never reach the browser.
+
+Members can create an account and sign in to a private community profile.
+Staff continue to use the separate Prayer Care Dashboard and credentials
+configured by the church. Member accounts do not grant staff access.
 
 The WOFEM logo is cropped from the church's public Facebook image:
 https://www.facebook.com/photo.php?fbid=1272618521532302&set=pb.100063524978682.-2207520000&type=3
@@ -42,15 +47,21 @@ Requirements: Node.js 20 or later and a MongoDB database (MongoDB Atlas works).
 
    ```powershell
    npm install
-   npm start
+   npm run dev
    ```
 
-6. Visit `http://localhost:3000`. Staff can sign in at
+6. Visit `http://localhost:3000`. Members can register at
+   `http://localhost:3000/register`; staff can sign in at
    `http://localhost:3000/admin.html`.
+
+Run `npm run typecheck` and `npm run build` to validate TypeScript and create
+the production frontend. Use `npm start` to run the production server after
+building.
 
 ## Public deployment on Render
 
-The included `render.yaml` configures a Node web service. Create a new Blueprint
+The included `render.yaml` configures a Node web service and builds the Next.js
+frontend before starting the Express/Next.js server. Create a new Blueprint
 from this repository in Render, then set the secret values for `MONGODB_URI`,
 `ADMIN_USERNAME`, and `ADMIN_PASSWORD` in the service environment. Render
 generates `SESSION_SECRET`; verify that it is at least 32 characters. Use a
@@ -58,6 +69,13 @@ unique staff password of at least 16 characters. Configure Atlas Network
 Access for the service's outbound IP addresses (or a suitably restricted
 network rule for your deployment). Do not open database access to the public
 internet unless there is no safer hosting option.
+
+To enable password-reset email and Google sign-in in production, also configure
+`PUBLIC_BASE_URL`, the `SMTP_*` values, and the `GOOGLE_*` OAuth credentials.
+Set the Google callback URL to
+`https://YOUR-RENDER-HOSTNAME.onrender.com/auth/google/callback` and register
+that exact URL in the Google OAuth client. These integrations remain unavailable
+until configured.
 
 The site and API must remain on the same origin. Do not deploy the HTML as a
 static-only site while pointing it at a separately exposed MongoDB instance.
@@ -93,7 +111,9 @@ public hostname. To request Google indexing:
   open in a signed-in browser for requests to appear automatically.
 - The form records when consent to share the request was given.
 - Staff sessions expire after eight hours. Login and submission endpoints are
-  rate-limited, and cookies are HttpOnly and SameSite=Strict.
+  rate-limited, and cookies are HttpOnly and SameSite=Lax. Lax is required for
+  the Google OAuth return redirect; state checks and same-origin checks protect
+  authentication-changing requests.
 - Staff can mark a request as new, prayed, or contacted, and permanently delete
   it. The dashboard displays the most recent 100 requests.
 - The form asks for consent and does not require a name or email. Staff should
@@ -104,4 +124,27 @@ public hostname. To request Google indexing:
 
 The backend needs valid environment settings and a reachable MongoDB instance
 to start. `/api/health` reports whether the database connection is ready.
+
+## Member accounts
+
+- Members can register at `/register`, sign in at `/login`, and view their
+  private profile at `/account`. A member account does not grant staff
+  dashboard access.
+- Registration requires a name, a unique email address, explicit consent, and
+  a password of at least 12 characters. Passwords are stored as bcrypt hashes;
+  plaintext passwords are never stored.
+- Account endpoints use same-origin checks, rate limits, no-store responses,
+  and the same eight-hour HttpOnly, SameSite=Lax session cookie as staff.
+- Forgot-password links use a random single-use token, store only its hash, and
+  expire after 30 minutes. Configure SMTP and `PUBLIC_BASE_URL` for email
+  delivery. Reset requests do not reveal whether an email has an account.
+- Google sign-in accepts verified Google email addresses. Configure the Google
+  OAuth client ID, secret, and callback URL in the deployment environment.
+- The staff-only `/admin/analytics` page reports aggregate page views, service
+  and resource clicks, account activity, and prayer-request totals. Analytics
+  store daily counters only, never visitor identifiers or page URLs, and expire
+  after 90 days.
+- Member accounts currently hold only a name and email beyond the password
+  hash and consent timestamp. The profile is not publicly visible. Contact the
+  church about account-data questions or deletion requests.
 # WOFEM-CHURCH

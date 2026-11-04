@@ -1520,18 +1520,42 @@ textarea:focus-visible {
 
 /* RESPONSIVE DESIGN */
 
-@media (max-width: 1050px) {
+@media (max-width: 1200px) {
   .site-header {
     padding-left: 4%;
     padding-right: 4%;
   }
 
+  .menu-toggle {
+    display: block;
+  }
+
   .nav-links {
-    gap: 13px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 20px 6% 25px;
+    background: var(--white);
+    box-shadow: 0 12px 20px rgba(8, 27, 54, 0.12);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .nav-links.open {
+    display: flex;
   }
 
   .nav-links a {
-    font-size: 12px;
+    padding: 12px 4px;
+    font-size: 14px;
+  }
+
+  .nav-links .nav-button {
+    text-align: center;
+    margin-top: 8px;
   }
 
   .section {

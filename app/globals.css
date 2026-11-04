@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --forest: #17372f;
+  --forest-light: #245344;
+  --gold: #c89d48;
+  --cream: #f5f3eb;
+  --ink: #24352f;
+  --muted: #65746b;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background: #fff;
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: #f0d58f;
+  color: var(--forest);
+}
+
+.analytics-progress {
+  width: 100%;
+  height: 0.75rem;
+  overflow: hidden;
+  border: 0;
+  border-radius: 9999px;
+  background: #e7e9e3;
+  accent-color: var(--forest);
+}
+
+.analytics-progress::-webkit-progress-bar {
+  border-radius: 9999px;
+  background: #e7e9e3;
+}
+
+.analytics-progress::-webkit-progress-value {
+  border-radius: 9999px;
+  background: var(--forest);
+}
+
+.analytics-progress::-moz-progress-bar {
+  border-radius: 9999px;
+  background: var(--forest);
+}
