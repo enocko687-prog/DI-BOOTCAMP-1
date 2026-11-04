@@ -1,0 +1,77 @@
+ENOCK BRIGHTON PORTFOLIO CONTENT GUIDE
+======================================
+
+This guide records the current starter content and identifies details to
+confirm or add. Do not publish placeholder copy as verified work history.
+
+BIOGRAPHY
+---------
+Current short bio:
+"I’m Enock Brighton—an IT-focused builder exploring web development and
+practical digital projects. I’m growing through hands-on work, from
+responsive interfaces to backend-powered experiences. My north star: make
+technology useful, clear, and human."
+
+Personalize this with your location, specific goals, relevant background,
+the kind of opportunities you want, and an accurate description of your
+current experience. Keep claims accurate and write in your own voice.
+
+SKILLS AND STRENGTHS
+--------------------
+The homepage lists HTML5, CSS3, JavaScript, Node.js, Express.js, and SQL Server
+integration as technologies used in this portfolio. Python, npm, and
+Git/GitHub are included in the broader toolkit at Enock's request. Keep the
+website stack distinct from other tools, and add specific skills or
+certifications only when you can support them with real examples.
+
+EXPERIENCE AND SERVICE
+----------------------
+Current portfolio themes:
+- Youth mentorship and positive community involvement
+- Ministry and community service
+- Digital project exploration
+
+Add organization names, roles, dates, responsibilities, and measurable
+outcomes where appropriate. These details were not supplied in the starter
+brief and have intentionally not been invented.
+
+PROJECTS
+--------
+The homepage currently names these projects:
+- WOFEM Website
+- Mariposa Foundation
+- Youth Mentorship Platform
+- Assignment Tracker
+
+For each project, add:
+- The problem, audience, and purpose
+- Your exact contribution and collaborating team, if any
+- Technology and tools used
+- Genuine project images, a demo URL, and/or a public code repository
+- Results, learning, and current status
+
+The current homepage project descriptions are starter copy. Verify every
+detail before publication. Project artwork is illustrative, not a screenshot.
+
+EDUCATION AND TRAINING
+----------------------
+Add your real qualification, school or training provider, dates, and
+relevant coursework or certificates. This information was not provided.
+
+CONTACT AND SOCIAL PROFILES
+---------------------------
+Email: enocko687@gmail.com
+Phone (local display): 0715552003
+Phone (international links): +254715552003
+Facebook: https://www.facebook.com/profile.php?id=100083323632489
+LinkedIn: https://www.linkedin.com/in/enock-ochieng-160270290/
+GitHub project: https://github.com/enocko687-prog/DI-BOOTCAMP-1
+
+X and Instagram are not clickable until personal profile URLs are supplied.
+Add the exact profile URLs before publishing; do not link platform homepages.
+
+PHOTO AND BRAND
+---------------
+The supplied portrait is stored at assets/images/enock-brighton.jpg.
+The EB mark and social/contact icons are stored in assets/icons/.
+Only publish photographs and logos that you own or have permission to use.

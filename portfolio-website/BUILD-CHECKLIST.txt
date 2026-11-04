@@ -1,0 +1,60 @@
+PORTFOLIO PUBLISHING CHECKLIST
+==============================
+
+CONTENT
+[ ] Replace draft biography text with your own accurate story.
+[ ] Confirm every skill listed and add real tools, languages, or certificates.
+[ ] Add organizations, roles, dates, and responsibilities for experience.
+[ ] Add school, qualification, and dates for education and training.
+[ ] Verify project descriptions, status, contribution, technologies, and links.
+[ ] Complete enock-brighton-cv.txt and proofread it.
+
+IMAGES AND BRAND
+[x] Add the supplied profile photograph at assets/images/enock-brighton.jpg.
+[x] Add the EB logo at assets/icons/eb-logo.svg.
+[x] Add social media and contact icon SVGs under assets/icons/.
+[ ] Add genuine project photos/screenshots under assets/images/projects/.
+[ ] Optimize images for fast loading and add accurate alt text to photographs.
+[ ] Confirm permission to publish every photograph, logo, and project image.
+
+SOCIAL AND CONTACT LINKS
+[x] Verify email, WhatsApp, phone, and SMS links.
+[x] Add supplied Facebook, LinkedIn, and GitHub URLs.
+[ ] Replace the X and Instagram placeholders with your personal profile URLs.
+[ ] Test call and SMS links on a phone; desktop devices may not have phone apps.
+[ ] Test the email form with an email app configured. It opens a draft and
+    does not send mail through a server.
+
+FUNCTIONAL AND ACCESSIBILITY CHECKS
+[x] Check that navigation works at desktop and mobile widths.
+[x] Check the portrait and local icon paths.
+[ ] Test every menu item, project link, contact action, and CV download.
+[ ] Check keyboard navigation, visible focus, and reduced-motion behavior.
+[ ] Check page contrast and spelling on desktop and a mobile device.
+
+BACKEND AND DATABASE
+[x] Add Express API routes for projects, skills, experience, and contact.
+[x] Add SQL Server schema, repeat-safe sample data, parameterized contact SQL,
+    a health endpoint, rate limit, security headers, and private env settings.
+[ ] Install SQL Server Express and SSMS; this computer did not report a local
+    SQL Server service or sqlcmd during setup.
+[ ] Install Microsoft ODBC Driver 18 for SQL Server (64-bit) for the configured
+    msnodesqlv8 Windows integrated-authentication driver.
+[ ] Run database/portfolio.sql and then database/sample-data.sql in SSMS.
+[ ] Copy backend/.env.example to backend/.env and check DB instance, ODBC driver,
+    and authentication values.
+[ ] Run npm install in backend, then npm run dev.
+[ ] Check /api/health reports Online and /api/projects, /api/skills,
+    /api/experience, and contact submission work with the database.
+
+PUBLISHING
+[ ] Open the project folder in VS Code and run the backend as described in README.md.
+[ ] Review PORTFOLIO-CONTENT-GUIDE.txt and remove any remaining draft language.
+[ ] Keep README.txt with the project so setup and editing instructions are clear.
+[ ] Choose a host that can run Node.js and connect to SQL Server; static-only
+    GitHub Pages cannot run the contact API or connect to a private SQL Server.
+[ ] Test the published URL, API, database access, and all contact links.
+
+Only items marked [x] are implemented or checked. SQL Server is not installed
+or running in the current environment, so database-backed operation still
+requires the setup steps above.
