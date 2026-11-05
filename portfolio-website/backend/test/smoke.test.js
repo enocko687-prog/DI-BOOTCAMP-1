@@ -26,6 +26,9 @@ after(async () => {
 });
 
 test("serves the portfolio pages and local assets without publishing the draft CV", async () => {
+    const homepage = await fetch(`${baseURL}/`);
+    assert.match(await homepage.text(), /PROFILE SNAPSHOT/);
+
     for (const page of ["/", "/about.html", "/projects.html", "/contact.html"]) {
         const response = await fetch(`${baseURL}${page}`);
         assert.equal(response.status, 200, `${page} should load`);
