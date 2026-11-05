@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: enock-brighton-portfolio
+    runtime: node
+    plan: free
+    rootDir: portfolio-website/backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /
