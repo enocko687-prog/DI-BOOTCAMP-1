@@ -25,7 +25,7 @@ after(async () => {
     await closePool();
 });
 
-test("serves the portfolio pages, local assets, and CV", async () => {
+test("serves the portfolio pages and local assets without publishing the draft CV", async () => {
     for (const page of ["/", "/about.html", "/projects.html", "/contact.html"]) {
         const response = await fetch(`${baseURL}${page}`);
         assert.equal(response.status, 200, `${page} should load`);
@@ -37,8 +37,7 @@ test("serves the portfolio pages, local assets, and CV", async () => {
     assert.match(portrait.headers.get("content-type"), /image\/jpeg/);
 
     const cv = await fetch(`${baseURL}/enock-brighton-cv.txt`);
-    assert.equal(cv.status, 200);
-    assert.match(await cv.text(), /ENOCK BRIGHTON/);
+    assert.equal(cv.status, 404);
 });
 
 test("validates messages and rejects invalid requests without database access", async () => {

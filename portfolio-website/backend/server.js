@@ -57,10 +57,6 @@ app.use("/assets", express.static(path.join(projectRoot, "assets"), {
     dotfiles: "ignore",
     maxAge: "7d"
 }));
-app.get("/enock-brighton-cv.txt", (req, res) => {
-    res.sendFile(path.join(projectRoot, "enock-brighton-cv.txt"));
-});
-
 app.get("/api/health", async (req, res) => {
     try {
         await getPool();

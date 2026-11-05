@@ -163,7 +163,7 @@ if (projectList) {
 
             if (projects.length === 0) {
                 if (projectStatus) {
-                    projectStatus.textContent = "No projects are in the database yet. The showcase examples remain visible.";
+                    projectStatus.textContent = "No published projects are available yet. The concept explorations remain visible.";
                 }
                 return;
             }
@@ -175,7 +175,7 @@ if (projectList) {
         })
         .catch(() => {
             if (projectStatus) {
-                projectStatus.textContent = "The database is not connected yet; the portfolio showcase examples are shown instead.";
+                projectStatus.textContent = "Project data is currently unavailable. The concept explorations remain visible.";
             }
         });
 }
